@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<title>Corpi rigidi in rotazione · Fisica</title>
+<style>
+:root{
+  --bg:#f7f8fa;--surface:#fff;--surface2:#f9fafc;
+  --primary:#1565c0;--primary-d:#0d47a1;--primary-l:#eef3fb;
+  --text:#1a1a2e;--muted:#6b7280;--border:#e0e4ed;
+  --radius:12px;
+  --vOm:#1565c0;--vAl:#f57c00;--vM:#c62828;--vL:#7b1fa2;
+  --vV:#00897b;--vA:#e53935;--vF:#e53935;--vT:#1565c0;
+  --vP:#e53935;--vN:#2e7d32;--vTh:#00897b;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  font-size:clamp(15px,2.3vw,16.5px);line-height:1.6}
+
+/* ===== Header ===== */
+header{background:var(--surface);border-bottom:1px solid var(--border);
+  padding:.7rem 1rem;position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;justify-content:space-between;gap:.6rem}
+header h1{font-size:clamp(1.02rem,3.6vw,1.32rem);color:var(--text);
+  font-weight:700;letter-spacing:-.01em}
+.btn-print{background:var(--surface2);border:1px solid var(--border);
+  color:var(--primary-d);border-radius:8px;padding:.4rem .8rem;font-size:.82em;
+  cursor:pointer;font-family:inherit;font-weight:600;transition:background .15s,border-color .15s;white-space:nowrap}
+.btn-print:hover{background:var(--primary-l);border-color:var(--primary)}
+
+/* ===== Nav ===== */
+nav.main{background:var(--surface);border-bottom:1px solid var(--border);
+  position:sticky;z-index:5;overflow-x:auto;display:flex;gap:.35rem;
+  padding:.5rem .7rem;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+nav.main button{flex:0 0 auto;background:var(--surface2);border:1px solid var(--border);
+  border-radius:999px;padding:.4rem .85rem;font-size:.84em;color:var(--muted);
+  cursor:pointer;white-space:nowrap;font-family:inherit;min-height:36px;
+  transition:background .15s,border-color .15s,color .15s}
+nav.main button:hover:not(.active){background:var(--primary-l);color:var(--text)}
+nav.main button.active{background:var(--primary);border-color:var(--primary);
+  color:#fff;font-weight:600}
+
+/* ===== Layout ===== */
+main{padding:1.1rem 1rem 2.5rem;max-width:960px;margin:0 auto}
+section.scene{display:none}
+section.scene.active{display:block}
+.sec-label{font-size:.71em;font-weight:700;letter-spacing:.09em;
+  color:var(--muted);text-transform:uppercase;margin:.1rem 0 .4rem}
+.sec-label.step{display:flex;align-items:center;gap:.45rem}
+.sec-label.step::before{content:attr(data-n);display:inline-flex;align-items:center;
+  justify-content:center;width:1.45em;height:1.45em;border-radius:50%;
+  background:var(--primary);color:#fff;font-size:.95em;letter-spacing:0}
+
+/* ===== Cards ===== */
+.card{background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:1.15rem 1.2rem;margin-bottom:1.1rem;
+  box-shadow:0 1px 2px rgba(20,30,60,.04)}
+.card h2{margin:0 0 .55rem;color:var(--text);font-size:1.14em;font-weight:700;
+  letter-spacing:-.01em}
+.card h3{margin:.9rem 0 .3rem;color:var(--primary-d);font-size:.97em;font-weight:600}
+.card p{margin:.35rem 0;color:var(--text)}
+.lead{color:var(--muted);font-size:.92em;margin:.1rem 0 .7rem}
+ul.cl{margin:.3rem 0 .3rem 1.1rem}ul.cl li{margin:.18rem 0}
+
+/* ===== Formulas ===== */
+.formula{background:var(--primary-l);border-left:3px solid var(--primary);
+  padding:.6rem .9rem;margin:.5rem 0;border-radius:0 8px 8px 0;
+  font-family:"Cambria Math","STIX Two Math",Georgia,serif;font-size:1.05em;
+  overflow-x:auto;white-space:nowrap;line-height:1.9}
+.tip{background:#eaf6ec;border-left:3px solid #2e7d32;padding:.5rem .9rem;
+  margin:.55rem 0;border-radius:0 8px 8px 0;font-size:.9em}
+.warn{background:#fef6e6;border-left:3px solid #f9a825;padding:.5rem .9rem;
+  margin:.55rem 0;border-radius:0 8px 8px 0;font-size:.9em}
+
+/* ===== Comparison table traslazione/rotazione ===== */
+table.cmp{width:100%;border-collapse:collapse;font-size:.88em;margin:.55rem 0 .2rem}
+table.cmp th,table.cmp td{padding:.4rem .5rem;border-bottom:1px solid var(--border);text-align:center;
+  font-variant-numeric:tabular-nums}
+table.cmp thead th{color:var(--muted);font-weight:600;border-bottom:1.5px solid var(--border)}
+table.cmp td:first-child,table.cmp th:first-child{text-align:left;color:var(--muted);font-weight:600}
+table.cmp .rot{color:var(--primary-d);font-weight:700}
+table.cmp .tra{color:var(--text);font-weight:600}
+
+/* ===== Diagram (static) ===== */
+.diagram{display:block;width:100%;max-width:420px;height:auto;margin:.5rem auto .2rem;
+  background:#fbfcfe;border:1px solid var(--border);border-radius:8px}
+.dcap{text-align:center;color:var(--muted);font-size:.8em;margin:.1rem 0 .3rem}
+
+/* ===== Simulation 2-column ===== */
+.sim-layout{display:grid;grid-template-columns:1.05fr 1fr;gap:1.15rem;align-items:start}
+@media(max-width:700px){.sim-layout{grid-template-columns:1fr}}
+.sim-pane,.ctrl-pane{min-width:0}
+
+/* ===== Controls ===== */
+.ctrl{display:grid;gap:.55rem;margin:0 0 .7rem}
+.ctrl label{display:flex;align-items:center;gap:.6rem;font-size:.89em}
+.ctrl label .nm{color:var(--muted);min-width:6.4em;font-size:.92em}
+.ctrl label input[type=range]{flex:1;min-width:0;min-height:26px;accent-color:var(--primary)}
+.ctrl label .v{min-width:4.6em;text-align:right;font-weight:700;
+  color:var(--primary-d);font-variant-numeric:tabular-nums;font-size:.95em}
+.ctrl select{padding:.42rem .6rem;border:1px solid var(--border);border-radius:8px;
+  font-size:.93em;background:var(--surface);width:100%;color:var(--text);font-family:inherit}
+
+/* ===== Readouts ===== */
+.read{display:grid;grid-template-columns:repeat(auto-fit,minmax(108px,1fr));
+  gap:.42rem;margin:.55rem 0;font-size:.86em}
+.read .it{background:var(--surface2);padding:.42rem .58rem;border-radius:8px;
+  border:1px solid var(--border)}
+.read .it .l{color:var(--muted);font-size:.77em;display:block;margin-bottom:.12rem}
+.read .it .v{font-weight:700;font-variant-numeric:tabular-nums;color:var(--text)}
+
+/* ===== Status badge ===== */
+.eqs{text-align:center;font-weight:600;padding:.52rem;border-radius:8px;
+  margin-top:.55rem;font-size:.89em}
+.eqs.ok{background:#d4edd6;color:#1b5e20}
+.eqs.no{background:#fbd8d8;color:#b71c1c}
+.eqs.lim{background:#fde9cc;color:#bf360c}
+
+/* ===== SVG ===== */
+svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border);
+  border-radius:8px;display:block;font-family:sans-serif}
+
+/* ===== Play / sim footer ===== */
+.sim-foot{display:flex;align-items:center;gap:.5rem;margin-top:.5rem;flex-wrap:wrap}
+.play-btn{background:var(--primary);color:#fff;border:0;border-radius:8px;
+  padding:.4rem .9rem;font-size:.85em;cursor:pointer;font-family:inherit;font-weight:600;
+  transition:background .15s}
+.play-btn:hover{background:var(--primary-d)}
+.play-btn.paused{background:var(--surface2);color:var(--primary-d);border:1px solid var(--border)}
+.play-btn.soft{background:var(--surface2);color:var(--primary-d);border:1px solid var(--border)}
+.play-btn.soft:hover{background:var(--primary-l)}
+
+/* ===== Legend ===== */
+.legend{display:flex;flex-wrap:wrap;gap:.35rem;margin:.45rem 0 0;font-size:.76em}
+.legend span{display:inline-flex;align-items:center;gap:.3rem;
+  background:var(--surface2);padding:.18rem .5rem;border-radius:999px;
+  border:1px solid var(--border)}
+.legend span i{display:inline-block;width:14px;height:3px;border-radius:2px}
+
+/* ===== Home grid ===== */
+.home-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.75rem}
+.home-card{background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:.95rem 1rem;cursor:pointer;text-align:left;
+  font-size:1em;font-family:inherit;color:inherit;
+  box-shadow:0 1px 2px rgba(20,30,60,.04);
+  transition:border-color .18s,box-shadow .18s,transform .14s}
+.home-card:hover{border-color:var(--primary);
+  box-shadow:0 4px 14px rgba(21,101,192,.12);transform:translateY(-2px)}
+.home-card .ico{font-size:1.7em;display:block;margin-bottom:.32rem}
+.home-card strong{color:var(--primary-d);display:block;margin-bottom:.12rem;font-size:.97em}
+.home-card span{color:var(--muted);font-size:.85em}
+
+/* ===== Prova tu ===== */
+.preset-row{display:flex;align-items:center;gap:.5rem;margin:0 0 .7rem}
+.preset-row .nm{color:var(--muted);font-size:.85em;white-space:nowrap}
+.preset-row select{flex:1;min-width:0;padding:.42rem .55rem;border:1px solid var(--border);
+  border-radius:8px;font-size:.86em;background:var(--surface);color:var(--text);font-family:inherit}
+.num-row{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin:.5rem 0 .2rem}
+.num-row input{width:8em;padding:.45rem .6rem;border:1.5px solid var(--border);border-radius:8px;
+  font-size:.95em;font-family:inherit;font-variant-numeric:tabular-nums;color:var(--text);background:var(--surface)}
+.num-row input:focus{outline:none;border-color:var(--primary)}
+.num-row .unit{color:var(--muted);font-size:.9em}
+.btn-check{background:var(--primary);color:#fff;border:0;border-radius:8px;padding:.45rem 1rem;
+  font-size:.86em;font-weight:600;cursor:pointer;font-family:inherit;transition:background .15s}
+.btn-check:hover{background:var(--primary-d)}
+.prova-btns{display:flex;gap:.5rem;flex-wrap:wrap;margin:.6rem 0 0}
+.btn-soft{background:var(--surface2);border:1px solid var(--border);color:var(--primary-d);
+  border-radius:8px;padding:.42rem .9rem;font-size:.85em;font-weight:600;cursor:pointer;
+  font-family:inherit;transition:background .15s,border-color .15s}
+.btn-soft:hover{background:var(--primary-l);border-color:var(--primary)}
+.hint-box{background:var(--primary-l);border-left:3px solid var(--primary);padding:.5rem .85rem;
+  margin:.4rem 0;border-radius:0 8px 8px 0;font-size:.88em}
+.hint-box b{color:var(--primary-d)}
+.sol-wrap{margin:.55rem 0 .1rem;border-top:1px dashed var(--border);padding-top:.55rem}
+.sol-step{display:flex;gap:.6rem;margin:.45rem 0;font-size:.9em;line-height:1.5}
+.sol-step .n{flex:0 0 auto;width:1.55em;height:1.55em;border-radius:50%;background:var(--primary);
+  color:#fff;font-size:.78em;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:.1em}
+.sol-step .c b{color:var(--primary-d)}
+.fb{margin:.45rem 0 .1rem;padding:.5rem .85rem;border-radius:8px;font-size:.88em;line-height:1.45}
+.fb.ok{background:#eaf6ec;border-left:3px solid #388e3c;color:#1b5e20}
+.fb.no{background:#fdeaea;border-left:3px solid #c62828;color:#b71c1c}
+
+/* ===== Quiz ===== */
+.quiz-seg{display:flex;gap:.4rem;margin:.3rem 0 .9rem}
+.quiz-seg button{flex:1;background:var(--surface2);border:1px solid var(--border);
+  border-radius:8px;padding:.5rem;font-size:.85em;color:var(--muted);cursor:pointer;
+  font-family:inherit;font-weight:600;transition:background .15s,color .15s,border-color .15s}
+.quiz-seg button.active{background:var(--primary);border-color:var(--primary);color:#fff}
+.quiz-seg button:not(.active):hover{background:var(--primary-l);color:var(--text)}
+.quiz-hd{display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:.45rem;font-size:.83em}
+.quiz-bar-wrap{background:#e3e7ef;border-radius:999px;height:6px;
+  margin-bottom:.9rem;overflow:hidden}
+.quiz-bar-fill{background:var(--primary);height:100%;border-radius:999px;
+  transition:width .4s cubic-bezier(.4,0,.2,1)}
+.quiz-q{font-weight:600;margin:.2rem 0 .75rem;line-height:1.45;font-size:.95em}
+.quiz-opts{display:grid;gap:.38rem;margin-bottom:.45rem}
+.quiz-btn{background:var(--surface2);border:1.5px solid var(--border);border-radius:8px;
+  padding:.5rem .85rem;text-align:left;cursor:pointer;font-size:.87em;
+  font-family:inherit;color:var(--text);line-height:1.38;
+  transition:background .12s,border-color .12s}
+.quiz-btn:not(:disabled):hover{background:var(--primary-l);border-color:var(--primary)}
+.quiz-btn:disabled{cursor:default}
+.quiz-btn.correct{background:#d4edd6!important;border-color:#388e3c!important;
+  color:#1b5e20;font-weight:600}
+.quiz-btn.wrong{background:#fbd8d8!important;border-color:#c62828!important;color:#b71c1c}
+.quiz-exp{padding:.52rem .85rem;border-radius:8px;font-size:.85em;
+  line-height:1.5;margin:.45rem 0}
+.quiz-exp.ok{background:#eaf6ec;border-left:3px solid #388e3c;color:#1b5e20}
+.quiz-exp.no{background:#fdeaea;border-left:3px solid #c62828;color:#b71c1c}
+.quiz-nav{display:flex;justify-content:space-between;gap:.5rem;margin-top:.55rem}
+.quiz-prev,.quiz-next,.quiz-restart{border-radius:8px;padding:.46rem 1.1rem;
+  font-size:.87em;cursor:pointer;font-family:inherit;font-weight:600;transition:background .15s,opacity .15s}
+.quiz-next,.quiz-restart{background:var(--primary);color:#fff;border:0}
+.quiz-next:hover,.quiz-restart:hover{background:var(--primary-d)}
+.quiz-prev{background:var(--surface2);color:var(--primary-d);border:1px solid var(--border)}
+.quiz-prev:hover:not(:disabled){background:var(--primary-l)}
+.quiz-prev:disabled,.quiz-next:disabled{opacity:.4;cursor:default}
+.quiz-done{text-align:center;padding:.7rem 0}
+.quiz-score-big{font-size:2.2em;font-weight:800;color:var(--primary-d);
+  display:block;margin-bottom:.25rem}
+.quiz-msg{color:var(--muted);margin:.15rem 0 .8rem;font-size:.92em}
+
+@media(max-width:520px){
+  main{padding:.8rem .7rem 2rem}
+  .card{padding:.9rem .95rem}
+  .ctrl label .nm{min-width:5.4em}
+}
+
+/* ===== PRINT MODE ===== */
+.print-only{display:none}
+@media print{
+  nav.main,.btn-print,.sim-block,.prova-block,.quiz-block,.home-grid{display:none!important}
+  header{position:static;border-bottom:2px solid #000;padding:.4rem 0}
+  header h1{font-size:1.3rem}
+  html,body{background:#fff;font-size:11pt}
+  main{max-width:100%;padding:0}
+  section.scene{display:block!important;page-break-inside:auto}
+  section.scene::before{content:attr(data-title);display:block;
+    font-size:1.25em;font-weight:800;color:#000;margin:1.1rem 0 .4rem;
+    border-bottom:1.5px solid #000;padding-bottom:.2rem}
+  section.scene#home::before{content:none}
+  .card{box-shadow:none;border:1px solid #ccc;break-inside:avoid;margin-bottom:.7rem}
+  .formula{background:#f1f1f1;border-left:3px solid #444}
+  .print-only{display:block}
+  .lead{display:none}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>🔄 Corpi rigidi in rotazione</h1>
+  <button class="btn-print" onclick="window.print()">🖨️ Stampa teoria</button>
+</header>
+<nav class="main" id="mainNav">
+  <button data-tab="home" class="active">🏠 Home</button>
+  <button data-tab="cinematica">🎯 Cinematica</button>
+  <button data-tab="dinamica">⚙️ Dinamica</button>
+  <button data-tab="carrucola">⛰️ Carrucola</button>
+  <button data-tab="impulso">⏱️ Momento &amp; tempo</button>
+  <button data-tab="angolare">💫 Mom. angolare</button>
+</nav>
+<main>
+
+<!-- ============ HOME ============ -->
+<section class="scene active" id="home" data-title="Corpi rigidi in rotazione">
+  <div class="card">
+    <h2>Dal moto di traslazione al moto di rotazione</h2>
+    <p>Un <strong>corpo rigido esteso</strong> non è un punto: ha una forma e una distribuzione di massa. Quando ruota, ogni suo punto descrive una circonferenza, ma tutti condividono lo <em>stesso angolo</em>, la <em>stessa velocità angolare</em> e la <em>stessa accelerazione angolare</em>.</p>
+    <p>La fisica della rotazione ricalca, formula per formula, quella della traslazione che già conosci: basta sostituire le grandezze lineari con le loro <strong>analoghe angolari</strong>.</p>
+    <table class="cmp">
+      <thead><tr><th>Ruolo</th><th>Traslazione</th><th>Rotazione</th></tr></thead>
+      <tbody>
+        <tr><td>posizione</td><td class="tra">s</td><td class="rot">θ</td></tr>
+        <tr><td>velocità</td><td class="tra">v</td><td class="rot">ω</td></tr>
+        <tr><td>accelerazione</td><td class="tra">a</td><td class="rot">α</td></tr>
+        <tr><td>inerzia</td><td class="tra">m (massa)</td><td class="rot">I (mom. d'inerzia)</td></tr>
+        <tr><td>«causa»</td><td class="tra">F (forza)</td><td class="rot">M (momento)</td></tr>
+        <tr><td>2ª legge</td><td class="tra">F = m·a</td><td class="rot">M = I·α</td></tr>
+        <tr><td>quantità di moto</td><td class="tra">p = m·v</td><td class="rot">L = I·ω</td></tr>
+      </tbody>
+    </table>
+    <div class="tip">💡 In ogni sezione trovi sempre la stessa struttura: <strong>Teoria</strong> (concetti e formule) → <strong>Simulazioni</strong> (cursori e animazioni) → <strong>Prova tu</strong> (esercizi guidati con soluzione passo-passo) → <strong>Quiz</strong> (a scelta multipla e di calcolo).</div>
+  </div>
+  <p class="sec-label">Percorso</p>
+  <div class="home-grid">
+    <button class="home-card" data-go="cinematica"><span class="ico">🎯</span><strong>1 · Cinematica rotazionale</strong><span>θ, ω, α e i legami con s, v, a</span></button>
+    <button class="home-card" data-go="dinamica"><span class="ico">⚙️</span><strong>2 · Dinamica rotazionale</strong><span>M, I, L e M = I·α</span></button>
+    <button class="home-card" data-go="carrucola"><span class="ico">⛰️</span><strong>3 · Piani inclinati e carrucola</strong><span>Corpi collegati, carrucola-disco</span></button>
+    <button class="home-card" data-go="impulso"><span class="ico">⏱️</span><strong>4 · Momento e tempo</strong><span>Impulso angolare M·Δt = ΔL</span></button>
+    <button class="home-card" data-go="angolare"><span class="ico">💫</span><strong>5 · Momento angolare</strong><span>Piattaforma, ballerina, asta colpita</span></button>
+  </div>
+</section>
+
+<!-- ============ 1 · CINEMATICA ============ -->
+<section class="scene" id="cinematica" data-title="1 · Cinematica rotazionale">
+  <p class="sec-label step" data-n="1">Cinematica rotazionale</p>
+
+  <p class="sec-label">Teoria</p>
+  <div class="card">
+    <h2>🎯 Le grandezze angolari</h2>
+    <p>Per descrivere la rotazione misuriamo gli angoli in <strong>radianti</strong> (rad): un giro completo vale 2π rad ≈ 6,28 rad.</p>
+    <ul class="cl">
+      <li><strong>Angolo di rotazione θ</strong> — di quanto è ruotato il corpo (analogo allo spostamento s).</li>
+      <li><strong>Velocità angolare ω</strong> = quanto velocemente cambia l'angolo: ω = Δθ/Δt (analoga a v).</li>
+      <li><strong>Accelerazione angolare α</strong> = quanto velocemente cambia ω: α = Δω/Δt (analoga ad a).</li>
+    </ul>
+    <div class="formula">ω = Δθ / Δt &nbsp;·&nbsp; α = Δω / Δt</div>
+    <h3>Moto rotatorio uniformemente accelerato</h3>
+    <p>Se α è costante, valgono equazioni <em>identiche</em> a quelle del moto rettilineo uniformemente accelerato — con θ, ω, α al posto di s, v, a:</p>
+    <div class="formula">ω = ω₀ + α·t</div>
+    <div class="formula">θ = θ₀ + ω₀·t + ½·α·t²</div>
+    <div class="formula">ω² = ω₀² + 2·α·Δθ</div>
+    <h3>Il legame con le grandezze lineari</h3>
+    <p>Un punto del corpo a distanza <em>r</em> dall'asse percorre un arco di lunghezza s = r·θ. Derivando rispetto al tempo si ottengono velocità e accelerazione <strong>tangenziali</strong>:</p>
+    <div class="formula">s = r·θ &nbsp;·&nbsp; v = r·ω &nbsp;·&nbsp; a<sub>t</sub> = r·α</div>
+    <p>Inoltre, anche muovendosi con ω costante, il punto ha un'<strong>accelerazione centripeta</strong> diretta verso l'asse:</p>
+    <div class="formula">a<sub>c</sub> = ω²·r = v² / r</div>
+    <div class="tip">📐 Più un punto è lontano dall'asse (r grande), più è veloce: la velocità angolare ω è la stessa per tutti, ma la velocità lineare v = r·ω cresce con r. Ecco perché l'estremità di una pala di elicottero «sferza» l'aria.</div>
+    <svg class="diagram" viewBox="0 0 420 230" role="img" aria-label="Disco rotante con grandezze angolari e lineari">
+      <circle cx="150" cy="120" r="92" fill="#eef3fb" stroke="#9aa3b2" stroke-width="1.5"/>
+      <circle cx="150" cy="120" r="3.5" fill="#1a1a2e"/>
+      <line x1="150" y1="120" x2="215" y2="55" stroke="#5b6470" stroke-width="2"/>
+      <circle cx="215" cy="55" r="6" fill="#1565c0"/>
+      <text x="222" y="50" font-size="12" fill="#1a1a2e" font-weight="700">P</text>
+      <path d="M 200 120 A 50 50 0 0 0 185 84" fill="none" stroke="#00897b" stroke-width="2"/>
+      <text x="206" y="100" font-size="13" fill="#00897b" font-weight="700">θ</text>
+      <line x1="150" y1="120" x2="200" y2="120" stroke="#9aa3b2" stroke-width="1" stroke-dasharray="3 3"/>
+      <line x1="215" y1="55" x2="262" y2="89" stroke="#00897b" stroke-width="2.5"/>
+      <polygon points="262,89 250,86 256,79" fill="#00897b"/>
+      <text x="266" y="92" font-size="12" fill="#00897b" font-weight="700">v = r·ω</text>
+      <line x1="215" y1="55" x2="187" y2="93" stroke="#e53935" stroke-width="2.5"/>
+      <polygon points="187,93 198,90 192,98" fill="#e53935"/>
+      <text x="120" y="78" font-size="12" fill="#e53935" font-weight="700">a꜀</text>
+      <path d="M 256 150 A 70 70 0 0 1 222 196" fill="none" stroke="#1565c0" stroke-width="2.5"/>
+      <polygon points="222,196 226,184 233,191" fill="#1565c0"/>
+      <text x="250" y="184" font-size="12" fill="#1565c0" font-weight="700">ω</text>
+      <text x="150" y="227" font-size="11" fill="#6b7280" text-anchor="middle">r = distanza dall'asse · s = r·θ</text>
+    </svg>
+    <p class="dcap">Diagramma: angolo θ, velocità tangenziale v, accelerazione centripeta a꜀ e verso di ω.</p>
+  </div>
+
+  <p class="sec-label">Simulazioni</p>
+  <div class="card sim-block">
+    <h3>🎡 Disco che ruota</h3>
+    <p class="lead">Imposta la velocità angolare iniziale ω₀ e l'accelerazione angolare α: osserva θ crescere e, su un punto P del bordo, la velocità tangenziale (verde), l'accelerazione centripeta (rossa) e quella tangenziale (arancio). Cambia r per vedere che ω è uguale per tutti, ma v = r·ω no.</p>
+    <div class="sim-layout">
+      <div class="sim-pane">
+        <svg class="sim" id="svgCk" viewBox="0 0 360 300" preserveAspectRatio="xMidYMid meet"></svg>
+        <div class="legend">
+          <span style="color:var(--vV)"><i style="background:var(--vV)"></i>v tangenziale</span>
+          <span style="color:var(--vA)"><i style="background:var(--vA)"></i>a centripeta</span>
+          <span style="color:var(--vAl)"><i style="background:var(--vAl)"></i>a tangenziale</span>
+        </div>
+        <div class="sim-foot">
+          <button class="play-btn" id="ckPlay">⏸️ Pausa</button>
+          <button class="play-btn soft" id="ckReset">↺ Riparti da θ=0</button>
+        </div>
+      </div>
+      <div class="ctrl-pane">
+        <div class="ctrl">
+          <label><span class="nm">ω₀ iniziale</span><input type="range" id="ckW0" min="-4" max="4" step="0.1" value="1.5"><span class="v" id="ckW0v">1,5 rad/s</span></label>
+          <label><span class="nm">α</span><input type="range" id="ckAl" min="-2" max="2" step="0.1" value="0.4"><span class="v" id="ckAlv">0,4 rad/s²</span></label>
+          <label><span class="nm">raggio r di P</span><input type="range" id="ckR" min="0.1" max="0.5" step="0.01" value="0.30"><span class="v" id="ckRv">0,30 m</span></label>
+        </div>
+        <div class="read">
+          <div class="it"><span class="l">angolo θ</span><span class="v" id="ckTheta">—</span> rad</div>
+          <div class="it"><span class="l">n° giri</span><span class="v" id="ckGiri">—</span></div>
+          <div class="it"><span class="l">ω attuale</span><span class="v" id="ckOm">—</span> rad/s</div>
+          <div class="it"><span class="l">v = r·ω</span><span class="v" id="ckV">—</span> m/s</div>
+          <div class="it"><span class="l">a<sub>t</sub> = r·α</span><span class="v" id="ckAt">—</span> m/s²</div>
+          <div class="it"><span class="l">a<sub>c</sub> = ω²·r</span><span class="v" id="ckAc">—</span> m/s²</div>
+          <div class="it"><span class="l">periodo T</span><span class="v" id="ckT">—</span> s</div>
+          <div class="it"><span class="l">frequenza f</span><span class="v" id="ckF">—</span> Hz</div>
+        </div>
+        <div class="eqs ok" id="ckBadge">θ = ω₀·t + ½·α·t²</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="sec-label">Prova tu</p>
+  <div class="card prova-block" id="prova-cinematica"></div>
+
+  <div id="qz-cinematica" class="quiz-block"></div>
+</section>
+
+<!-- ============ 2 · DINAMICA ============ -->
+<section class="scene" id="dinamica" data-title="2 · Dinamica rotazionale">
+  <p class="sec-label step" data-n="2">Dinamica rotazionale</p>
+
+  <p class="sec-label">Teoria</p>
+  <div class="card">
+    <h2>⚙️ Che cosa fa ruotare un corpo</h2>
+    <h3>Il momento M di una forza</h3>
+    <p>Una forza fa ruotare un corpo solo se è applicata «con leva». Il <strong>momento</strong> (o momento torcente) misura questa capacità: dipende dalla forza F, dalla distanza r dal punto di applicazione all'asse e dall'angolo φ fra loro.</p>
+    <div class="formula">M = r·F·sin φ = F·b</div>
+    <p>dove <em>b = r·sin φ</em> è il <strong>braccio</strong> (distanza dell'asse dalla retta d'azione). Il momento è massimo quando la forza è perpendicolare (φ = 90°), nullo se è diretta verso l'asse.</p>
+    <h3>Il momento d'inerzia I</h3>
+    <p>L'inerzia alla rotazione non dipende solo dalla massa, ma da <strong>come</strong> è distribuita attorno all'asse: massa lontana dall'asse «pesa» di più.</p>
+    <div class="formula">I = Σ m<sub>i</sub>·r<sub>i</sub>²</div>
+    <table class="cmp">
+      <thead><tr><th>Corpo (asse)</th><th>Momento d'inerzia</th></tr></thead>
+      <tbody>
+        <tr><td>punto materiale</td><td class="rot">I = m·r²</td></tr>
+        <tr><td>anello / cilindro cavo (asse)</td><td class="rot">I = m·R²</td></tr>
+        <tr><td>disco / cilindro pieno (asse)</td><td class="rot">I = ½·m·R²</td></tr>
+        <tr><td>sfera piena (diametro)</td><td class="rot">I = ⅖·m·R²</td></tr>
+        <tr><td>asta (centro)</td><td class="rot">I = 1/12·m·L²</td></tr>
+        <tr><td>asta (estremo)</td><td class="rot">I = ⅓·m·L²</td></tr>
+      </tbody>
+    </table>
+    <h3>La 2ª legge della dinamica rotazionale</h3>
+    <p>Il momento totale produce un'accelerazione angolare proporzionale, con I come «inerzia». È la copia esatta di F = m·a:</p>
+    <div class="formula">M = I·α &nbsp;&nbsp;⟷&nbsp;&nbsp; F = m·a</div>
+    <h3>Il momento angolare L</h3>
+    <p>L'analogo della quantità di moto p = m·v è il <strong>momento angolare</strong> L = I·ω. E come F = Δp/Δt, vale:</p>
+    <div class="formula">L = I·ω &nbsp;·&nbsp; M = ΔL / Δt</div>
+    <p>Infine l'energia cinetica di rotazione ricalca ½m·v²:</p>
+    <div class="formula">E<sub>c,rot</sub> = ½·I·ω²</div>
+    <table class="cmp">
+      <thead><tr><th>Grandezza</th><th>Traslazione</th><th>Rotazione</th></tr></thead>
+      <tbody>
+        <tr><td>2ª legge</td><td class="tra">F = m·a</td><td class="rot">M = I·α</td></tr>
+        <tr><td>quantità di moto</td><td class="tra">p = m·v</td><td class="rot">L = I·ω</td></tr>
+        <tr><td>«impulso»</td><td class="tra">F·Δt = Δp</td><td class="rot">M·Δt = ΔL</td></tr>
+        <tr><td>energia cinetica</td><td class="tra">½·m·v²</td><td class="rot">½·I·ω²</td></tr>
+        <tr><td>lavoro</td><td class="tra">F·s</td><td class="rot">M·θ</td></tr>
+      </tbody>
+    </table>
+    <svg class="diagram" viewBox="0 0 420 210" role="img" aria-label="Momento di una forza su un disco">
+      <circle cx="160" cy="105" r="80" fill="#eef3fb" stroke="#9aa3b2" stroke-width="1.5"/>
+      <circle cx="160" cy="105" r="3.5" fill="#1a1a2e"/>
+      <line x1="160" y1="105" x2="160" y2="45" stroke="#5b6470" stroke-width="2"/>
+      <text x="138" y="78" font-size="12" fill="#5b6470" font-weight="700">r</text>
+      <circle cx="160" cy="45" r="4" fill="#1a1a2e"/>
+      <line x1="160" y1="45" x2="240" y2="45" stroke="#e53935" stroke-width="2.8"/>
+      <polygon points="240,45 228,40 228,50" fill="#e53935"/>
+      <text x="246" y="49" font-size="12" fill="#e53935" font-weight="700">F</text>
+      <path d="M 196 168 A 75 75 0 0 0 228 120" fill="none" stroke="#f57c00" stroke-width="2.8"/>
+      <polygon points="228,120 216,124 224,131" fill="#f57c00"/>
+      <text x="216" y="158" font-size="12" fill="#f57c00" font-weight="700">α</text>
+      <text x="200" y="200" font-size="11" fill="#6b7280" text-anchor="middle">M = r·F (forza ⟂) → α = M / I</text>
+    </svg>
+    <p class="dcap">Diagramma: una forza F applicata a distanza r genera un momento M che accelera la rotazione (α).</p>
+  </div>
+
+  <p class="sec-label">Simulazioni</p>
+  <div class="card sim-block">
+    <h3>🔧 Una forza che mette in rotazione un disco</h3>
+    <p class="lead">Applichi una forza F a distanza r dall'asse, con inclinazione φ. Osserva il braccio, il momento M = r·F·sin φ e l'accelerazione α = M/I del disco (I = ½·m·R²). Il momento angolare L = I·ω cresce nel tempo.</p>
+    <div class="sim-layout">
+      <div class="sim-pane">
+        <svg class="sim" id="svgDn" viewBox="0 0 360 300" preserveAspectRatio="xMidYMid meet"></svg>
+        <div class="legend">
+          <span style="color:var(--vF)"><i style="background:var(--vF)"></i>forza F</span>
+          <span style="color:var(--vM)"><i style="background:var(--vM)"></i>braccio b</span>
+          <span style="color:var(--vAl)"><i style="background:var(--vAl)"></i>α</span>
+        </div>
+        <div class="sim-foot">
+          <button class="play-btn" id="dnPlay">⏸️ Pausa</button>
+          <button class="play-btn soft" id="dnReset">↺ Riparti da ω=0</button>
+        </div>
+      </div>
+      <div class="ctrl-pane">
+        <div class="ctrl">
+          <label><span class="nm">forza F</span><input type="range" id="dnF" min="0" max="20" step="0.5" value="8"><span class="v" id="dnFv">8 N</span></label>
+          <label><span class="nm">raggio r</span><input type="range" id="dnRr" min="0.2" max="1" step="0.05" value="1"><span class="v" id="dnRrv">1,00 R</span></label>
+          <label><span class="nm">angolo φ</span><input type="range" id="dnPhi" min="0" max="90" step="1" value="90"><span class="v" id="dnPhiv">90°</span></label>
+          <label><span class="nm">massa disco</span><input type="range" id="dnM" min="0.5" max="6" step="0.5" value="2"><span class="v" id="dnMv">2,0 kg</span></label>
+          <label><span class="nm">raggio R disco</span><input type="range" id="dnR" min="0.2" max="0.6" step="0.05" value="0.40"><span class="v" id="dnRv">0,40 m</span></label>
+        </div>
+        <div class="read">
+          <div class="it"><span class="l">braccio b</span><span class="v" id="dnB">—</span> m</div>
+          <div class="it"><span class="l">momento M</span><span class="v" id="dnMom">—</span> N·m</div>
+          <div class="it"><span class="l">inerzia I</span><span class="v" id="dnI">—</span> kg·m²</div>
+          <div class="it"><span class="l">α = M/I</span><span class="v" id="dnAl">—</span> rad/s²</div>
+          <div class="it"><span class="l">ω attuale</span><span class="v" id="dnOm">—</span> rad/s</div>
+          <div class="it"><span class="l">L = I·ω</span><span class="v" id="dnL">—</span> kg·m²/s</div>
+        </div>
+        <div class="eqs ok" id="dnBadge">M = I·α &nbsp;↔&nbsp; F = m·a</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="sec-label">Prova tu</p>
+  <div class="card prova-block" id="prova-dinamica"></div>
+
+  <div id="qz-dinamica" class="quiz-block"></div>
+</section>
+
+<!-- ============ 3 · CARRUCOLA ============ -->
+<section class="scene" id="carrucola" data-title="3 · Piani inclinati e carrucola">
+  <p class="sec-label step" data-n="3">Piani inclinati collegati da una carrucola</p>
+
+  <p class="sec-label">Teoria</p>
+  <div class="card">
+    <h2>⛰️ Corpi collegati da un filo su una carrucola che ruota</h2>
+    <p>Due corpi sono collegati da un <strong>filo inestensibile e di massa trascurabile</strong> che passa su una <strong>carrucola</strong>. Se la carrucola fosse ideale (senza massa) la tensione sarebbe la stessa ai due capi. Ma una carrucola reale è un <strong>disco che ruota</strong>: per metterla in rotazione serve un momento, quindi le due tensioni <em>non sono uguali</em>.</p>
+    <h3>Le tre equazioni del sistema</h3>
+    <p>Consideriamo una massa m₁ su un piano inclinato (angolo θ₁, attrito μ) collegata a una massa m₂ appesa. Se m₂ scende, il sistema accelera con accelerazione <em>a</em> uguale per i due corpi (filo inestensibile), e la carrucola (disco, massa M<sub>p</sub>, raggio R) ruota con α = a/R.</p>
+    <div class="formula">m₂: &nbsp; m₂g − T₂ = m₂·a</div>
+    <div class="formula">m₁: &nbsp; T₁ − m₁g·sin θ₁ − f<sub>a</sub> = m₁·a</div>
+    <div class="formula">carrucola: &nbsp; (T₂ − T₁)·R = I·α = ½M<sub>p</sub>R²·(a/R)</div>
+    <p>Dall'ultima: <strong>T₂ − T₁ = ½·M<sub>p</sub>·a</strong>. Sommando le tre equazioni la tensione si elimina e si ricava:</p>
+    <div class="formula">a = (m₂g − m₁g·sin θ₁ − μ·m₁g·cos θ₁) / (m₁ + m₂ + ½·M<sub>p</sub>)</div>
+    <p>Il termine <strong>½·M<sub>p</sub></strong> a denominatore è il contributo d'inerzia della carrucola: equivale ad aggiungere «metà della sua massa» al sistema. Con due piani inclinati (θ₁ e θ₂) basta sostituire la spinta di m₂ con m₂g·sin θ₂.</p>
+    <div class="tip">🧩 Tre conseguenze importanti: <strong>(1)</strong> la carrucola pesante rallenta il sistema (a più piccola); <strong>(2)</strong> T₁ ≠ T₂, ed è proprio questa differenza a farla ruotare; <strong>(3)</strong> se M<sub>p</sub> → 0 si ritrova il caso ideale T₁ = T₂.</div>
+    <div class="warn">⚠️ Il sistema parte solo se la spinta supera l'attrito statico massimo. Se m₂g (o m₂g·sin θ₂) non basta a vincere m₁g·sin θ₁ + μ·m₁g·cos θ₁, resta fermo: a = 0.</div>
+    <svg class="diagram" viewBox="0 0 420 220" role="img" aria-label="Piano inclinato con carrucola e massa appesa">
+      <polygon points="40,180 250,180 40,70" fill="#eef3fb" stroke="#9aa3b2" stroke-width="1.5"/>
+      <line x1="40" y1="180" x2="250" y2="180" stroke="#5b6470" stroke-width="2"/>
+      <rect x="120" y="118" width="34" height="24" rx="3" fill="#ffd54f" stroke="#8d6e00" stroke-width="1.3" transform="rotate(-27 137 130)"/>
+      <text x="118" y="120" font-size="11" fill="#5d4e00" font-weight="700">m₁</text>
+      <circle cx="250" cy="70" r="16" fill="#cfe0f5" stroke="#1565c0" stroke-width="2.5"/>
+      <circle cx="250" cy="70" r="3" fill="#1565c0"/>
+      <line x1="58" y1="84" x2="234" y2="62" stroke="#6b7280" stroke-width="1.5"/>
+      <line x1="266" y1="70" x2="266" y2="150" stroke="#6b7280" stroke-width="1.5"/>
+      <rect x="250" y="150" width="32" height="26" rx="3" fill="#ffab91" stroke="#bf360c" stroke-width="1.3"/>
+      <text x="288" y="167" font-size="11" fill="#bf360c" font-weight="700">m₂</text>
+      <text x="150" y="100" font-size="11" fill="#1565c0" font-weight="700">T₁</text>
+      <text x="270" y="120" font-size="11" fill="#7b1fa2" font-weight="700">T₂</text>
+      <path d="M 95 180 A 45 45 0 0 0 80 148" fill="none" stroke="#00897b" stroke-width="1.6"/>
+      <text x="100" y="166" font-size="11" fill="#00897b" font-weight="700">θ₁</text>
+      <text x="245" y="40" font-size="11" fill="#1565c0" font-weight="700">carrucola = disco</text>
+    </svg>
+    <p class="dcap">Diagramma: la differenza T₂ − T₁ = ½M<sub>p</sub>·a fa ruotare la carrucola-disco.</p>
+  </div>
+
+  <p class="sec-label">Simulazioni</p>
+  <div class="card sim-block">
+    <h3>⛓️ Sistema con carrucola-disco</h3>
+    <p class="lead">Scegli lo scenario, regola masse, angoli, attrito e la carrucola. Osserva come l'accelerazione cambia e come T₁ ≠ T₂ quando la carrucola ha massa. Premi avvia per vedere i corpi accelerare.</p>
+    <div class="sim-layout">
+      <div class="sim-pane">
+        <svg class="sim" id="svgPl" viewBox="0 0 360 300" preserveAspectRatio="xMidYMid meet"></svg>
+        <div class="legend">
+          <span style="color:var(--vT)"><i style="background:var(--vT)"></i>T₁</span>
+          <span style="color:var(--vL)"><i style="background:var(--vL)"></i>T₂</span>
+          <span style="color:var(--vAl)"><i style="background:var(--vAl)"></i>α carrucola</span>
+        </div>
+        <div class="sim-foot">
+          <button class="play-btn" id="plPlay">▶️ Avvia</button>
+          <button class="play-btn soft" id="plReset">↺ Reset</button>
+        </div>
+      </div>
+      <div class="ctrl-pane">
+        <div class="preset-row"><span class="nm">scenario</span>
+          <select id="plScn">
+            <option value="A">Piano inclinato + massa appesa</option>
+            <option value="B">Due piani inclinati</option>
+          </select>
+        </div>
+        <div class="ctrl">
+          <label><span class="nm">massa m₁</span><input type="range" id="plM1" min="0.5" max="10" step="0.5" value="3"><span class="v" id="plM1v">3,0 kg</span></label>
+          <label><span class="nm">massa m₂</span><input type="range" id="plM2" min="0.5" max="10" step="0.5" value="5"><span class="v" id="plM2v">5,0 kg</span></label>
+          <label><span class="nm">angolo θ₁</span><input type="range" id="plTh1" min="0" max="60" step="1" value="30"><span class="v" id="plTh1v">30°</span></label>
+          <label><span class="nm">angolo θ₂</span><input type="range" id="plTh2" min="0" max="80" step="1" value="50"><span class="v" id="plTh2v">50°</span></label>
+          <label><span class="nm">attrito μ</span><input type="range" id="plMu" min="0" max="0.6" step="0.01" value="0.10"><span class="v" id="plMuv">0,10</span></label>
+          <label><span class="nm">massa carrucola</span><input type="range" id="plMp" min="0" max="6" step="0.25" value="2"><span class="v" id="plMpv">2,00 kg</span></label>
+          <label><span class="nm">raggio carrucola</span><input type="range" id="plR" min="0.1" max="0.4" step="0.01" value="0.20"><span class="v" id="plRv">0,20 m</span></label>
+        </div>
+        <div class="read">
+          <div class="it"><span class="l">accelerazione a</span><span class="v" id="plA">—</span> m/s²</div>
+          <div class="it"><span class="l">tensione T₁</span><span class="v" id="plT1">—</span> N</div>
+          <div class="it"><span class="l">tensione T₂</span><span class="v" id="plT2">—</span> N</div>
+          <div class="it"><span class="l">α carrucola</span><span class="v" id="plAlf">—</span> rad/s²</div>
+        </div>
+        <div class="eqs ok" id="plStat">—</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="sec-label">Prova tu</p>
+  <div class="card prova-block" id="prova-carrucola"></div>
+
+  <div id="qz-carrucola" class="quiz-block"></div>
+</section>
+
+<!-- ============ 4 · IMPULSO ANGOLARE ============ -->
+<section class="scene" id="impulso" data-title="4 · Momento e tempo (impulso angolare)">
+  <p class="sec-label step" data-n="4">Momento applicato per un intervallo di tempo</p>
+
+  <p class="sec-label">Teoria</p>
+  <div class="card">
+    <h2>⏱️ Che cosa succede se un momento agisce per un tempo Δt</h2>
+    <p>Un corpo rigido sta già ruotando con velocità angolare ω₀. Se gli applichiamo un momento M per un intervallo di tempo Δt, il suo momento angolare cambia. È il <strong>teorema dell'impulso angolare</strong>, copia esatta del teorema dell'impulso (F·Δt = Δp):</p>
+    <div class="formula">M·Δt = ΔL = I·ω<sub>f</sub> − I·ω₀</div>
+    <p>La quantità <strong>M·Δt</strong> si chiama <em>impulso angolare</em>. Se M è costante, dividendo per I si ritrova α = M/I e quindi:</p>
+    <div class="formula">ω<sub>f</sub> = ω₀ + (M / I)·Δt = ω₀ + α·Δt</div>
+    <h3>Quali effetti?</h3>
+    <ul class="cl">
+      <li>Se M è <strong>concorde</strong> con la rotazione → il corpo <strong>accelera</strong> (ω aumenta, L aumenta).</li>
+      <li>Se M è <strong>opposto</strong> (es. un freno) → il corpo <strong>rallenta</strong>, può fermarsi e perfino invertire il senso.</li>
+      <li>Per fermare in un tempo Δt un volano con momento angolare L serve un momento medio M = L/Δt: più lungo è Δt, minore è il momento necessario (come l'airbag per la quantità di moto).</li>
+    </ul>
+    <div class="formula">Δt = ΔL / M = I·Δω / M</div>
+    <div class="tip">🌀 Se invece il momento è <em>perpendicolare</em> al momento angolare (come la gravità su una trottola o un giroscopio in moto), non cambia il modulo di L ma la sua direzione: l'asse «gira lentamente» attorno alla verticale. È la <strong>precessione</strong>.</div>
+    <svg class="diagram" viewBox="0 0 420 180" role="img" aria-label="Volano con momento applicato per un tempo">
+      <circle cx="110" cy="90" r="55" fill="#eef3fb" stroke="#9aa3b2" stroke-width="1.5"/>
+      <circle cx="110" cy="90" r="4" fill="#1a1a2e"/>
+      <path d="M 150 128 A 55 55 0 0 0 165 78" fill="none" stroke="#1565c0" stroke-width="2.6"/>
+      <polygon points="165,78 156,86 152,77" fill="#1565c0"/>
+      <text x="150" y="74" font-size="12" fill="#1565c0" font-weight="700">ω₀</text>
+      <line x1="110" y1="35" x2="180" y2="35" stroke="#c62828" stroke-width="2.8"/>
+      <polygon points="180,35 168,30 168,40" fill="#c62828"/>
+      <text x="186" y="39" font-size="12" fill="#c62828" font-weight="700">M</text>
+      <text x="250" y="75" font-size="14" fill="#1a1a2e" font-weight="700">M·Δt = ΔL</text>
+      <text x="250" y="105" font-size="13" fill="#0d47a1">ωf = ω₀ + (M/I)·Δt</text>
+      <text x="250" y="135" font-size="11" fill="#6b7280">F·Δt = Δp &nbsp;↔&nbsp; M·Δt = ΔL</text>
+    </svg>
+    <p class="dcap">Diagramma: un momento M applicato per Δt cambia il momento angolare di ΔL = M·Δt.</p>
+  </div>
+
+  <p class="sec-label">Simulazioni</p>
+  <div class="card sim-block">
+    <h3>🛞 Volano e impulso angolare</h3>
+    <p class="lead">Il volano ruota a ω₀. Imposta il momento M (positivo accelera, negativo frena) e la durata Δt, poi premi «Applica M per Δt»: osserva ω cambiare esattamente di Δω = (M/I)·Δt e poi restare costante. Confronta la previsione ω<sub>f</sub> con il valore misurato.</p>
+    <div class="sim-layout">
+      <div class="sim-pane">
+        <svg class="sim" id="svgIm" viewBox="0 0 360 300" preserveAspectRatio="xMidYMid meet"></svg>
+        <div class="legend">
+          <span style="color:var(--vOm)"><i style="background:var(--vOm)"></i>ω</span>
+          <span style="color:var(--vM)"><i style="background:var(--vM)"></i>M applicato</span>
+        </div>
+        <div class="sim-foot">
+          <button class="play-btn" id="imApply">⚡ Applica M per Δt</button>
+          <button class="play-btn soft" id="imReset">↺ Reset ω = ω₀</button>
+        </div>
+      </div>
+      <div class="ctrl-pane">
+        <div class="ctrl">
+          <label><span class="nm">ω₀ iniziale</span><input type="range" id="imOm0" min="0" max="10" step="0.5" value="6"><span class="v" id="imOm0v">6,0 rad/s</span></label>
+          <label><span class="nm">momento M</span><input type="range" id="imMom" min="-6" max="6" step="0.25" value="-2"><span class="v" id="imMomv">−2,00 N·m</span></label>
+          <label><span class="nm">durata Δt</span><input type="range" id="imDt" min="0.2" max="5" step="0.1" value="2"><span class="v" id="imDtv">2,0 s</span></label>
+          <label><span class="nm">massa volano</span><input type="range" id="imM" min="0.5" max="6" step="0.5" value="2"><span class="v" id="imMv">2,0 kg</span></label>
+          <label><span class="nm">raggio R</span><input type="range" id="imR" min="0.2" max="0.6" step="0.05" value="0.40"><span class="v" id="imRv">0,40 m</span></label>
+        </div>
+        <div class="read">
+          <div class="it"><span class="l">inerzia I</span><span class="v" id="imI">—</span> kg·m²</div>
+          <div class="it"><span class="l">ω attuale</span><span class="v" id="imOm">—</span> rad/s</div>
+          <div class="it"><span class="l">L = I·ω</span><span class="v" id="imL">—</span> kg·m²/s</div>
+          <div class="it"><span class="l">impulso M·Δt</span><span class="v" id="imDL">—</span> kg·m²/s</div>
+          <div class="it"><span class="l">ω<sub>f</sub> previsto</span><span class="v" id="imOmf">—</span> rad/s</div>
+          <div class="it"><span class="l">α = M/I</span><span class="v" id="imAlf">—</span> rad/s²</div>
+        </div>
+        <div class="eqs ok" id="imBadge">M·Δt = ΔL = I·Δω</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="sec-label">Prova tu</p>
+  <div class="card prova-block" id="prova-impulso"></div>
+
+  <div id="qz-impulso" class="quiz-block"></div>
+</section>
+
+<!-- ============ 5 · MOMENTO ANGOLARE ============ -->
+<section class="scene" id="angolare" data-title="5 · Momento angolare e applicazioni">
+  <p class="sec-label step" data-n="5">Conservazione del momento angolare</p>
+
+  <p class="sec-label">Teoria</p>
+  <div class="card">
+    <h2>💫 Quando il momento angolare si conserva</h2>
+    <p>Dalla relazione M = ΔL/Δt segue subito un principio potentissimo: se il <strong>momento esterno totale è nullo</strong>, il momento angolare <strong>si conserva</strong>.</p>
+    <div class="formula">se M<sub>est</sub> = 0 &nbsp;⇒&nbsp; L = I·ω = costante</div>
+    <p>Il corpo può però <em>cambiare forma</em> e quindi il proprio momento d'inerzia I. Poiché I·ω resta costante, se I diminuisce allora ω <strong>aumenta</strong> (e viceversa):</p>
+    <div class="formula">I₁·ω₁ = I₂·ω₂</div>
+    <h3>🎡 Persona sulla piattaforma rotante</h3>
+    <p>Una persona su una piattaforma girevole (attrito dell'asse trascurabile) <strong>si avvicina al centro</strong>: il suo I diminuisce (la massa è più vicina all'asse), quindi ω aumenta e la piattaforma <strong>gira più veloce</strong>. Se si allontana, rallenta. Il momento angolare non cambia, ma l'energia cinetica ½I·ω² aumenta: a fornirla è il <em>lavoro muscolare</em> fatto per tirarsi verso il centro.</p>
+    <h3>💃 La piroetta della ballerina</h3>
+    <p>Stesso principio: la ballerina (o il pattinatore) parte con le braccia larghe (I grande, ω piccola) e, <strong>chiudendo le braccia</strong>, riduce I e accelera la piroetta. Allargandole di nuovo, rallenta per fermarsi con eleganza.</p>
+    <h3>🎯 Asta-pendolo colpita da un corpo (trattazione completa)</h3>
+    <p>Un'asta rigida (massa M, lunghezza L), imperniata a un estremo e inizialmente ferma, viene colpita all'estremo libero da un corpo (massa m) con velocità v perpendicolare all'asta, e vi resta conficcato.</p>
+    <p><strong>① Durante l'urto</strong> — l'urto è brevissimo: il momento angolare rispetto al perno si conserva (le forze impulsive del perno hanno braccio nullo). Subito dopo l'urto:</p>
+    <div class="formula">m·v·L = (⅓M·L² + m·L²)·ω &nbsp;⇒&nbsp; ω = m·v·L / (⅓M·L² + m·L²)</div>
+    <p><strong>② Dopo l'urto</strong> — l'asta (con il corpo conficcato) ruota verso l'alto come un <em>pendolo composto</em>: ora agisce il momento della gravità, che produce un'accelerazione angolare. Quando l'asta è inclinata di φ rispetto alla verticale:</p>
+    <div class="formula">α = − g·(M·L/2 + m·L)·sin φ / (⅓M·L² + m·L²)</div>
+    <p>All'istante dell'urto (φ ≈ 0) l'accelerazione angolare è quasi nulla; cresce man mano che l'asta sale, frenando la rotazione fino all'altezza massima.</p>
+    <div class="tip">⚖️ Riassunto: l'<strong>urto</strong> fissa la velocità angolare ω (conservazione di L); la <strong>gravità</strong> determina poi l'accelerazione angolare α durante la salita. Sono due fasi distinte con due principi diversi.</div>
+    <svg class="diagram" viewBox="0 0 420 200" role="img" aria-label="Pattinatrice e asta colpita">
+      <circle cx="95" cy="105" r="58" fill="#eef3fb" stroke="#9aa3b2" stroke-width="1.5"/>
+      <circle cx="95" cy="105" r="3" fill="#1a1a2e"/>
+      <line x1="95" y1="105" x2="55" y2="105" stroke="#7b1fa2" stroke-width="3"/>
+      <line x1="95" y1="105" x2="135" y2="105" stroke="#7b1fa2" stroke-width="3"/>
+      <circle cx="55" cy="105" r="5" fill="#7b1fa2"/><circle cx="135" cy="105" r="5" fill="#7b1fa2"/>
+      <text x="60" y="40" font-size="11" fill="#0d47a1" font-weight="700">braccia larghe → ω piccola</text>
+      <path d="M 128 145 A 50 50 0 0 0 142 110" fill="none" stroke="#1565c0" stroke-width="2.2"/>
+      <polygon points="142,110 134,117 130,108" fill="#1565c0"/>
+      <line x1="300" y1="35" x2="300" y2="150" stroke="#7b1fa2" stroke-width="4"/>
+      <circle cx="300" cy="35" r="4" fill="#1a1a2e"/>
+      <text x="307" y="35" font-size="11" fill="#6b7280">perno</text>
+      <circle cx="250" cy="150" r="8" fill="#e53935"/>
+      <line x1="232" y1="150" x2="285" y2="150" stroke="#e53935" stroke-width="2.6"/>
+      <polygon points="285,150 273,145 273,155" fill="#e53935"/>
+      <text x="232" y="173" font-size="11" fill="#e53935" font-weight="700">m, v</text>
+      <text x="312" y="150" font-size="11" fill="#7b1fa2" font-weight="700">M, L</text>
+    </svg>
+    <p class="dcap">A sinistra: piattaforma/ballerina (I·ω costante). A destra: asta-pendolo colpita all'estremo.</p>
+  </div>
+
+  <p class="sec-label">Simulazioni</p>
+  <div class="card sim-block">
+    <h3>🌀 Conservazione di L in azione</h3>
+    <p class="lead">Scegli lo scenario. Nella piattaforma, avvicina/allontana le masse e osserva ω cambiare mentre L resta costante. Nell'asta, lancia il corpo e segui le due fasi: ω fissato dall'urto, poi α dovuta alla gravità nella salita.</p>
+    <div class="sim-layout">
+      <div class="sim-pane">
+        <svg class="sim" id="svgAn" viewBox="0 0 360 300" preserveAspectRatio="xMidYMid meet"></svg>
+        <div class="legend">
+          <span style="color:var(--vOm)"><i style="background:var(--vOm)"></i>ω</span>
+          <span style="color:var(--vL)"><i style="background:var(--vL)"></i>L (costante)</span>
+          <span style="color:var(--vAl)"><i style="background:var(--vAl)"></i>α</span>
+        </div>
+        <div class="sim-foot">
+          <button class="play-btn" id="anPlay">⏸️ Pausa</button>
+          <button class="play-btn soft" id="anLaunch" style="display:none">🎯 Lancia il corpo</button>
+        </div>
+      </div>
+      <div class="ctrl-pane">
+        <div class="preset-row"><span class="nm">scenario</span>
+          <select id="anScn">
+            <option value="plat">Piattaforma / ballerina</option>
+            <option value="rod">Asta-pendolo colpita</option>
+          </select>
+        </div>
+        <div id="anCtrlPlat">
+          <div class="ctrl">
+            <label><span class="nm">braccia / raggio ρ</span><input type="range" id="anRho" min="0.1" max="1" step="0.01" value="0.8"><span class="v" id="anRhov">0,80 m</span></label>
+            <label><span class="nm">massa nelle mani</span><input type="range" id="anMh" min="0" max="8" step="0.5" value="3"><span class="v" id="anMhv">3,0 kg</span></label>
+            <label><span class="nm">inerzia corpo I₀</span><input type="range" id="anIp" min="1" max="8" step="0.5" value="3"><span class="v" id="anIpv">3,0 kg·m²</span></label>
+            <label><span class="nm">ω di partenza</span><input type="range" id="anW0" min="0.5" max="6" step="0.1" value="2"><span class="v" id="anW0v">2,0 rad/s</span></label>
+          </div>
+          <div class="read">
+            <div class="it"><span class="l">inerzia I</span><span class="v" id="anI">—</span> kg·m²</div>
+            <div class="it"><span class="l">ω attuale</span><span class="v" id="anOm">—</span> rad/s</div>
+            <div class="it"><span class="l">L = I·ω</span><span class="v" id="anL">—</span> kg·m²/s</div>
+            <div class="it"><span class="l">E<sub>c</sub> = ½I·ω²</span><span class="v" id="anKE">—</span> J</div>
+          </div>
+          <div class="eqs ok" id="anStat">L costante: braccia dentro → ω su</div>
+        </div>
+        <div id="anCtrlRod" style="display:none">
+          <div class="ctrl">
+            <label><span class="nm">massa asta M</span><input type="range" id="anMrod" min="0.5" max="5" step="0.1" value="2"><span class="v" id="anMrodv">2,0 kg</span></label>
+            <label><span class="nm">lunghezza L</span><input type="range" id="anLrod" min="0.5" max="1.5" step="0.05" value="1"><span class="v" id="anLrodv">1,00 m</span></label>
+            <label><span class="nm">massa corpo m</span><input type="range" id="anm" min="0.05" max="1" step="0.05" value="0.3"><span class="v" id="anmv">0,30 kg</span></label>
+            <label><span class="nm">velocità v</span><input type="range" id="anv" min="2" max="20" step="0.5" value="10"><span class="v" id="anvv">10,0 m/s</span></label>
+          </div>
+          <div class="read">
+            <div class="it"><span class="l">ω dopo l'urto</span><span class="v" id="anOm0">—</span> rad/s</div>
+            <div class="it"><span class="l">φ attuale</span><span class="v" id="anPhi">—</span> °</div>
+            <div class="it"><span class="l">α attuale</span><span class="v" id="anAlf">—</span> rad/s²</div>
+            <div class="it"><span class="l">φ massimo</span><span class="v" id="anPhiMax">—</span> °</div>
+          </div>
+          <div class="eqs ok" id="anStat2">① urto fissa ω · ② gravità dà α</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="sec-label">Prova tu</p>
+  <div class="card prova-block" id="prova-angolare"></div>
+
+  <div id="qz-angolare" class="quiz-block"></div>
+</section>
+
+</main>
+
+<script>
+"use strict";
+const G = 9.81;
+const DEG = Math.PI/180;
+const COL = {om:'#1565c0',al:'#f57c00',M:'#c62828',L:'#7b1fa2',v:'#00897b',a:'#e53935',F:'#e53935',T:'#1565c0',Tb:'#7b1fa2',th:'#00897b',body:'#ffd54f',bodyS:'#8d6e00'};
+
+/* ===== Formattazione numeri (stile italiano) ===== */
+function nf(x,d){ if(!isFinite(x)) return '—'; d=(d===undefined?2:d); return (+x).toFixed(d).replace('.',','); }
+function p3(x){ if(!isFinite(x)) return '—'; const a=Math.abs(x);
+  if(a!==0&&(a<0.001||a>=1e5)) return x.toExponential(2).replace('.',',');
+  return Number(x.toPrecision(3)).toString().replace('.',','); }
+function clamp(v,lo,hi){ return Math.max(lo,Math.min(hi,v)); }
+function parseNum(s){ if(s===null||s===undefined) return NaN; return parseFloat(String(s).replace(',','.').replace(/\s/g,'')); }
+
+/* ===== Helper: freccia SVG ===== */
+function arrow(x1,y1,x2,y2,color,label,w){
+  const dx=x2-x1, dy=y2-y1, L=Math.hypot(dx,dy);
+  if(L<1.2) return '';
+  const ux=dx/L, uy=dy/L, tipL=Math.min(11,L*0.5), tipW=tipL*0.55;
+  const bx=x2-tipL*ux, by=y2-tipL*uy;
+  const lx=bx-tipW*uy, ly=by+tipW*ux, rx=bx+tipW*uy, ry=by-tipW*ux;
+  let lbl='';
+  if(label){
+    const tx=x2+13*ux-5*uy, ty=y2+13*uy+5*ux;
+    lbl=`<text x="${tx.toFixed(1)}" y="${ty.toFixed(1)}" fill="${color}" font-size="13" font-weight="700" text-anchor="middle" dominant-baseline="middle">${label}</text>`;
+  }
+  return `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${bx.toFixed(1)}" y2="${by.toFixed(1)}" stroke="${color}" stroke-width="${w||2.5}" stroke-linecap="round"/>`+
+    `<polygon points="${x2.toFixed(1)},${y2.toFixed(1)} ${lx.toFixed(1)},${ly.toFixed(1)} ${rx.toFixed(1)},${ry.toFixed(1)}" fill="${color}"/>${lbl}`;
+}
+function dot(cx,cy,r,fill,stroke){return `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${r}" fill="${fill}"${stroke?` stroke="${stroke}" stroke-width="1.4"`:''}/>`;}
+/* arco da angolo a1 a a2 (radianti, antiorario, coordinate schermo con y in giù) */
+function arcPath(cx,cy,r,a1,a2,color,w){
+  const x1=cx+r*Math.cos(a1), y1=cy-r*Math.sin(a1);
+  const x2=cx+r*Math.cos(a2), y2=cy-r*Math.sin(a2);
+  const large=Math.abs(a2-a1)>Math.PI?1:0;
+  const sweep=a2>a1?0:1;
+  return `<path d="M ${x1.toFixed(1)} ${y1.toFixed(1)} A ${r} ${r} 0 ${large} ${sweep} ${x2.toFixed(1)} ${y2.toFixed(1)}" fill="none" stroke="${color||'#9aa3b2'}" stroke-width="${w||1.4}"/>`;
+}
+function spokes(cx,cy,R,ang,n,color){
+  let s='';
+  for(let i=0;i<n;i++){
+    const a=ang+i*2*Math.PI/n;
+    s+=`<line x1="${cx}" y1="${cy}" x2="${(cx+R*Math.cos(a)).toFixed(1)}" y2="${(cy-R*Math.sin(a)).toFixed(1)}" stroke="${color||'#c7d2e6'}" stroke-width="2"/>`;
+  }
+  return s;
+}
+
+/* ===== Navigazione a schede ===== */
+const navBtns=document.querySelectorAll('#mainNav button');
+const scenes=document.querySelectorAll('section.scene');
+let activeScene='home';
+function showTab(name){
+  navBtns.forEach(b=>b.classList.toggle('active', b.dataset.tab===name));
+  scenes.forEach(s=>s.classList.toggle('active', s.id===name));
+  activeScene=name;
+  if(animators[name]) animators[name].draw();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+navBtns.forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
+document.querySelectorAll('.home-card').forEach(c=>c.addEventListener('click',()=>showTab(c.dataset.go)));
+
+/* ===== Cursori ===== */
+function bindRange(id,valId,fmtFn){
+  const el=document.getElementById(id), out=document.getElementById(valId);
+  if(!el||!out) return el;
+  const upd=()=>{ out.textContent=fmtFn?fmtFn(+el.value):el.value; };
+  el.addEventListener('input',upd); upd();
+  return el;
+}
+function val(id){ return +document.getElementById(id).value; }
+function setText(id,t){ const el=document.getElementById(id); if(el) el.textContent=t; }
+
+/* ===== Motore animazioni ===== */
+const animators={};
+function regAnim(name,obj){ animators[name]={playing:true,...obj}; }
+let last=performance.now();
+function loop(now){
+  const dt=Math.min(0.04,(now-last)/1000)||0; last=now;
+  const a=animators[activeScene];
+  if(a){ if(a.playing&&a.step) a.step(dt); a.draw(); }
+  requestAnimationFrame(loop);
+}
+function togglePlay(name,btn){
+  const a=animators[name]; if(!a) return;
+  a.playing=!a.playing;
+  btn.textContent=a.playing?'⏸️ Pausa':'▶️ Avvia';
+  btn.classList.toggle('paused',!a.playing);
+}
+
+/* ============ 1 · CINEMATICA ============ */
+const ckState={t:0,theta:0,omega:1.5};
+function ckStep(dt){
+  const w0=val('ckW0'), al=val('ckAl');
+  ckState.t+=dt;
+  ckState.omega=w0+al*ckState.t;
+  ckState.theta+=ckState.omega*dt;
+  if(Math.abs(ckState.omega)>10||Math.abs(ckState.theta)>40*Math.PI){ ckState.t=0; ckState.theta=0; ckState.omega=w0; }
+}
+function ckReset(){ ckState.t=0; ckState.theta=0; ckState.omega=val('ckW0'); }
+function ckDraw(){
+  const al=val('ckAl'), r=val('ckR'), th=ckState.theta, w=ckState.omega;
+  const v=r*w, at=r*al, ac=w*w*r, T=Math.abs(w)>1e-3?2*Math.PI/Math.abs(w):Infinity, f=isFinite(T)?1/T:0;
+  const cx=150, cy=150, R=110;
+  const Px=cx+R*Math.cos(th), Py=cy-R*Math.sin(th);
+  let s='';
+  s+=`<circle cx="${cx}" cy="${cy}" r="${R}" fill="#eef3fb" stroke="#9aa3b2" stroke-width="1.6"/>`;
+  s+=spokes(cx,cy,R-3,th,6,'#d3ddee');
+  s+=`<circle cx="${cx}" cy="${cy}" r="4" fill="#1a1a2e"/>`;
+  // raggio al punto P
+  s+=`<line x1="${cx}" y1="${cy}" x2="${Px.toFixed(1)}" y2="${Py.toFixed(1)}" stroke="#5b6470" stroke-width="2"/>`;
+  // angolo theta (modulo 2π) come arco
+  const thm=((th%(2*Math.PI))+2*Math.PI)%(2*Math.PI);
+  s+=arcPath(cx,cy,34,0,thm,COL.th,2);
+  s+=`<text x="${cx+44}" y="${cy-10}" font-size="13" fill="${COL.th}" font-weight="700">θ</text>`;
+  // versori schermo
+  const tx=-Math.sin(th), ty=-Math.cos(th);          // tangenziale (verso +ω)
+  const rx=Math.cos(th), ry=-Math.sin(th);           // radiale uscente
+  // velocità tangenziale (verde)
+  const lv=clamp(Math.abs(v)*24,0,74)*Math.sign(w||1);
+  s+=arrow(Px,Py,Px+tx*lv,Py+ty*lv,COL.v,'v',2.6);
+  // accelerazione centripeta (rossa) verso il centro
+  const lac=clamp(ac*2.4,0,70);
+  s+=arrow(Px,Py,Px-rx*lac,Py-ry*lac,COL.a,'a꜀',2.6);
+  // accelerazione tangenziale (arancio)
+  const lat=clamp(Math.abs(at)*40,0,60)*Math.sign(al||0);
+  if(Math.abs(at)>1e-3) s+=arrow(Px,Py,Px+tx*lat,Py+ty*lat,COL.al,'aₜ',2.4);
+  s+=`<circle cx="${Px.toFixed(1)}" cy="${Py.toFixed(1)}" r="6" fill="${COL.om}"/>`;
+  // verso di ω
+  s+=arcPath(cx,cy,R+12,(-0.5),(0.5),COL.om,2.4);
+  document.getElementById('svgCk').innerHTML=s;
+  setText('ckTheta',nf(th,2)); setText('ckGiri',nf(th/(2*Math.PI),2));
+  setText('ckOm',nf(w,2)); setText('ckV',nf(v,2));
+  setText('ckAt',nf(at,2)); setText('ckAc',nf(ac,2));
+  setText('ckT',isFinite(T)?nf(T,2):'∞'); setText('ckF',nf(f,2));
+  const b=document.getElementById('ckBadge');
+  b.textContent = al===0 ? 'moto uniforme: ω costante, θ = ω·t' : 'unif. accelerato: ω = ω₀ + α·t';
+}
+
+/* ============ 2 · DINAMICA ============ */
+const dnState={omega:0,theta:0};
+function dnPhys(){
+  const F=val('dnF'), rr=val('dnRr'), phi=val('dnPhi')*DEG, M=val('dnM'), R=val('dnR');
+  const rApp=rr*R, b=rApp*Math.sin(phi), Mtor=F*b, I=0.5*M*R*R, al=I>0?Mtor/I:0;
+  return {F,rr,phi,M,R,rApp,b,Mtor,I,al};
+}
+function dnStep(dt){
+  const p=dnPhys();
+  dnState.omega+=p.al*dt; dnState.theta+=dnState.omega*dt;
+  if(dnState.omega>14){ dnState.omega=0; dnState.theta=0; }
+}
+function dnReset(){ dnState.omega=0; dnState.theta=0; }
+function dnDraw(){
+  const p=dnPhys(), th=dnState.theta, cx=150, cy=150, R=110;
+  const rAppPix=p.rr*R;
+  const Pax=cx+rAppPix*Math.cos(th), Pay=cy-rAppPix*Math.sin(th);
+  // versori schermo nel punto di applicazione
+  const rx=Math.cos(th), ry=-Math.sin(th);     // radiale uscente
+  const tx=-Math.sin(th), ty=-Math.cos(th);    // tangenziale (+ω)
+  // direzione forza: cos φ lungo radiale, sin φ lungo tangenziale
+  const fx=Math.cos(p.phi)*rx+Math.sin(p.phi)*tx;
+  const fy=Math.cos(p.phi)*ry+Math.sin(p.phi)*ty;
+  const lf=clamp(p.F*4.5,8,80);
+  let s='';
+  s+=`<circle cx="${cx}" cy="${cy}" r="${R}" fill="#eef3fb" stroke="#9aa3b2" stroke-width="1.6"/>`;
+  s+=spokes(cx,cy,R-3,th,8,'#d3ddee');
+  s+=`<circle cx="${cx}" cy="${cy}" r="5" fill="#1a1a2e"/>`;
+  // raggio di applicazione
+  s+=`<line x1="${cx}" y1="${cy}" x2="${Pax.toFixed(1)}" y2="${Pay.toFixed(1)}" stroke="#5b6470" stroke-width="2"/>`;
+  // braccio: piede della perpendicolare dal centro alla retta d'azione della forza
+  const fpx=fx, fpy=fy; // versore forza
+  const wcx=cx-Pax, wcy=cy-Pay;
+  const proj=wcx*fpx+wcy*fpy;
+  const footx=Pax+fpx*proj, footy=Pay+fpy*proj;
+  if(p.b>0.005){
+    s+=`<line x1="${cx}" y1="${cy}" x2="${footx.toFixed(1)}" y2="${footy.toFixed(1)}" stroke="${COL.M}" stroke-width="1.8" stroke-dasharray="4 3"/>`;
+    s+=`<text x="${((cx+footx)/2).toFixed(1)}" y="${((cy+footy)/2-6).toFixed(1)}" font-size="11" fill="${COL.M}" font-weight="700">b</text>`;
+  }
+  // forza
+  s+=arrow(Pax,Pay,Pax+fx*lf,Pay+fy*lf,COL.F,'F',2.8);
+  s+=`<circle cx="${Pax.toFixed(1)}" cy="${Pay.toFixed(1)}" r="4.5" fill="#1a1a2e"/>`;
+  // verso α (curva)
+  if(p.al>0.001) s+=arcPath(cx,cy,R+12,-0.55,0.55,COL.al,2.6)+`<text x="${cx+R+18}" y="${cy+4}" font-size="13" fill="${COL.al}" font-weight="700">α</text>`;
+  document.getElementById('svgDn').innerHTML=s;
+  setText('dnB',nf(p.b,3)); setText('dnMom',nf(p.Mtor,2)); setText('dnI',nf(p.I,3));
+  setText('dnAl',nf(p.al,2)); setText('dnOm',nf(dnState.omega,2)); setText('dnL',nf(p.I*dnState.omega,2));
+}
+
+/* ============ 3 · CARRUCOLA ============ */
+const plState={s:0,vel:0,phi:0};
+function plPhys(){
+  const scn=document.getElementById('plScn').value;
+  const m1=val('plM1'), m2=val('plM2'), th1=val('plTh1')*DEG, th2=val('plTh2')*DEG,
+        mu=val('plMu'), Mp=val('plMp'), R=val('plR');
+  const drive1=m1*G*Math.sin(th1);
+  const drive2=(scn==='A')? m2*G : m2*G*Math.sin(th2);
+  const f1=mu*m1*G*Math.cos(th1);
+  const f2=(scn==='A')? 0 : mu*m2*G*Math.cos(th2);
+  const ftot=f1+f2;
+  const drive=drive2-drive1;
+  const denom=m1+m2+0.5*Mp;
+  const moving=Math.abs(drive)>ftot+1e-9;
+  let amag=0, dir=0, a=0;
+  if(moving){ amag=(Math.abs(drive)-ftot)/denom; dir=Math.sign(drive); a=dir*amag; }
+  let T2,T1;
+  if(moving){
+    T2=drive2 - f2*dir - m2*a;
+    T1=m1*a + drive1 + f1*dir;
+  } else { T2=drive2; T1=drive1; }
+  T1=Math.max(0,T1); T2=Math.max(0,T2);
+  const alf=amag/R;
+  return {scn,m1,m2,th1,th2,mu,Mp,R,drive,ftot,moving,amag,dir,a,T1,T2,alf,denom};
+}
+function plStep(dt){
+  const p=plPhys();
+  if(!p.moving){ plState.vel=0; return; }
+  plState.vel+=p.a*dt;
+  plState.s+=plState.vel*dt;
+  plState.phi+=(plState.vel/p.R)*dt;
+  const sMax=0.6;
+  if(plState.s>sMax){ plState.s-=sMax; }
+  if(plState.s<0){ plState.s+=sMax; }
+}
+function plReset(){ plState.s=0; plState.vel=0; plState.phi=0; }
+function plBlock(cx,cy,degRot,w,h,col,stroke,label){
+  return `<g transform="rotate(${(-degRot).toFixed(1)} ${cx.toFixed(1)} ${cy.toFixed(1)})">`+
+    `<rect x="${(cx-w/2).toFixed(1)}" y="${(cy-h/2).toFixed(1)}" width="${w}" height="${h}" rx="3" fill="${col}" stroke="${stroke}" stroke-width="1.4"/>`+
+    `<text x="${cx.toFixed(1)}" y="${(cy+4).toFixed(1)}" text-anchor="middle" font-size="11" fill="#3a2e00" font-weight="700">${label}</text></g>`;
+}
+function plDraw(){
+  const p=plPhys(), sMax=0.6, u=plState.s/sMax;
+  let s='';
+  if(p.scn==='A'){
+    const B={x:55,y:252}, Lp=180, c=Math.cos(p.th1), si=Math.sin(p.th1);
+    const A={x:B.x+Lp*c, y:B.y-Lp*si};
+    const Pc={x:A.x+16,y:A.y-10}, rp=12+p.Mp*1.2;
+    // terreno e cuneo
+    s+=`<polygon points="${B.x},${B.y} ${A.x.toFixed(1)},${A.y.toFixed(1)} ${A.x.toFixed(1)},${B.y}" fill="#eef3fb" stroke="#9aa3b2" stroke-width="1.4"/>`;
+    s+=`<line x1="40" y1="${B.y}" x2="330" y2="${B.y}" stroke="#5b6470" stroke-width="2"/>`;
+    // angolo
+    s+=arcPath(B.x,B.y,30,0,p.th1,COL.th,1.6)+`<text x="${B.x+36}" y="${B.y-8}" font-size="11" fill="${COL.th}" font-weight="700">θ₁</text>`;
+    // posizione m1 lungo il piano (u in 0.18..0.82)
+    const uu=0.2+0.55*u, nrm={x:-si,y:-c};
+    const m1c={x:B.x+uu*Lp*c+nrm.x*12, y:B.y-uu*Lp*si+nrm.y*12};
+    // carrucola
+    s+=`<circle cx="${Pc.x.toFixed(1)}" cy="${Pc.y.toFixed(1)}" r="${rp.toFixed(1)}" fill="#cfe0f5" stroke="#1565c0" stroke-width="2.4"/>`;
+    s+=spokes(Pc.x,Pc.y,rp-3,plState.phi,4,'#1565c0');
+    s+=`<circle cx="${Pc.x.toFixed(1)}" cy="${Pc.y.toFixed(1)}" r="3" fill="#1565c0"/>`;
+    // m2 appesa (scende quando u cresce)
+    const hangTop=A.y-4, m2y=hangTop+34+u*70;
+    const m2x=Pc.x+rp;
+    // funi
+    s+=`<line x1="${m1c.x.toFixed(1)}" y1="${m1c.y.toFixed(1)}" x2="${(Pc.x-rp).toFixed(1)}" y2="${Pc.y.toFixed(1)}" stroke="#6b7280" stroke-width="1.6"/>`;
+    s+=`<line x1="${m2x.toFixed(1)}" y1="${Pc.y.toFixed(1)}" x2="${m2x.toFixed(1)}" y2="${m2y.toFixed(1)}" stroke="#6b7280" stroke-width="1.6"/>`;
+    // blocchi
+    s+=plBlock(m1c.x,m1c.y,val('plTh1'),30,22,'#ffd54f','#8d6e00','m₁');
+    s+=`<rect x="${(m2x-16).toFixed(1)}" y="${m2y.toFixed(1)}" width="32" height="26" rx="3" fill="#ffab91" stroke="#bf360c" stroke-width="1.4"/><text x="${m2x.toFixed(1)}" y="${(m2y+17).toFixed(1)}" text-anchor="middle" font-size="11" fill="#7a2200" font-weight="700">m₂</text>`;
+    // etichette tensioni
+    s+=`<text x="${((m1c.x+Pc.x)/2-6).toFixed(1)}" y="${((m1c.y+Pc.y)/2-6).toFixed(1)}" font-size="11" fill="${COL.T}" font-weight="700">T₁</text>`;
+    s+=`<text x="${(m2x+6).toFixed(1)}" y="${(Pc.y+30).toFixed(1)}" font-size="11" fill="${COL.Tb}" font-weight="700">T₂</text>`;
+  } else {
+    const A={x:182,y:78}, Ll=140, Lr=140;
+    const c1=Math.cos(p.th1), s1=Math.sin(p.th1), c2=Math.cos(p.th2), s2=Math.sin(p.th2);
+    const Lb={x:A.x-Ll*c1,y:A.y+Ll*s1}, Rb={x:A.x+Lr*c2,y:A.y+Lr*s2};
+    const ybase=Math.max(Lb.y,Rb.y,250);
+    s+=`<polygon points="${A.x},${A.y} ${Lb.x.toFixed(1)},${Lb.y.toFixed(1)} ${Lb.x.toFixed(1)},${ybase} ${Rb.x.toFixed(1)},${ybase} ${Rb.x.toFixed(1)},${Rb.y.toFixed(1)}" fill="#eef3fb" stroke="#9aa3b2" stroke-width="1.4"/>`;
+    s+=`<line x1="30" y1="${ybase}" x2="340" y2="${ybase}" stroke="#5b6470" stroke-width="2"/>`;
+    const rp=12+p.Mp*1.2, Pc={x:A.x,y:A.y-rp-2};
+    s+=`<circle cx="${Pc.x}" cy="${Pc.y.toFixed(1)}" r="${rp.toFixed(1)}" fill="#cfe0f5" stroke="#1565c0" stroke-width="2.4"/>`;
+    s+=spokes(Pc.x,Pc.y,rp-3,plState.phi,4,'#1565c0');
+    // m1 sale a sx quando u cresce (dir>0 = m2 scende a dx)
+    const u1=0.7-0.5*u, u2=0.2+0.5*u;
+    const nrmL={x:-s1,y:-c1}, nrmR={x:s2,y:-c2};
+    const m1c={x:A.x-u1*Ll*c1+nrmL.x*12, y:A.y+u1*Ll*s1+nrmL.y*12};
+    const m2c={x:A.x+u2*Lr*c2+nrmR.x*12, y:A.y+u2*Lr*s2+nrmR.y*12};
+    s+=`<line x1="${m1c.x.toFixed(1)}" y1="${m1c.y.toFixed(1)}" x2="${(Pc.x-rp).toFixed(1)}" y2="${Pc.y.toFixed(1)}" stroke="#6b7280" stroke-width="1.6"/>`;
+    s+=`<line x1="${m2c.x.toFixed(1)}" y1="${m2c.y.toFixed(1)}" x2="${(Pc.x+rp).toFixed(1)}" y2="${Pc.y.toFixed(1)}" stroke="#6b7280" stroke-width="1.6"/>`;
+    s+=plBlock(m1c.x,m1c.y,-val('plTh1'),30,22,'#ffd54f','#8d6e00','m₁');
+    s+=plBlock(m2c.x,m2c.y,val('plTh2'),30,22,'#ffab91','#bf360c','m₂');
+    s+=arcPath(Lb.x,Lb.y,26,0,p.th1,COL.th,1.5)+`<text x="${(Lb.x+30).toFixed(1)}" y="${(Lb.y-6).toFixed(1)}" font-size="10" fill="${COL.th}" font-weight="700">θ₁</text>`;
+    s+=`<text x="${(Pc.x-rp-16).toFixed(1)}" y="${(Pc.y).toFixed(1)}" font-size="11" fill="${COL.T}" font-weight="700">T₁</text>`;
+    s+=`<text x="${(Pc.x+rp+4).toFixed(1)}" y="${(Pc.y).toFixed(1)}" font-size="11" fill="${COL.Tb}" font-weight="700">T₂</text>`;
+  }
+  document.getElementById('svgPl').innerHTML=s;
+  setText('plA',nf(p.amag,2)); setText('plT1',nf(p.T1,1)); setText('plT2',nf(p.T2,1));
+  setText('plAlf',nf(p.alf,1));
+  const badge=document.getElementById('plStat');
+  if(p.moving){ badge.className='eqs ok'; badge.innerHTML=`✓ in moto · T₂ − T₁ = ½M<sub>p</sub>·a = ${nf(0.5*p.Mp*p.amag,1)} N`; }
+  else { badge.className='eqs lim'; badge.textContent='fermo: l’attrito statico trattiene il sistema (a = 0)'; }
+}
+
+/* ============ 4 · IMPULSO ANGOLARE ============ */
+const imState={omega:6,theta:0,applying:false,tApp:0};
+function imI(){ const M=val('imM'), R=val('imR'); return 0.5*M*R*R; }
+function imApplyStart(){ imState.applying=true; imState.tApp=0; }
+function imResetOmega(){ imState.omega=val('imOm0'); imState.applying=false; imState.tApp=0; }
+function imStep(dt){
+  const I=imI(), M=val('imMom'), Dt=val('imDt');
+  imState.theta+=imState.omega*dt;
+  if(imState.applying){
+    imState.omega+=(M/I)*dt; imState.tApp+=dt;
+    if(imState.tApp>=Dt) imState.applying=false;
+  }
+  imState.omega=clamp(imState.omega,-25,25);
+}
+function imDraw(){
+  const I=imI(), M=val('imMom'), Dt=val('imDt'), w0=val('imOm0');
+  const cx=180, cy=150, R=108, th=imState.theta;
+  let s='';
+  s+=`<circle cx="${cx}" cy="${cy}" r="${R}" fill="#eef3fb" stroke="#9aa3b2" stroke-width="1.8"/>`;
+  s+=`<circle cx="${cx}" cy="${cy}" r="${R-14}" fill="none" stroke="#d3ddee" stroke-width="10"/>`;
+  s+=spokes(cx,cy,R-6,th,6,'#bcd0ec');
+  s+=`<circle cx="${cx}" cy="${cy}" r="6" fill="#1a1a2e"/>`;
+  // tacca di riferimento
+  const mx=cx+(R-6)*Math.cos(th), my=cy-(R-6)*Math.sin(th);
+  s+=`<circle cx="${mx.toFixed(1)}" cy="${my.toFixed(1)}" r="7" fill="${COL.om}"/>`;
+  // verso di ω
+  const wsign=Math.sign(imState.omega||1);
+  s+=arcPath(cx,cy,R+13,wsign>0?-0.5:0.5,wsign>0?0.5:-0.5,COL.om,2.6)+`<text x="${cx+R+22}" y="${cy+4}" font-size="13" fill="${COL.om}" font-weight="700">ω</text>`;
+  // momento applicato
+  if(imState.applying){
+    const Msign=Math.sign(M||1);
+    s+=arcPath(cx,cy,R-26,Msign>0?-0.7:0.7,Msign>0?0.7:-0.7,COL.M,3)+
+       `<text x="${cx}" y="${cy-R+34}" text-anchor="middle" font-size="12" fill="${COL.M}" font-weight="700">M</text>`;
+    s+=`<text x="${cx}" y="${cy+R+24}" text-anchor="middle" font-size="12" fill="${COL.M}" font-weight="700">applico M… ${nf(Math.max(0,Dt-imState.tApp),1)} s</text>`;
+  }
+  document.getElementById('svgIm').innerHTML=s;
+  setText('imI',nf(I,3)); setText('imOm',nf(imState.omega,2)); setText('imL',nf(I*imState.omega,2));
+  setText('imDL',nf(M*Dt,2)); setText('imOmf',nf(w0+(M/I)*Dt,2)); setText('imAlf',nf(M/I,2));
+}
+
+/* ============ 5 · MOMENTO ANGOLARE ============ */
+const anState={theta:0,phi:0,omega:0,phase:'idle',projx:-120};
+function anScn(){ return document.getElementById('anScn').value; }
+function anPlatPhys(){
+  const Ib=val('anIp'), mh=val('anMh'), rho=val('anRho'), w0=val('anW0');
+  const Iref=Ib+2*mh*1.0, L0=Iref*w0;
+  const I=Ib+2*mh*rho*rho, om=L0/I, KE=0.5*I*om*om;
+  return {Ib,mh,rho,w0,Iref,L0,I,om,KE};
+}
+function anRodPhys(){
+  const M=val('anMrod'), L=val('anLrod'), m=val('anm'), v=val('anv');
+  const Itot=(1/3)*M*L*L+m*L*L, om0=m*v*L/Itot, k=G*(M*L/2+m*L)/Itot;
+  const Ep=(M*G*L/2+m*G*L);
+  const cphi=1-0.5*Itot*om0*om0/Ep;
+  const full=cphi<=-1, phimax=full?Math.PI:Math.acos(clamp(cphi,-1,1));
+  return {M,L,m,v,Itot,om0,k,phimax,full};
+}
+function anStep(dt){
+  if(anScn()==='plat'){ anState.theta+=anPlatPhys().om*dt; }
+  else {
+    const p=anRodPhys();
+    if(anState.phase==='incoming'){
+      anState.projx+=260*dt;
+      if(anState.projx>=0){ anState.phase='swing'; anState.phi=0; anState.omega=p.om0; }
+    } else if(anState.phase==='swing'){
+      const al=-p.k*Math.sin(anState.phi);
+      anState.omega+=al*dt; anState.phi+=anState.omega*dt;
+    }
+  }
+}
+function anLaunchRod(){ anState.phase='incoming'; anState.projx=-120; anState.phi=0; anState.omega=0; }
+function anDraw(){
+  let s='';
+  if(anScn()==='plat'){
+    const p=anPlatPhys(), cx=180, cy=150, Rp=100, th=anState.theta;
+    const rho=clamp(p.rho*92,12,96);
+    s+=`<circle cx="${cx}" cy="${cy}" r="${Rp}" fill="#eef3fb" stroke="#9aa3b2" stroke-width="1.8"/>`;
+    s+=`<circle cx="${cx}" cy="${cy}" r="${Rp}" fill="none" stroke="#cfd9ec" stroke-width="2" stroke-dasharray="2 6"/>`;
+    s+=spokes(cx,cy,Rp-4,th,3,'#d3ddee');
+    // due braccia + masse
+    for(let i=0;i<2;i++){
+      const a=th+i*Math.PI;
+      const hx=cx+rho*Math.cos(a), hy=cy-rho*Math.sin(a);
+      s+=`<line x1="${cx}" y1="${cy}" x2="${hx.toFixed(1)}" y2="${hy.toFixed(1)}" stroke="#7b1fa2" stroke-width="4" stroke-linecap="round"/>`;
+      s+=`<circle cx="${hx.toFixed(1)}" cy="${hy.toFixed(1)}" r="${(7+p.mh*0.9).toFixed(1)}" fill="#7b1fa2"/>`;
+    }
+    s+=`<circle cx="${cx}" cy="${cy}" r="15" fill="#fff" stroke="#7b1fa2" stroke-width="2.5"/>`;
+    s+=`<circle cx="${cx}" cy="${cy}" r="4" fill="#1a1a2e"/>`;
+    s+=arcPath(cx,cy,Rp+12,-0.5,0.5,COL.om,2.6)+`<text x="${cx+Rp+20}" y="${cy+4}" font-size="13" fill="${COL.om}" font-weight="700">ω</text>`;
+    document.getElementById('svgAn').innerHTML=s;
+    setText('anI',nf(p.I,2)); setText('anOm',nf(p.om,2)); setText('anL',nf(p.L0,2)); setText('anKE',nf(p.KE,1));
+    const st=document.getElementById('anStat');
+    st.className='eqs ok';
+    st.innerHTML=`L = ${nf(p.L0,2)} costante · ω/ω₀ = ${nf(p.om/p.w0,2)}×`;
+  } else {
+    const p=anRodPhys(), px=180, py=55, Lpix=120+(p.L-0.5)*80;
+    const phi=anState.phase==='idle'?0:anState.phi;
+    const ex=px+Lpix*Math.sin(phi), ey=py+Lpix*Math.cos(phi);
+    // soffitto
+    s+=`<line x1="120" y1="40" x2="240" y2="40" stroke="#5b6470" stroke-width="2"/>`;
+    for(let x=124;x<240;x+=12) s+=`<line x1="${x}" y1="40" x2="${x-7}" y2="31" stroke="#9aa3b2" stroke-width="1"/>`;
+    s+=`<line x1="${px}" y1="40" x2="${px}" y2="${py}" stroke="#6b7280" stroke-width="1.4"/>`;
+    // verticale di riferimento
+    s+=`<line x1="${px}" y1="${py}" x2="${px}" y2="${(py+Lpix).toFixed(1)}" stroke="#cfd9ec" stroke-width="1.4" stroke-dasharray="4 4"/>`;
+    // asta
+    s+=`<line x1="${px}" y1="${py}" x2="${ex.toFixed(1)}" y2="${ey.toFixed(1)}" stroke="#7b1fa2" stroke-width="6" stroke-linecap="round"/>`;
+    s+=`<circle cx="${px}" cy="${py}" r="5" fill="#1a1a2e"/>`;
+    if(phi>0.02||anState.phase==='swing'){ s+=arcPath(px,py,38,-Math.PI/2,-Math.PI/2+Math.min(phi,2),COL.al,2)+`<text x="${px+30}" y="${py+44}" font-size="11" fill="${COL.al}" font-weight="700">φ</text>`; }
+    // corpo m
+    if(anState.phase==='idle'||anState.phase==='incoming'){
+      const prx=px+anState.projx, pry=py+Lpix;
+      s+=arrow(prx-26,pry,prx,pry,COL.v,'v',2.4);
+      s+=`<circle cx="${prx.toFixed(1)}" cy="${pry.toFixed(1)}" r="${(6+p.m*8).toFixed(1)}" fill="#e53935"/>`;
+    } else {
+      s+=`<circle cx="${ex.toFixed(1)}" cy="${ey.toFixed(1)}" r="${(6+p.m*8).toFixed(1)}" fill="#e53935"/>`;
+    }
+    s+=`<text x="${px+8}" y="${py-6}" font-size="11" fill="#6b7280">perno</text>`;
+    document.getElementById('svgAn').innerHTML=s;
+    const alNow=anState.phase==='swing'?-p.k*Math.sin(anState.phi):0;
+    setText('anOm0',nf(p.om0,2));
+    setText('anPhi',nf((anState.phase==='idle'?0:anState.phi)/DEG,0));
+    setText('anAlf',nf(alNow,2));
+    setText('anPhiMax',p.full?'>180':nf(p.phimax/DEG,0));
+  }
+}
+function anSwitch(){
+  const rod=anScn()==='rod';
+  document.getElementById('anCtrlPlat').style.display=rod?'none':'';
+  document.getElementById('anCtrlRod').style.display=rod?'':'none';
+  document.getElementById('anLaunch').style.display=rod?'':'none';
+  anState.phase='idle'; anState.projx=-120; anState.phi=0; anState.omega=0; anState.theta=0;
+  anDraw();
+}
+
+/* ============ PROVA TU — esercizi guidati ============ */
+function rint(a,b){ return Math.floor(Math.random()*(b-a+1))+a; }
+function rpick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+function rstep(a,b,s){ const n=Math.round((b-a)/s); return +(a+s*rint(0,n)).toFixed(4); }
+
+const PROVA={
+  cinematica:{ title:'🎯 Ruota in moto uniformemente accelerato', gen(){
+    const w0=rstep(0,3,0.5), al=rstep(1,3,0.5), t=rint(2,6), r=rstep(0.2,0.5,0.05);
+    const wf=w0+al*t, th=w0*t+0.5*al*t*t, giri=th/(2*Math.PI), v=r*wf;
+    return { unit:'rad', ans:th, tol:Math.max(0.2,0.02*th),
+      statement:`Una ruota ruota attorno al suo asse partendo con velocità angolare <b>ω₀ = ${nf(w0,1)} rad/s</b> e accelera uniformemente con <b>α = ${nf(al,1)} rad/s²</b>. Un punto del bordo dista <b>r = ${nf(r,2)} m</b> dall'asse.<br><b>Domanda:</b> di quale <b>angolo θ</b> (in radianti) ruota la ruota in <b>t = ${t} s</b>?`,
+      hints:[ 'È un moto rotatorio uniformemente accelerato: vale θ = ω₀·t + ½·α·t² (stessa forma di s = v₀·t + ½·a·t²).',
+              'Sostituisci ω₀, α e t. Calcola separatamente ω₀·t e ½·α·t², poi somma.',
+              `½·α·t² = ½·${nf(al,1)}·${t}² = ${nf(0.5*al*t*t,2)} rad.` ],
+      steps:[ {t:'Formula', d:'θ = ω₀·t + ½·α·t²'},
+              {t:'Sostituzione', d:`θ = ${nf(w0,1)}·${t} + ½·${nf(al,1)}·${t}²`},
+              {t:'Calcolo', d:`θ = ${nf(w0*t,2)} + ${nf(0.5*al*t*t,2)} = <b>${nf(th,2)} rad</b>`},
+              {t:'In giri', d:`n = θ/(2π) = ${nf(giri,2)} giri`},
+              {t:'Extra', d:`ω finale = ω₀+α·t = ${nf(wf,2)} rad/s; velocità del punto v = r·ω = ${nf(v,2)} m/s`} ] }; }
+  },
+  dinamica:{ title:'⚙️ Momento, inerzia e accelerazione di un disco', gen(){
+    const F=rint(4,16), R=rstep(0.2,0.5,0.05), M=rstep(1,4,0.5), t=rint(2,5);
+    const I=0.5*M*R*R, Mt=F*R, al=Mt/I, wf=al*t, L=I*wf;
+    return { unit:'rad/s²', ans:al, tol:Math.max(0.3,0.02*al),
+      statement:`Un disco pieno omogeneo (massa <b>M = ${nf(M,1)} kg</b>, raggio <b>R = ${nf(R,2)} m</b>) è libero di ruotare attorno al suo asse. Gli si applica al bordo, tangenzialmente, una forza <b>F = ${F} N</b>.<br><b>Domanda:</b> quale <b>accelerazione angolare α</b> acquista?`,
+      hints:[ 'Per un disco pieno I = ½·M·R². Il momento di una forza tangenziale al bordo è M = F·R.',
+              'Applica la 2ª legge della rotazione: α = M / I (analoga ad a = F/m).',
+              `I = ½·${nf(M,1)}·${nf(R,2)}² = ${nf(I,3)} kg·m².` ],
+      steps:[ {t:'Inerzia', d:`I = ½·M·R² = ½·${nf(M,1)}·${nf(R,2)}² = ${nf(I,3)} kg·m²`},
+              {t:'Momento', d:`M = F·R = ${F}·${nf(R,2)} = ${nf(Mt,2)} N·m`},
+              {t:'2ª legge', d:`α = M/I = ${nf(Mt,2)}/${nf(I,3)} = <b>${nf(al,2)} rad/s²</b>`},
+              {t:'Dopo t', d:`in t = ${t} s: ω = α·t = ${nf(wf,2)} rad/s, con L = I·ω = ${nf(L,2)} kg·m²/s`} ] }; }
+  },
+  carrucola:{ title:'⛰️ Sistema con carrucola-disco', gen(){
+    const m1=rstep(1,4,0.5), th1=rint(20,40), mu=rstep(0,0.2,0.05), Mp=rstep(1,4,0.5);
+    const m2=rstep(5,9,0.5), R=0.2;
+    const d1=m1*G*Math.sin(th1*DEG), f=mu*m1*G*Math.cos(th1*DEG), denom=m1+m2+0.5*Mp;
+    const a=(m2*G-d1-f)/denom;
+    return { unit:'m/s²', ans:a, tol:Math.max(0.1,0.02*Math.abs(a)),
+      statement:`Una massa <b>m₁ = ${nf(m1,1)} kg</b> sta su un piano inclinato di <b>θ₁ = ${th1}°</b> (attrito <b>μ = ${nf(mu,2)}</b>) ed è collegata da un filo, che passa su una <b>carrucola-disco</b> (massa <b>M<sub>p</sub> = ${nf(Mp,1)} kg</b>), a una massa <b>m₂ = ${nf(m2,1)} kg</b> appesa nel vuoto.<br><b>Domanda:</b> con quale <b>accelerazione a</b> si muove il sistema? (g = 9,81 m/s²)`,
+      hints:[ 'La carrucola è un disco: aggiunge ½·M_p all’inerzia del sistema (denominatore m₁+m₂+½M_p).',
+              'Spinta = peso di m₂; resistenze = m₁g·sin θ₁ (componente lungo il piano) + μ·m₁g·cos θ₁ (attrito).',
+              `Denominatore = ${nf(m1,1)}+${nf(m2,1)}+½·${nf(Mp,1)} = ${nf(denom,2)} kg.` ],
+      steps:[ {t:'Spinta', d:`m₂·g = ${nf(m2,1)}·9,81 = ${nf(m2*G,1)} N`},
+              {t:'Resistenze', d:`m₁g·sin θ₁ = ${nf(d1,1)} N · attrito μ·m₁g·cos θ₁ = ${nf(f,1)} N`},
+              {t:'Inerzia totale', d:`m₁+m₂+½M_p = ${nf(denom,2)} kg`},
+              {t:'Accelerazione', d:`a = (${nf(m2*G,1)} − ${nf(d1,1)} − ${nf(f,1)}) / ${nf(denom,2)} = <b>${nf(a,2)} m/s²</b>`} ] }; }
+  },
+  impulso:{ title:'⏱️ Frenare un volano', gen(){
+    const M=rstep(1,5,0.5), R=rstep(0.3,0.6,0.05), w0=rint(8,20), Mb=rstep(1,4,0.5);
+    const I=0.5*M*R*R, L=I*w0, dt=L/Mb;
+    return { unit:'s', ans:dt, tol:Math.max(0.1,0.02*dt),
+      statement:`Un volano (disco pieno, massa <b>M = ${nf(M,1)} kg</b>, raggio <b>R = ${nf(R,2)} m</b>) ruota a <b>ω₀ = ${w0} rad/s</b>. Un freno applica un momento costante <b>M = ${nf(Mb,1)} N·m</b> opposto alla rotazione.<br><b>Domanda:</b> dopo quanto <b>tempo Δt</b> il volano si ferma?`,
+      hints:[ 'Usa il teorema dell’impulso angolare: M·Δt = ΔL. Per fermarsi ΔL = L₀ = I·ω₀.',
+              'Quindi Δt = I·ω₀ / M_freno (analogo a Δt = m·v₀/F per fermare un corpo).',
+              `I = ½·${nf(M,1)}·${nf(R,2)}² = ${nf(I,3)} kg·m².` ],
+      steps:[ {t:'Inerzia', d:`I = ½·M·R² = ${nf(I,3)} kg·m²`},
+              {t:'Momento angolare', d:`L₀ = I·ω₀ = ${nf(I,3)}·${w0} = ${nf(L,2)} kg·m²/s`},
+              {t:'Impulso angolare', d:`M·Δt = L₀ ⇒ Δt = L₀/M = ${nf(L,2)}/${nf(Mb,1)} = <b>${nf(dt,2)} s</b>`} ] }; }
+  },
+  angolare:{ title:'🎯 Asta-pendolo colpita all’estremo', gen(){
+    const M=rstep(1,4,0.5), L=rstep(0.6,1.4,0.1), m=rstep(0.1,0.6,0.05), v=rint(6,16);
+    const Itot=(1/3)*M*L*L+m*L*L, om0=m*v*L/Itot;
+    const Ep=(M*G*L/2+m*G*L), al90=Ep/Itot;
+    const cphi=1-0.5*Itot*om0*om0/Ep, full=cphi<=-1, phimax=full?180:Math.acos(clamp(cphi,-1,1))/DEG;
+    return { unit:'rad/s', ans:om0, tol:Math.max(0.2,0.02*om0),
+      statement:`Un'asta rigida (massa <b>M = ${nf(M,1)} kg</b>, lunghezza <b>L = ${nf(L,2)} m</b>), imperniata a un estremo e ferma in verticale, è colpita all'estremo libero da un corpo (<b>m = ${nf(m,2)} kg</b>, <b>v = ${v} m/s</b> ⟂ all'asta) che vi resta conficcato.<br><b>Domanda:</b> quale <b>velocità angolare ω</b> ha l'asta subito dopo l'urto?`,
+      hints:[ 'Durante l’urto si conserva il momento angolare rispetto al perno: L_prima = L_dopo.',
+              'L_prima = m·v·L (corpo all’estremo); L_dopo = I_tot·ω, con I_tot = ⅓M·L² + m·L².',
+              `I_tot = ⅓·${nf(M,1)}·${nf(L,2)}² + ${nf(m,2)}·${nf(L,2)}² = ${nf(Itot,3)} kg·m².` ],
+      steps:[ {t:'Inerzia totale', d:`I_tot = ⅓M·L² + m·L² = ${nf((1/3)*M*L*L,3)} + ${nf(m*L*L,3)} = ${nf(Itot,3)} kg·m²`},
+              {t:'Conservazione di L', d:`m·v·L = I_tot·ω ⇒ ω = m·v·L / I_tot`},
+              {t:'Risultato (① urto)', d:`ω = ${nf(m,2)}·${v}·${nf(L,2)} / ${nf(Itot,3)} = <b>${nf(om0,2)} rad/s</b>`},
+              {t:'② Gravità → α', d:`a φ = 90° l’accelerazione angolare è α = g(M·L/2+m·L)/I_tot = ${nf(al90,2)} rad/s² (è 0 all’istante dell’urto, φ≈0)`},
+              {t:'Salita massima', d:`l’asta sale fino a φ ≈ ${full?'oltre 180° (fa il giro)':nf(phimax,0)+'°'}`} ] }; }
+  }
+};
+const pState={};
+function provaNew(sec){ pState[sec]={ex:PROVA[sec].gen(),hints:0,sol:false,fb:null,last:''}; renderProva(sec); }
+function provaHint(sec){ const st=pState[sec]; if(st.hints<st.ex.hints.length) st.hints++; renderProva(sec); }
+function provaSol(sec){ pState[sec].sol=!pState[sec].sol; renderProva(sec); }
+function provaCheck(sec){
+  const st=pState[sec], el=document.getElementById('pv-'+sec+'-in');
+  st.last=el.value;
+  const x=parseNum(el.value);
+  if(!isFinite(x)){ st.fb={ok:false,msg:'Inserisci un valore numerico.'}; renderProva(sec); return; }
+  const ok=Math.abs(x-st.ex.ans)<=st.ex.tol;
+  st.fb= ok ? {ok:true,msg:`✓ Esatto! La risposta è ${nf(st.ex.ans,2)} ${st.ex.unit}.`}
+            : {ok:false,msg:`✗ Non ci siamo. Riprova, usa i suggerimenti o apri la soluzione. (Il valore atteso è ${nf(st.ex.ans,2)} ${st.ex.unit}.)`};
+  renderProva(sec);
+}
+function renderProva(sec){
+  const st=pState[sec], ex=st.ex, el=document.getElementById('prova-'+sec);
+  let h=`<h2>✍️ Prova tu</h2><p style="font-weight:600;color:var(--primary-d);margin:.1rem 0 .5rem">${PROVA[sec].title}</p>`;
+  h+=`<p>${ex.statement}</p>`;
+  h+=`<div class="num-row"><span style="font-size:.9em;color:var(--muted)">La tua risposta:</span>`+
+     `<input type="text" inputmode="decimal" id="pv-${sec}-in" value="${st.last||''}" placeholder="numero">`+
+     `<span class="unit">${ex.unit}</span>`+
+     `<button class="btn-check" onclick="provaCheck('${sec}')">Verifica</button></div>`;
+  if(st.fb) h+=`<div class="fb ${st.fb.ok?'ok':'no'}">${st.fb.msg}</div>`;
+  for(let i=0;i<st.hints;i++) h+=`<div class="hint-box"><b>💡 Suggerimento ${i+1}:</b> ${ex.hints[i]}</div>`;
+  h+=`<div class="prova-btns">`;
+  if(st.hints<ex.hints.length) h+=`<button class="btn-soft" onclick="provaHint('${sec}')">💡 Mostra suggerimento</button>`;
+  h+=`<button class="btn-soft" onclick="provaSol('${sec}')">${st.sol?'🙈 Nascondi soluzione':'📖 Soluzione passo-passo'}</button>`;
+  h+=`<button class="btn-soft" onclick="provaNew('${sec}')">🎲 Nuovo esercizio</button></div>`;
+  if(st.sol){
+    h+=`<div class="sol-wrap">`;
+    ex.steps.forEach((s,i)=>{ h+=`<div class="sol-step"><span class="n">${i+1}</span><span class="c"><b>${s.t}.</b> ${s.d}</span></div>`; });
+    h+=`</div>`;
+  }
+  el.innerHTML=h;
+}
+
+/* ============ QUIZ ============ */
+const QUIZ={
+ cinematica:{
+  teoria:[
+   {q:'La velocità angolare ω è definita come:',opts:['Δθ · Δt','Δθ / Δt','Δt / Δθ','θ · t'],ans:1,exp:'ω = Δθ/Δt: di quanto cambia l’angolo nell’unità di tempo (analoga a v = Δs/Δt).'},
+   {q:'Nel parallelismo traslazione–rotazione, l’analogo della velocità v è:',opts:['l’angolo θ','la velocità angolare ω','l’accelerazione angolare α','il momento d’inerzia I'],ans:1,exp:'θ↔s, ω↔v, α↔a. La velocità angolare ω è l’analogo della velocità lineare v.'},
+   {q:'Per un punto a distanza r dall’asse, la velocità lineare (tangenziale) vale:',opts:['v = r / ω','v = ω / r','v = r · ω','v = r · α'],ans:2,exp:'v = r·ω: tutti i punti hanno la stessa ω, ma v cresce con la distanza r dall’asse.'},
+   {q:'Un punto che ruota con ω costante ha accelerazione centripeta:',opts:['nulla','a꜀ = ω² · r','a꜀ = α · r','a꜀ = ω / r'],ans:1,exp:'Anche con ω costante la direzione della velocità cambia: a꜀ = ω²·r = v²/r, diretta verso l’asse.'},
+   {q:'Se α è costante, la velocità angolare nel tempo vale:',opts:['ω = ω₀','ω = ω₀ + α·t','ω = ω₀ + ½α·t²','ω = ω₀ · t'],ans:1,exp:'Moto uniformemente accelerato: ω = ω₀ + α·t, identico a v = v₀ + a·t.'}
+  ],
+  calcolo:[
+   {q:'ω₀ = 2 rad/s, α = 3 rad/s². Quanto vale ω dopo t = 4 s?',num:true,ans:14,tol:0.2,unit:'rad/s',exp:'ω = ω₀ + α·t = 2 + 3·4 = 14 rad/s.'},
+   {q:'Un punto dista r = 0,5 m dall’asse e la ruota gira a ω = 10 rad/s. Velocità del punto?',num:true,ans:5,tol:0.1,unit:'m/s',exp:'v = r·ω = 0,5·10 = 5 m/s.'},
+   {q:'Un angolo θ = 12,56 rad corrisponde a circa quanti giri?',opts:['1 giro','2 giri','4 giri','6 giri'],ans:1,exp:'n = θ/(2π) = 12,56/6,28 ≈ 2 giri.'},
+   {q:'Partendo da fermo (ω₀ = 0) con α = 2 rad/s², di quale angolo ruota in t = 3 s?',num:true,ans:9,tol:0.2,unit:'rad',exp:'θ = ½·α·t² = ½·2·9 = 9 rad.'},
+   {q:'Un punto a r = 0,25 m ruota a ω = 4 rad/s. Accelerazione centripeta?',opts:['1 m/s²','2 m/s²','4 m/s²','8 m/s²'],ans:2,exp:'a꜀ = ω²·r = 16·0,25 = 4 m/s².'}
+  ]
+ },
+ dinamica:{
+  teoria:[
+   {q:'L’equazione M = I·α è l’analogo rotazionale di:',opts:['p = m·v','F = m·a','E = ½m·v²','v = a·t'],ans:1,exp:'M↔F, I↔m, α↔a: M = I·α è la «seconda legge» della rotazione.'},
+   {q:'Il momento d’inerzia di un disco pieno attorno al suo asse è:',opts:['m·R²','½·m·R²','⅖·m·R²','⅓·m·R²'],ans:1,exp:'Disco/cilindro pieno: I = ½·m·R². (Anello: m·R²; sfera: ⅖m·R².)'},
+   {q:'Il momento angolare L di un corpo che ruota vale:',opts:['I / ω','I · ω','½·I·ω²','I · α'],ans:1,exp:'L = I·ω, analogo di p = m·v.'},
+   {q:'Il momento di una forza è massimo quando la forza è:',opts:['diretta verso l’asse','perpendicolare al raggio','parallela al raggio','molto piccola'],ans:1,exp:'M = r·F·sin φ: massimo per φ = 90° (forza perpendicolare al raggio); nullo se diretta verso l’asse.'},
+   {q:'A parità di massa, avvicinando la massa all’asse il momento d’inerzia:',opts:['aumenta','diminuisce','resta uguale','si annulla'],ans:1,exp:'I = Σm·r²: meno distanza r ⇒ I più piccolo. La massa lontana «conta» di più.'}
+  ],
+  calcolo:[
+   {q:'Momento d’inerzia di un disco pieno di M = 2 kg e R = 0,5 m?',num:true,ans:0.25,tol:0.01,unit:'kg·m²',exp:'I = ½·M·R² = ½·2·0,25 = 0,25 kg·m².'},
+   {q:'Un momento M = 4 N·m agisce su un corpo con I = 0,25 kg·m². Accelerazione angolare?',num:true,ans:16,tol:0.3,unit:'rad/s²',exp:'α = M/I = 4/0,25 = 16 rad/s².'},
+   {q:'Una forza F = 10 N applicata tangenzialmente al bordo (R = 0,3 m). Momento?',opts:['0,3 N·m','3 N·m','30 N·m','10 N·m'],ans:1,exp:'M = F·R = 10·0,3 = 3 N·m.'},
+   {q:'Un corpo con I = 0,5 kg·m² ruota a ω = 8 rad/s. Momento angolare L?',num:true,ans:4,tol:0.1,unit:'kg·m²/s',exp:'L = I·ω = 0,5·8 = 4 kg·m²/s.'},
+   {q:'Massa puntiforme m = 2 kg a distanza r = 3 m dall’asse. Momento d’inerzia?',opts:['6 kg·m²','9 kg·m²','18 kg·m²','36 kg·m²'],ans:2,exp:'I = m·r² = 2·9 = 18 kg·m².'}
+  ]
+ },
+ carrucola:{
+  teoria:[
+   {q:'Con una carrucola dotata di massa, le tensioni ai due capi del filo:',opts:['sono uguali','sono diverse (T₂ ≠ T₁)','sono nulle','valgono entrambe il peso'],ans:1,exp:'Serve un momento per accelerare il disco: T₂ − T₁ = ½M_p·a ≠ 0.'},
+   {q:'Una carrucola-disco di massa M_p aggiunge all’inerzia del sistema un termine:',opts:['M_p','½·M_p','¼·M_p','2·M_p'],ans:1,exp:'Per un disco I = ½M_p R², che a denominatore dà il termine ½M_p.'},
+   {q:'Se la carrucola ha massa trascurabile (ideale), allora:',opts:['il sistema non si muove','T₁ = T₂','a = g sempre','T₂ − T₁ = M_p·a'],ans:1,exp:'Con M_p = 0 il termine ½M_p sparisce e le due tensioni diventano uguali.'},
+   {q:'Che cosa fa ruotare la carrucola?',opts:['il peso totale','la differenza di tensione T₂ − T₁','l’attrito dell’asse','nulla, gira da sola'],ans:1,exp:'È proprio lo squilibrio T₂ − T₁ a fornire il momento che la mette in rotazione.'},
+   {q:'Il sistema resta fermo (a = 0) se:',opts:['m₂ > m₁','la spinta non supera l’attrito statico massimo','μ = 0','M_p = 0'],ans:1,exp:'Se la spinta è ≤ dell’attrito statico massimo, il sistema non parte.'}
+  ],
+  calcolo:[
+   {q:'m₁ = 2 kg su un tavolo liscio (orizzontale, μ = 0), m₂ = 3 kg appesa, carrucola-disco M_p = 2 kg. Accelerazione? (g = 9,81)',num:true,ans:4.905,tol:0.2,unit:'m/s²',exp:'a = m₂g/(m₁+m₂+½M_p) = 29,43/6 = 4,9 m/s².'},
+   {q:'Se M_p = 2 kg e a = 4 m/s², quanto vale T₂ − T₁?',opts:['2 N','4 N','8 N','0 N'],ans:1,exp:'T₂ − T₁ = ½·M_p·a = ½·2·4 = 4 N.'},
+   {q:'m₁ = 2 kg su piano a 30° (liscio), m₂ = 4 kg appesa, carrucola M_p = 2 kg. Accelerazione? (g = 9,81)',num:true,ans:4.204,tol:0.2,unit:'m/s²',exp:'a = (m₂g − m₁g·sin30°)/(m₁+m₂+½M_p) = (39,24 − 9,81)/7 = 4,2 m/s².'},
+   {q:'Aumentando la massa della carrucola (resto invariato), l’accelerazione del sistema:',opts:['aumenta','diminuisce','resta uguale','si annulla'],ans:1,exp:'M_p compare a denominatore (+½M_p): più massa ⇒ a più piccola.'},
+   {q:'Se a = 4 m/s² e la carrucola ha R = 0,2 m, qual è la sua accelerazione angolare α?',num:true,ans:20,tol:0.5,unit:'rad/s²',exp:'α = a/R = 4/0,2 = 20 rad/s².'}
+  ]
+ },
+ impulso:{
+  teoria:[
+   {q:'Il teorema dell’impulso angolare afferma che:',opts:['M = I·α','M·Δt = ΔL','L = I·ω','M = ΔL·Δt'],ans:1,exp:'M·Δt = ΔL: l’impulso angolare è uguale alla variazione di momento angolare.'},
+   {q:'La quantità M·Δt è l’analogo rotazionale di:',opts:['m·v','F·Δt (impulso)','½m·v²','F/m'],ans:1,exp:'F·Δt = Δp ↔ M·Δt = ΔL.'},
+   {q:'Per fermare un volano in un tempo Δt più lungo serve un momento frenante:',opts:['maggiore','minore','uguale','nullo'],ans:1,exp:'M = ΔL/Δt: a parità di ΔL, più lungo è Δt, minore è il momento (come l’airbag).'},
+   {q:'Un momento opposto al verso di rotazione fa sì che il momento angolare:',opts:['aumenti','diminuisca','resti costante','raddoppi'],ans:1,exp:'ΔL = M·Δt con M opposto ⇒ L diminuisce (il corpo rallenta, può fermarsi e invertire).'},
+   {q:'Se il momento è perpendicolare al momento angolare L, esso cambia:',opts:['il modulo di L','la direzione di L (precessione)','nulla','il momento d’inerzia'],ans:1,exp:'Momento ⟂ L: ruota la direzione di L senza cambiarne il modulo → precessione (trottola, giroscopio).'}
+  ],
+  calcolo:[
+   {q:'Un momento M = 2 N·m agisce per Δt = 3 s. Variazione di momento angolare ΔL?',num:true,ans:6,tol:0.1,unit:'kg·m²/s',exp:'ΔL = M·Δt = 2·3 = 6 kg·m²/s.'},
+   {q:'Volano con I = 0,5 kg·m² a ω₀ = 10 rad/s. Un freno M = 2,5 N·m. Tempo per fermarlo?',num:true,ans:2,tol:0.1,unit:'s',exp:'Δt = I·ω₀/M = (0,5·10)/2,5 = 2 s.'},
+   {q:'I = 0,5 kg·m², ω₀ = 4 rad/s, momento M = 1 N·m applicato per Δt = 2 s. ω finale?',opts:['4 rad/s','6 rad/s','8 rad/s','12 rad/s'],ans:2,exp:'ω_f = ω₀ + (M/I)·Δt = 4 + (1/0,5)·2 = 8 rad/s.'},
+   {q:'Quale impulso angolare serve per aumentare di Δω = 5 rad/s un corpo con I = 0,4 kg·m²?',num:true,ans:2,tol:0.05,unit:'kg·m²/s',exp:'M·Δt = ΔL = I·Δω = 0,4·5 = 2 kg·m²/s.'},
+   {q:'Raddoppiando Δt a parità di M, l’impulso angolare M·Δt:',opts:['si dimezza','raddoppia','resta uguale','si annulla'],ans:1,exp:'M·Δt è proporzionale a Δt: raddoppia.'}
+  ]
+ },
+ angolare:{
+  teoria:[
+   {q:'Il momento angolare di un sistema si conserva quando:',opts:['I è molto grande','il momento esterno totale è nullo','ω è costante','c’è attrito'],ans:1,exp:'Se M_est = 0 allora ΔL = 0: L = I·ω resta costante.'},
+   {q:'Una pattinatrice che chiude le braccia (asse senza attrito):',opts:['rallenta','accelera la rotazione','si ferma','non cambia velocità'],ans:1,exp:'Chiudendo le braccia I diminuisce; poiché L = I·ω è costante, ω aumenta.'},
+   {q:'Una persona su una piattaforma rotante che si avvicina al centro fa:',opts:['diminuire ω','aumentare ω','fermare la piattaforma','aumentare L'],ans:1,exp:'Avvicinarsi al centro riduce I ⇒ ω aumenta (L costante).'},
+   {q:'Quando la ballerina chiude le braccia (L costante), la sua energia cinetica di rotazione:',opts:['diminuisce','resta uguale','aumenta','si annulla'],ans:2,exp:'E꜀ = ½I·ω² = ½L·ω: a L costante, se ω cresce E꜀ aumenta. La fornisce il lavoro muscolare.'},
+   {q:'Nell’urto di un corpo contro l’asta imperniata, si conserva:',opts:['l’energia cinetica','il momento angolare rispetto al perno','la quantità di moto lineare','la velocità del corpo'],ans:1,exp:'L’urto è impulsivo: si conserva il momento angolare rispetto al perno (le forze del perno hanno braccio nullo). L’energia cinetica no (urto anelastico).'}
+  ],
+  calcolo:[
+   {q:'Sistema con I₁ = 4 kg·m² e ω₁ = 2 rad/s. Si chiude fino a I₂ = 2 kg·m². Nuova ω₂?',num:true,ans:4,tol:0.1,unit:'rad/s',exp:'I₁ω₁ = I₂ω₂ ⇒ ω₂ = 4·2/2 = 4 rad/s.'},
+   {q:'Asta (M = 2 kg, L = 1 m) imperniata all’estremo, colpita all’estremo da m = 0,2 kg a v = 10 m/s. ω subito dopo l’urto?',num:true,ans:2.31,tol:0.15,unit:'rad/s',exp:'I_tot = ⅓·2·1 + 0,2·1 = 0,867 kg·m²; ω = m·v·L/I_tot = 2/0,867 ≈ 2,31 rad/s.'},
+   {q:'Se il momento d’inerzia si dimezza e L si conserva, la velocità angolare ω:',opts:['si dimezza','raddoppia','resta uguale','quadruplica'],ans:1,exp:'L = I·ω costante: se I → I/2 allora ω → 2ω.'},
+   {q:'Una persona ha I = 5 kg·m² e ruota a ω₀ = 1,2 rad/s; tirando i pesi scende a I = 2 kg·m². Nuova ω?',num:true,ans:3,tol:0.1,unit:'rad/s',exp:'ω = I₀ω₀/I = (5·1,2)/2 = 3 rad/s.'},
+   {q:'Per l’asta colpita, l’accelerazione angolare nell’istante esatto dell’urto (asta verticale, φ = 0) è:',opts:['massima','zero','pari a g/L','infinita'],ans:1,exp:'α = −g(M·L/2+m·L)·sin φ / I_tot: con φ = 0 si ha sin 0 = 0 ⇒ α = 0. Cresce man mano che l’asta sale.'}
+  ]
+ }
+};
+const QSECS=['cinematica','dinamica','carrucola','impulso','angolare'];
+const qTab={}, qState={};
+function qKey(sec,t){ return sec+'|'+t; }
+function initQuiz(){
+  QSECS.forEach(sec=>{ qTab[sec]='teoria';
+    ['teoria','calcolo'].forEach(t=>{ const n=(QUIZ[sec][t]||[]).length;
+      qState[qKey(sec,t)]={idx:0,answers:Array(n).fill(null),done:false}; });
+  });
+}
+function setQTab(sec,t){ qTab[sec]=t; renderQuiz(sec); }
+function scoreOf(sec,t){ const st=qState[qKey(sec,t)];
+  return st.answers.reduce((s,a)=>s+(a&&a.correct?1:0),0); }
+function renderQuiz(sec){
+  const el=document.getElementById('qz-'+sec); if(!el) return;
+  const t=qTab[sec];
+  const seg=`<div class="quiz-seg">
+    <button class="${t==='teoria'?'active':''}" onclick="setQTab('${sec}','teoria')">🧠 Quiz teorici</button>
+    <button class="${t==='calcolo'?'active':''}" onclick="setQTab('${sec}','calcolo')">🔢 Quiz di calcolo</button>
+  </div>`;
+  el.innerHTML=`<div class="card"><h2>🧩 Quiz</h2>${seg}${quizBody(sec,t)}</div>`;
+}
+function quizBody(sec,t){
+  const key=qKey(sec,t), st=qState[key], qs=QUIZ[sec][t]||[], total=qs.length;
+  if(!total) return '<p class="lead">Quiz in preparazione…</p>';
+  const answered=st.answers.filter(a=>a!==null).length;
+  if(st.done){
+    const score=scoreOf(sec,t), r=score/total, mi=r<=0.3?0:r<=0.5?1:r<=0.8?2:r<=0.94?3:4;
+    const icons=['😕','🙂','😊','🎉','🏆'];
+    const msgs=['Da rivedere — rileggi la teoria e riprova.','Sufficiente — qualche lacuna da colmare.','Buono — ci sei quasi!','Ottimo risultato!','Perfetto — nessun errore!'];
+    return `<div class="quiz-done"><span class="quiz-score-big">${icons[mi]} ${score}/${total}</span>
+      <p class="quiz-msg">${msgs[mi]}</p>
+      <div class="quiz-nav"><button class="quiz-prev" onclick="reviewQuiz('${sec}','${t}')">↩️ Rivedi</button>
+      <button class="quiz-restart" onclick="restartQuiz('${sec}','${t}')">🔄 Ricomincia</button></div></div>`;
+  }
+  const q=qs[st.idx], entry=st.answers[st.idx], isAns=entry!==null, pct=answered/total*100;
+  let body;
+  if(q.num){
+    const fbVal = isAns? entry.val : (st.draft!==undefined?st.draft:'');
+    body=`<div class="num-row"><input type="text" inputmode="decimal" id="qnum-${sec}-${t}" value="${isAns?nf(entry.val,3):''}" placeholder="risposta numerica" ${isAns?'disabled':''}>`+
+      `<span class="unit">${q.unit||''}</span>`+
+      (isAns?'':`<button class="btn-check" onclick="answerNum('${sec}','${t}')">Verifica</button>`)+`</div>`;
+  } else {
+    body=`<div class="quiz-opts">`+q.opts.map((o,i)=>{
+      let cls='quiz-btn';
+      if(isAns){ if(i===q.ans) cls+=' correct'; else if(i===entry.chosen) cls+=' wrong'; }
+      return `<button class="${cls}" ${isAns?'disabled':''} onclick="answerMC('${sec}','${t}',${i})">${'ABCD'[i]}) ${o}</button>`;
+    }).join('')+`</div>`;
+  }
+  let exp='';
+  if(isAns) exp=`<div class="quiz-exp ${entry.correct?'ok':'no'}"><strong>${entry.correct?'✓ Corretto!':'✗ Sbagliato.'}</strong> ${q.exp}</div>`;
+  const lastQ=st.idx+1>=total;
+  return `<div class="quiz-hd"><span style="color:var(--muted)">Domanda ${st.idx+1} / ${total}</span>
+      <span style="font-weight:700;color:var(--primary-d)">Risposte: ${answered}/${total}</span></div>
+    <div class="quiz-bar-wrap"><div class="quiz-bar-fill" style="width:${pct}%"></div></div>
+    <p class="quiz-q">${q.q}</p>${body}${exp}
+    <div class="quiz-nav"><button class="quiz-prev" ${st.idx===0?'disabled':''} onclick="prevQuiz('${sec}','${t}')">← Precedente</button>
+    <button class="quiz-next" ${isAns?'':'disabled'} onclick="nextQuiz('${sec}','${t}')">${lastQ?'Vedi risultato →':'Successiva →'}</button></div>`;
+}
+function answerMC(sec,t,chosen){
+  const st=qState[qKey(sec,t)]; if(st.answers[st.idx]!==null) return;
+  const q=QUIZ[sec][t][st.idx];
+  st.answers[st.idx]={kind:'mc',chosen,correct:chosen===q.ans};
+  renderQuiz(sec);
+}
+function answerNum(sec,t){
+  const st=qState[qKey(sec,t)]; if(st.answers[st.idx]!==null) return;
+  const q=QUIZ[sec][t][st.idx], el=document.getElementById('qnum-'+sec+'-'+t);
+  const x=parseNum(el.value);
+  if(!isFinite(x)){ el.focus(); el.style.borderColor='#c62828'; return; }
+  st.answers[st.idx]={kind:'num',val:x,correct:Math.abs(x-q.ans)<=q.tol};
+  renderQuiz(sec);
+}
+function nextQuiz(sec,t){
+  const st=qState[qKey(sec,t)], total=QUIZ[sec][t].length;
+  if(st.answers[st.idx]===null) return;
+  if(st.idx+1>=total) st.done=true; else st.idx++;
+  renderQuiz(sec);
+}
+function prevQuiz(sec,t){ const st=qState[qKey(sec,t)]; if(st.idx>0) st.idx--; st.done=false; renderQuiz(sec); }
+function reviewQuiz(sec,t){ const st=qState[qKey(sec,t)]; st.done=false; st.idx=0; renderQuiz(sec); }
+function restartQuiz(sec,t){ const n=QUIZ[sec][t].length;
+  qState[qKey(sec,t)]={idx:0,answers:Array(n).fill(null),done:false}; renderQuiz(sec); }
+
+/* ============ WIRING ============ */
+regAnim('cinematica',{step:ckStep,draw:ckDraw});
+regAnim('dinamica',{step:dnStep,draw:dnDraw});
+regAnim('carrucola',{step:plStep,draw:plDraw});
+regAnim('impulso',{step:imStep,draw:imDraw});
+regAnim('angolare',{step:anStep,draw:anDraw});
+animators.carrucola.playing=false; // parte in pausa (etichetta "Avvia")
+
+/* cursori */
+bindRange('ckW0','ckW0v',v=>nf(v,1)+' rad/s'); bindRange('ckAl','ckAlv',v=>nf(v,1)+' rad/s²'); bindRange('ckR','ckRv',v=>nf(v,2)+' m');
+bindRange('dnF','dnFv',v=>nf(v,1)+' N'); bindRange('dnRr','dnRrv',v=>nf(v,2)+' R'); bindRange('dnPhi','dnPhiv',v=>v+'°'); bindRange('dnM','dnMv',v=>nf(v,1)+' kg'); bindRange('dnR','dnRv',v=>nf(v,2)+' m');
+bindRange('plM1','plM1v',v=>nf(v,1)+' kg'); bindRange('plM2','plM2v',v=>nf(v,1)+' kg'); bindRange('plTh1','plTh1v',v=>v+'°'); bindRange('plTh2','plTh2v',v=>v+'°'); bindRange('plMu','plMuv',v=>nf(v,2)); bindRange('plMp','plMpv',v=>nf(v,2)+' kg'); bindRange('plR','plRv',v=>nf(v,2)+' m');
+bindRange('imOm0','imOm0v',v=>nf(v,1)+' rad/s'); bindRange('imMom','imMomv',v=>nf(v,2)+' N·m'); bindRange('imDt','imDtv',v=>nf(v,1)+' s'); bindRange('imM','imMv',v=>nf(v,1)+' kg'); bindRange('imR','imRv',v=>nf(v,2)+' m');
+bindRange('anRho','anRhov',v=>nf(v,2)+' m'); bindRange('anMh','anMhv',v=>nf(v,1)+' kg'); bindRange('anIp','anIpv',v=>nf(v,1)+' kg·m²'); bindRange('anW0','anW0v',v=>nf(v,1)+' rad/s');
+bindRange('anMrod','anMrodv',v=>nf(v,1)+' kg'); bindRange('anLrod','anLrodv',v=>nf(v,2)+' m'); bindRange('anm','anmv',v=>nf(v,2)+' kg'); bindRange('anv','anvv',v=>nf(v,1)+' m/s');
+
+/* ridisegno al variare dei cursori */
+['ckW0','ckAl','ckR'].forEach(id=>document.getElementById(id).addEventListener('input',ckDraw));
+['dnF','dnRr','dnPhi','dnM','dnR'].forEach(id=>document.getElementById(id).addEventListener('input',dnDraw));
+['plM1','plM2','plTh1','plTh2','plMu','plMp','plR'].forEach(id=>document.getElementById(id).addEventListener('input',plDraw));
+document.getElementById('plScn').addEventListener('change',()=>{ plReset(); plDraw(); });
+['imMom','imDt','imM','imR'].forEach(id=>document.getElementById(id).addEventListener('input',imDraw));
+document.getElementById('imOm0').addEventListener('input',()=>{ imResetOmega(); imDraw(); });
+['anRho','anMh','anIp','anW0','anMrod','anLrod','anm','anv'].forEach(id=>document.getElementById(id).addEventListener('input',anDraw));
+document.getElementById('anScn').addEventListener('change',anSwitch);
+
+/* pulsanti */
+document.getElementById('ckPlay').addEventListener('click',e=>togglePlay('cinematica',e.currentTarget));
+document.getElementById('ckReset').addEventListener('click',()=>{ ckReset(); ckDraw(); });
+document.getElementById('dnPlay').addEventListener('click',e=>togglePlay('dinamica',e.currentTarget));
+document.getElementById('dnReset').addEventListener('click',()=>{ dnReset(); dnDraw(); });
+document.getElementById('plPlay').addEventListener('click',e=>togglePlay('carrucola',e.currentTarget));
+document.getElementById('plReset').addEventListener('click',()=>{ plReset(); plDraw(); });
+document.getElementById('imApply').addEventListener('click',imApplyStart);
+document.getElementById('imReset').addEventListener('click',()=>{ imResetOmega(); imDraw(); });
+document.getElementById('anPlay').addEventListener('click',e=>togglePlay('angolare',e.currentTarget));
+document.getElementById('anLaunch').addEventListener('click',anLaunchRod);
+
+/* quiz & prova tu */
+initQuiz(); QSECS.forEach(renderQuiz); QSECS.forEach(provaNew);
+
+/* disegni iniziali */
+ckDraw(); dnDraw(); plDraw(); imDraw(); anSwitch();
+
+/* nav sticky sotto l'header */
+const _hdr=document.querySelector('header'), _nav=document.querySelector('nav.main');
+function _updateNavTop(){ _nav.style.top=_hdr.offsetHeight+'px'; }
+new ResizeObserver(_updateNavTop).observe(_hdr); _updateNavTop();
+
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
