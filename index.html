@@ -262,6 +262,7 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
   <button data-tab="carrucola">⛰️ Carrucola</button>
   <button data-tab="impulso">⏱️ Momento &amp; tempo</button>
   <button data-tab="angolare">💫 Mom. angolare</button>
+  <button data-tab="rototraslazione">🎳 Rototraslazione</button>
 </nav>
 <main>
 
@@ -292,6 +293,7 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
     <button class="home-card" data-go="carrucola"><span class="ico">⛰️</span><strong>3 · Piani inclinati e carrucola</strong><span>Corpi collegati, carrucola-disco</span></button>
     <button class="home-card" data-go="impulso"><span class="ico">⏱️</span><strong>4 · Momento e tempo</strong><span>Impulso angolare M·Δt = ΔL</span></button>
     <button class="home-card" data-go="angolare"><span class="ico">💫</span><strong>5 · Momento angolare</strong><span>Piattaforma, ballerina, asta colpita</span></button>
+    <button class="home-card" data-go="rototraslazione"><span class="ico">🎳</span><strong>6 · Rototraslazione</strong><span>Rotolamento puro, v = ω·R, energia</span></button>
   </div>
 </section>
 
@@ -765,6 +767,115 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
   <div id="qz-angolare" class="quiz-block"></div>
 </section>
 
+<!-- ============ 6 · ROTOTRASLAZIONE ============ -->
+<section class="scene" id="rototraslazione" data-title="6 · Rototraslazione (rotolamento)">
+  <p class="sec-label step" data-n="6">Rototraslazione: traslazione + rotazione insieme</p>
+
+  <p class="sec-label">Teoria</p>
+  <div class="card">
+    <h2>🎳 Quando un corpo trasla e ruota nello stesso istante</h2>
+    <p>Una ruota che avanza, una palla che rotola: il corpo <strong>trasla</strong> (il suo centro di massa si sposta) e contemporaneamente <strong>ruota</strong> attorno al centro di massa. La velocità di un punto qualsiasi è la somma:</p>
+    <div class="formula"><b>v</b><sub>punto</sub> = <b>v</b><sub>cm</sub> + <b>v</b><sub>rotazione</sub></div>
+    <h3>Rotolamento puro (senza strisciare)</h3>
+    <p>Se il corpo rotola <em>senza strisciare</em>, il punto a contatto col suolo in quell'istante è <strong>fermo</strong>. Da qui i due legami fondamentali fra grandezze lineari e angolari:</p>
+    <div class="formula">v<sub>cm</sub> = ω·R &nbsp;·&nbsp; a<sub>cm</sub> = α·R</div>
+    <p>Conseguenza sui punti notevoli: il <strong>contatto</strong> ha velocità 0, il <strong>centro</strong> ha velocità v<sub>cm</sub>, la <strong>sommità</strong> ha velocità doppia 2·v<sub>cm</sub>. È come se in ogni istante il corpo ruotasse attorno al punto di contatto (asse istantaneo di rotazione).</p>
+    <h3>Energia cinetica: due contributi</h3>
+    <p>L'energia cinetica è la somma di quella di traslazione e di quella di rotazione:</p>
+    <div class="formula">E<sub>c</sub> = ½·m·v<sub>cm</sub>² + ½·I<sub>cm</sub>·ω²</div>
+    <p>Scrivendo I<sub>cm</sub> = c·m·R² (con c che dipende solo dalla forma) e usando v = ω·R:</p>
+    <div class="formula">E<sub>c</sub> = ½·m·v<sub>cm</sub>²·(1 + c) &nbsp;·&nbsp; con c: anello 1 · cilindro ½ · sfera ⅖</div>
+    <h3>Rotolamento lungo un piano inclinato</h3>
+    <p>Un corpo che rotola senza strisciare giù da un piano di angolo θ ha accelerazione del centro di massa:</p>
+    <div class="formula">a<sub>cm</sub> = g·sin θ / (1 + c)</div>
+    <p>Sorpresa: <strong>non dipende né dalla massa né dal raggio</strong>, ma solo dalla forma (cioè da c)! Quindi in una «gara» giù dal piano arriva prima il corpo con c più piccolo:</p>
+    <table class="cmp">
+      <thead><tr><th>Corpo</th><th>I<sub>cm</sub></th><th>c</th><th>a<sub>cm</sub> sul piano</th></tr></thead>
+      <tbody>
+        <tr><td>blocco che scivola (no attrito)</td><td class="rot">—</td><td>0</td><td class="rot">g·sin θ &nbsp;(il più veloce)</td></tr>
+        <tr><td>sfera piena</td><td class="rot">⅖mR²</td><td>0,40</td><td class="rot">5/7·g·sin θ</td></tr>
+        <tr><td>cilindro / disco</td><td class="rot">½mR²</td><td>0,50</td><td class="rot">2/3·g·sin θ</td></tr>
+        <tr><td>anello / cilindro cavo</td><td class="rot">mR²</td><td>1,00</td><td class="rot">½·g·sin θ &nbsp;(il più lento)</td></tr>
+      </tbody>
+    </table>
+    <p>Con la conservazione dell'energia (partendo da un dislivello h) si trova anche la velocità in fondo:</p>
+    <div class="formula">m·g·h = ½·m·v²·(1+c) &nbsp;⇒&nbsp; v = √( 2·g·h / (1+c) )</div>
+    <div class="tip">🔧 <strong>Il ruolo dell'attrito.</strong> È l'attrito <em>statico</em> a fornire il momento che fa rotolare il corpo. Poiché il punto di contatto è fermo, questo attrito <strong>non compie lavoro</strong>: l'energia meccanica si conserva. Serve però abbastanza attrito: se μ < (c/(1+c))·tan θ il corpo comincia a strisciare.</div>
+    <svg class="diagram" viewBox="0 0 420 210" role="img" aria-label="Velocità dei punti di una ruota che rotola">
+      <line x1="20" y1="170" x2="400" y2="170" stroke="#5b6470" stroke-width="2"/>
+      <g>
+        <circle cx="150" cy="120" r="50" fill="#eef3fb" stroke="#9aa3b2" stroke-width="1.6"/>
+        <circle cx="150" cy="120" r="4" fill="#1a1a2e"/>
+        <line x1="150" y1="120" x2="186" y2="84" stroke="#c7d2e6" stroke-width="2"/>
+        <line x1="150" y1="120" x2="114" y2="156" stroke="#c7d2e6" stroke-width="2"/>
+        <!-- sommità 2v -->
+        <circle cx="150" cy="70" r="4" fill="#00897b"/>
+        <line x1="150" y1="70" x2="230" y2="70" stroke="#00897b" stroke-width="2.6"/><polygon points="230,70 218,65 218,75" fill="#00897b"/>
+        <text x="236" y="74" font-size="12" fill="#00897b" font-weight="700">2·v</text>
+        <!-- centro v -->
+        <line x1="150" y1="120" x2="200" y2="120" stroke="#1565c0" stroke-width="2.6"/><polygon points="200,120 188,115 188,125" fill="#1565c0"/>
+        <text x="206" y="124" font-size="12" fill="#1565c0" font-weight="700">v</text>
+        <!-- contatto 0 -->
+        <circle cx="150" cy="170" r="5" fill="#e53935"/>
+        <text x="158" y="188" font-size="12" fill="#e53935" font-weight="700">v = 0 (contatto)</text>
+        <!-- omega -->
+        <path d="M 110 110 A 42 42 0 0 1 128 86" fill="none" stroke="#7b1fa2" stroke-width="2.4"/><polygon points="128,86 116,89 122,96" fill="#7b1fa2"/>
+        <text x="96" y="104" font-size="12" fill="#7b1fa2" font-weight="700">ω</text>
+      </g>
+      <text x="300" y="150" font-size="13" fill="#0d47a1" font-weight="700">v = ω·R</text>
+      <text x="300" y="172" font-size="11" fill="#6b7280">contatto 0 · centro v · cima 2v</text>
+    </svg>
+    <p class="dcap">Diagramma: in un rotolamento puro il contatto è fermo, il centro va a v, la sommità a 2·v.</p>
+  </div>
+
+  <p class="sec-label">Simulazioni</p>
+  <div class="card sim-block">
+    <h3>🏁 La gara: chi rotola più in fretta?</h3>
+    <p class="lead">Un corpo che rotola (forma scegliibile) e un blocco che scivola senza attrito partono insieme dalla cima. Osserva: il blocco vince sempre (tutta l'energia va in traslazione), e fra i corpi che rotolano vince la sfera. Cambia massa e raggio: l'accelerazione non cambia! Sul corpo che rotola sono mostrate le velocità di contatto (0), centro (v) e sommità (2v).</p>
+    <div class="sim-layout">
+      <div class="sim-pane">
+        <svg class="sim" id="svgRt" viewBox="0 0 360 300" preserveAspectRatio="xMidYMid meet"></svg>
+        <div class="legend">
+          <span style="color:var(--vV)"><i style="background:var(--vV)"></i>v centro</span>
+          <span style="color:var(--vV)"><i style="background:#00897b"></i>2v sommità</span>
+          <span style="color:var(--vA)"><i style="background:var(--vA)"></i>contatto = 0</span>
+        </div>
+        <div class="sim-foot">
+          <button class="play-btn" id="rtPlay">⏸️ Pausa</button>
+          <button class="play-btn soft" id="rtReset">↺ Riparti</button>
+        </div>
+      </div>
+      <div class="ctrl-pane">
+        <div class="preset-row"><span class="nm">forma che rotola</span>
+          <select id="rtShape">
+            <option value="0.4">Sfera piena (c = 0,40)</option>
+            <option value="0.5" selected>Cilindro / disco (c = 0,50)</option>
+            <option value="1">Anello / cilindro cavo (c = 1)</option>
+          </select>
+        </div>
+        <div class="ctrl">
+          <label><span class="nm">angolo θ</span><input type="range" id="rtTh" min="5" max="40" step="1" value="25"><span class="v" id="rtThv">25°</span></label>
+          <label><span class="nm">raggio R</span><input type="range" id="rtR" min="0.1" max="0.5" step="0.05" value="0.30"><span class="v" id="rtRv">0,30 m</span></label>
+        </div>
+        <div class="read">
+          <div class="it"><span class="l">forma c</span><span class="v" id="rtC">—</span></div>
+          <div class="it"><span class="l">a rotola</span><span class="v" id="rtA">—</span> m/s²</div>
+          <div class="it"><span class="l">a scivola</span><span class="v" id="rtAsl">—</span> m/s²</div>
+          <div class="it"><span class="l">v centro</span><span class="v" id="rtV">—</span> m/s</div>
+          <div class="it"><span class="l">ω = v/R</span><span class="v" id="rtOm">—</span> rad/s</div>
+          <div class="it"><span class="l">v sommità</span><span class="v" id="rtVtop">—</span> m/s</div>
+        </div>
+        <div class="eqs ok" id="rtBadge">E<sub>rot</sub>/E<sub>tot</sub> = c/(1+c)</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="sec-label">Prova tu</p>
+  <div class="card prova-block" id="prova-rototraslazione"></div>
+
+  <div id="qz-rototraslazione" class="quiz-block"></div>
+</section>
+
 </main>
 
 <script>
@@ -1191,6 +1302,61 @@ function anSwitch(){
   anDraw();
 }
 
+/* ============ 6 · ROTOTRASLAZIONE ============ */
+const rtState={t:0};
+function rtPhys(){
+  const c=+document.getElementById('rtShape').value, th=val('rtTh')*DEG, R=val('rtR');
+  const aRoll=G*Math.sin(th)/(1+c), aSlide=G*Math.sin(th);
+  const v=aRoll*rtState.t, om=v/R, vtop=2*v, erot=c/(1+c);
+  return {c,th,R,aRoll,aSlide,v,om,vtop,erot};
+}
+function rtReset(){ rtState.t=0; }
+function rtStep(dt){
+  const p=rtPhys(), trackM=4;
+  rtState.t+=dt;
+  if(0.5*p.aSlide*rtState.t*rtState.t>=trackM) rtState.t=0; // ricomincia la gara
+}
+function rtDraw(){
+  const p=rtPhys(), trackM=4;
+  const Tp={x:58,y:66}, Lline=246;
+  const u={x:Math.cos(p.th),y:Math.sin(p.th)};     // giù lungo il piano
+  const n={x:Math.sin(p.th),y:-Math.cos(p.th)};    // normale (verso l'alto)
+  const Bp={x:Tp.x+Lline*u.x, y:Tp.y+Lline*u.y};
+  const Rpix=10+p.R*26;
+  let s='';
+  // cuneo e suolo
+  s+=`<polygon points="${Tp.x},${Tp.y} ${Bp.x.toFixed(1)},${Bp.y.toFixed(1)} ${Tp.x},${Bp.y.toFixed(1)}" fill="#eef3fb" stroke="#9aa3b2" stroke-width="1.4"/>`;
+  s+=`<line x1="20" y1="${Bp.y.toFixed(1)}" x2="345" y2="${Bp.y.toFixed(1)}" stroke="#5b6470" stroke-width="2"/>`;
+  s+=arcPath(Bp.x,Bp.y,30,Math.PI,Math.PI-p.th,COL.th,1.6)+`<text x="${(Bp.x-46).toFixed(1)}" y="${(Bp.y-8).toFixed(1)}" font-size="11" fill="${COL.th}" font-weight="700">θ</text>`;
+  // posizioni (gara da fermo)
+  const dRoll=Math.min(0.5*p.aRoll*rtState.t*rtState.t,trackM), dSlide=Math.min(0.5*p.aSlide*rtState.t*rtState.t,trackM);
+  const fR=dRoll/trackM, fS=dSlide/trackM;
+  // blocco che scivola
+  const sc={x:Tp.x+fS*Lline*u.x, y:Tp.y+fS*Lline*u.y};
+  const bcx=sc.x+n.x*12, bcy=sc.y+n.y*12;
+  s+=`<g transform="rotate(${(p.th/DEG).toFixed(1)} ${bcx.toFixed(1)} ${bcy.toFixed(1)})"><rect x="${(bcx-12).toFixed(1)}" y="${(bcy-10).toFixed(1)}" width="24" height="20" rx="2.5" fill="#cfd9ec" stroke="#5b6470" stroke-width="1.3"/></g>`;
+  s+=`<text x="${bcx.toFixed(1)}" y="${(bcy-16).toFixed(1)}" text-anchor="middle" font-size="9.5" fill="#5b6470" font-weight="700">scivola</text>`;
+  // corpo che rotola
+  const rc={x:Tp.x+fR*Lline*u.x, y:Tp.y+fR*Lline*u.y};
+  const ccx=rc.x+n.x*Rpix, ccy=rc.y+n.y*Rpix;
+  const spin=(fR*Lline)/Rpix;
+  s+=`<circle cx="${ccx.toFixed(1)}" cy="${ccy.toFixed(1)}" r="${Rpix.toFixed(1)}" fill="#fff5dc" stroke="#8d6e00" stroke-width="1.8"/>`;
+  s+=spokes(ccx,ccy,Rpix-2,-spin,2,'#c79a00');
+  s+=`<circle cx="${ccx.toFixed(1)}" cy="${ccy.toFixed(1)}" r="3" fill="#1a1a2e"/>`;
+  // velocità: contatto 0, centro v, sommità 2v
+  const K=7, lc=clamp(p.v*K,0,40), lt=clamp(2*p.v*K,0,72);
+  const topx=ccx+n.x*Rpix, topy=ccy+n.y*Rpix;
+  s+=arrow(ccx,ccy,ccx+u.x*lc,ccy+u.y*lc,COL.om,'v',2.4);
+  s+=arrow(topx,topy,topx+u.x*lt,topy+u.y*lt,'#00897b','2v',2.4);
+  s+=`<circle cx="${rc.x.toFixed(1)}" cy="${rc.y.toFixed(1)}" r="4" fill="${COL.a}"/>`;
+  document.getElementById('svgRt').innerHTML=s;
+  setText('rtC',nf(p.c,2)); setText('rtA',nf(p.aRoll,2)); setText('rtAsl',nf(p.aSlide,2));
+  setText('rtV',nf(p.v,2)); setText('rtOm',nf(p.om,2)); setText('rtVtop',nf(p.vtop,2));
+  const b=document.getElementById('rtBadge');
+  b.className='eqs ok';
+  b.innerHTML=`il blocco vince · a<sub>rotola</sub> = g·sinθ/(1+c) = ${nf(p.aRoll,2)} m/s²`;
+}
+
 /* ============ PROVA TU — esercizi guidati ============ */
 function rint(a,b){ return Math.floor(Math.random()*(b-a+1))+a; }
 function rpick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
@@ -1266,6 +1432,21 @@ const PROVA={
               {t:'Risultato (① urto)', d:`ω = ${nf(m,2)}·${v}·${nf(L,2)} / ${nf(Itot,3)} = <b>${nf(om0,2)} rad/s</b>`},
               {t:'② Gravità → α', d:`a φ = 90° l’accelerazione angolare è α = g(M·L/2+m·L)/I_tot = ${nf(al90,2)} rad/s² (è 0 all’istante dell’urto, φ≈0)`},
               {t:'Salita massima', d:`l’asta sale fino a φ ≈ ${full?'oltre 180° (fa il giro)':nf(phimax,0)+'°'}`} ] }; }
+  },
+  rototraslazione:{ title:'🎳 Corpo che rotola giù da un piano inclinato', gen(){
+    const shapes=[['una sfera piena',0.4,'⅖'],['un cilindro pieno',0.5,'½'],['un anello',1,'1']];
+    const sh=rpick(shapes), c=sh[1], th=rint(15,35), h=rstep(0.5,2,0.5);
+    const a=G*Math.sin(th*DEG)/(1+c), v=Math.sqrt(2*G*h/(1+c));
+    return { unit:'m/s²', ans:a, tol:Math.max(0.1,0.02*a),
+      statement:`${sh[0].charAt(0).toUpperCase()+sh[0].slice(1)} (massa m, raggio R) rotola <b>senza strisciare</b> giù da un piano inclinato di <b>θ = ${th}°</b>. Per questa forma I<sub>cm</sub> = ${sh[2]}·m·R², cioè <b>c = ${nf(c,2)}</b>.<br><b>Domanda:</b> quanto vale l'<b>accelerazione del centro di massa a<sub>cm</sub></b>? (g = 9,81 m/s²)`,
+      hints:[ 'Per il rotolamento puro su un piano vale a_cm = g·sin θ / (1 + c), dove c = I_cm/(m·R²).',
+              'Nota: massa e raggio non compaiono! Conta solo la forma (c) e l’angolo θ.',
+              `g·sin θ = 9,81·sin ${th}° = ${nf(G*Math.sin(th*DEG),2)} m/s²; ora dividi per (1 + ${nf(c,2)}).` ],
+      steps:[ {t:'Formula', d:'a_cm = g·sin θ / (1 + c)'},
+              {t:'Componente lungo il piano', d:`g·sin θ = 9,81·sin ${th}° = ${nf(G*Math.sin(th*DEG),2)} m/s²`},
+              {t:'Divido per (1+c)', d:`a_cm = ${nf(G*Math.sin(th*DEG),2)} / (1 + ${nf(c,2)}) = <b>${nf(a,2)} m/s²</b>`},
+              {t:'Indipendenza', d:`il risultato non dipende da m né da R: cambia solo con la forma (c) e con θ`},
+              {t:'Extra (energia)', d:`partendo da un dislivello h = ${nf(h,1)} m, in fondo v = √(2gh/(1+c)) = ${nf(v,2)} m/s`} ] }; }
   }
 };
 const pState={};
@@ -1385,9 +1566,25 @@ const QUIZ={
    {q:'Una persona ha I = 5 kg·m² e ruota a ω₀ = 1,2 rad/s; tirando i pesi scende a I = 2 kg·m². Nuova ω?',num:true,ans:3,tol:0.1,unit:'rad/s',exp:'ω = I₀ω₀/I = (5·1,2)/2 = 3 rad/s.'},
    {q:'Per l’asta colpita, l’accelerazione angolare nell’istante esatto dell’urto (asta verticale, φ = 0) è:',opts:['massima','zero','pari a g/L','infinita'],ans:1,exp:'α = −g(M·L/2+m·L)·sin φ / I_tot: con φ = 0 si ha sin 0 = 0 ⇒ α = 0. Cresce man mano che l’asta sale.'}
   ]
+ },
+ rototraslazione:{
+  teoria:[
+   {q:'Nel rotolamento puro (senza strisciare), il legame fra velocità del centro e velocità angolare è:',opts:['v = ω/R','v = ω·R','v = R/ω','v = ω·R²'],ans:1,exp:'Rotolamento puro: v_cm = ω·R (e analogamente a_cm = α·R).'},
+   {q:'In un corpo che rotola senza strisciare, il punto a contatto col suolo ha velocità:',opts:['uguale al centro','doppia del centro','nulla','massima'],ans:2,exp:'Il contatto è istantaneamente fermo: è l’asse istantaneo di rotazione. Il centro va a v, la sommità a 2v.'},
+   {q:'Sfera, cilindro e anello rotolano giù dallo stesso piano. Chi arriva primo?',opts:['l’anello','il cilindro','la sfera','arrivano insieme'],ans:2,exp:'a = g·sinθ/(1+c): vince il c più piccolo. Sfera (c=0,4) > cilindro (0,5) > anello (1).'},
+   {q:'L’accelerazione di un corpo che rotola giù da un piano dipende da:',opts:['massa e raggio','solo dalla forma (c) e da θ','solo dalla massa','solo dal raggio'],ans:1,exp:'a = g·sinθ/(1+c): m e R si semplificano, conta solo la forma e l’inclinazione.'},
+   {q:'L’energia cinetica di un corpo che rotola è:',opts:['solo ½m·v²','solo ½I·ω²','½m·v² + ½I·ω²','m·g·h'],ans:2,exp:'È la somma di traslazione (½m·v²) e rotazione (½I·ω²).'}
+  ],
+  calcolo:[
+   {q:'Un cilindro (c = 0,5) rotola senza strisciare su un piano a θ = 30°. Accelerazione del centro? (g = 9,81)',num:true,ans:3.27,tol:0.15,unit:'m/s²',exp:'a = g·sin30°/(1+0,5) = 4,905/1,5 = 3,27 m/s².'},
+   {q:'Una ruota rotola senza strisciare: ω = 20 rad/s, R = 0,30 m. Velocità del centro?',num:true,ans:6,tol:0.1,unit:'m/s',exp:'v = ω·R = 20·0,30 = 6 m/s.'},
+   {q:'Se il centro di una ruota va a v = 4 m/s, la sua sommità (rotolamento puro) va a:',opts:['2 m/s','4 m/s','8 m/s','0 m/s'],ans:2,exp:'v_sommità = 2·v_cm = 8 m/s; il contatto invece è fermo.'},
+   {q:'Una sfera (c = 0,4) parte da ferma e rotola giù per un dislivello h = 2 m. Velocità in fondo? (g = 9,81)',num:true,ans:5.29,tol:0.15,unit:'m/s',exp:'v = √(2gh/(1+c)) = √(2·9,81·2/1,4) = √28,0 ≈ 5,29 m/s.'},
+   {q:'Un anello (c = 1) rotola su un piano a θ = 20°. Accelerazione del centro? (g = 9,81)',num:true,ans:1.68,tol:0.1,unit:'m/s²',exp:'a = g·sin20°/(1+1) = 3,355/2 = 1,68 m/s².'}
+  ]
  }
 };
-const QSECS=['cinematica','dinamica','carrucola','impulso','angolare'];
+const QSECS=['cinematica','dinamica','carrucola','impulso','angolare','rototraslazione'];
 const qTab={}, qState={};
 function qKey(sec,t){ return sec+'|'+t; }
 function initQuiz(){
@@ -1476,6 +1673,7 @@ regAnim('dinamica',{step:dnStep,draw:dnDraw});
 regAnim('carrucola',{step:plStep,draw:plDraw});
 regAnim('impulso',{step:imStep,draw:imDraw});
 regAnim('angolare',{step:anStep,draw:anDraw});
+regAnim('rototraslazione',{step:rtStep,draw:rtDraw});
 animators.carrucola.playing=false; // parte in pausa (etichetta "Avvia")
 
 /* cursori */
@@ -1485,6 +1683,7 @@ bindRange('plM1','plM1v',v=>nf(v,1)+' kg'); bindRange('plM2','plM2v',v=>nf(v,1)+
 bindRange('imOm0','imOm0v',v=>nf(v,1)+' rad/s'); bindRange('imMom','imMomv',v=>nf(v,2)+' N·m'); bindRange('imDt','imDtv',v=>nf(v,1)+' s'); bindRange('imM','imMv',v=>nf(v,1)+' kg'); bindRange('imR','imRv',v=>nf(v,2)+' m');
 bindRange('anRho','anRhov',v=>nf(v,2)+' m'); bindRange('anMh','anMhv',v=>nf(v,1)+' kg'); bindRange('anIp','anIpv',v=>nf(v,1)+' kg·m²'); bindRange('anW0','anW0v',v=>nf(v,1)+' rad/s');
 bindRange('anMrod','anMrodv',v=>nf(v,1)+' kg'); bindRange('anLrod','anLrodv',v=>nf(v,2)+' m'); bindRange('anm','anmv',v=>nf(v,2)+' kg'); bindRange('anv','anvv',v=>nf(v,1)+' m/s');
+bindRange('rtTh','rtThv',v=>v+'°'); bindRange('rtR','rtRv',v=>nf(v,2)+' m');
 
 /* ridisegno al variare dei cursori */
 ['ckW0','ckAl','ckR'].forEach(id=>document.getElementById(id).addEventListener('input',ckDraw));
@@ -1495,6 +1694,8 @@ document.getElementById('plScn').addEventListener('change',()=>{ plReset(); plDr
 document.getElementById('imOm0').addEventListener('input',()=>{ imResetOmega(); imDraw(); });
 ['anRho','anMh','anIp','anW0','anMrod','anLrod','anm','anv'].forEach(id=>document.getElementById(id).addEventListener('input',anDraw));
 document.getElementById('anScn').addEventListener('change',anSwitch);
+['rtTh','rtR'].forEach(id=>document.getElementById(id).addEventListener('input',rtDraw));
+document.getElementById('rtShape').addEventListener('change',()=>{ rtReset(); rtDraw(); });
 
 /* pulsanti */
 document.getElementById('ckPlay').addEventListener('click',e=>togglePlay('cinematica',e.currentTarget));
@@ -1507,12 +1708,14 @@ document.getElementById('imApply').addEventListener('click',imApplyStart);
 document.getElementById('imReset').addEventListener('click',()=>{ imResetOmega(); imDraw(); });
 document.getElementById('anPlay').addEventListener('click',e=>togglePlay('angolare',e.currentTarget));
 document.getElementById('anLaunch').addEventListener('click',anLaunchRod);
+document.getElementById('rtPlay').addEventListener('click',e=>togglePlay('rototraslazione',e.currentTarget));
+document.getElementById('rtReset').addEventListener('click',()=>{ rtReset(); rtDraw(); });
 
 /* quiz & prova tu */
 initQuiz(); QSECS.forEach(renderQuiz); QSECS.forEach(provaNew);
 
 /* disegni iniziali */
-ckDraw(); dnDraw(); plDraw(); imDraw(); anSwitch();
+ckDraw(); dnDraw(); plDraw(); imDraw(); anSwitch(); rtDraw();
 
 /* nav sticky sotto l'header */
 const _hdr=document.querySelector('header'), _nav=document.querySelector('nav.main');
