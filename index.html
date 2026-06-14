@@ -920,6 +920,8 @@ function typeset(el){
       ignoredTags:['script','noscript','style','textarea','pre','code','option','input']}); }catch(e){}
   }
 }
+/* numero formattato per l'uso DENTRO una formula KaTeX (virgola → {,}) */
+function knum(x,d){ return nf(x,d).replace(',','{,}'); }
 
 /* ===== Helper: freccia SVG ===== */
 function arrow(x1,y1,x2,y2,color,label,w){
@@ -1399,28 +1401,28 @@ const PROVA={
     const w0=rstep(0,3,0.5), al=rstep(1,3,0.5), t=rint(2,6), r=rstep(0.2,0.5,0.05);
     const wf=w0+al*t, th=w0*t+0.5*al*t*t, giri=th/(2*Math.PI), v=r*wf;
     return { unit:'rad', ans:th, tol:Math.max(0.2,0.02*th),
-      statement:`Una ruota ruota attorno al suo asse partendo con velocità angolare <b>ω₀ = ${nf(w0,1)} rad/s</b> e accelera uniformemente con <b>α = ${nf(al,1)} rad/s²</b>. Un punto del bordo dista <b>r = ${nf(r,2)} m</b> dall'asse.<br><b>Domanda:</b> di quale <b>angolo θ</b> (in radianti) ruota la ruota in <b>t = ${t} s</b>?`,
-      hints:[ 'È un moto rotatorio uniformemente accelerato: vale θ = ω₀·t + ½·α·t² (stessa forma di s = v₀·t + ½·a·t²).',
-              'Sostituisci ω₀, α e t. Calcola separatamente ω₀·t e ½·α·t², poi somma.',
-              `½·α·t² = ½·${nf(al,1)}·${t}² = ${nf(0.5*al*t*t,2)} rad.` ],
-      steps:[ {t:'Formula', d:'θ = ω₀·t + ½·α·t²'},
-              {t:'Sostituzione', d:`θ = ${nf(w0,1)}·${t} + ½·${nf(al,1)}·${t}²`},
-              {t:'Calcolo', d:`θ = ${nf(w0*t,2)} + ${nf(0.5*al*t*t,2)} = <b>${nf(th,2)} rad</b>`},
-              {t:'In giri', d:`n = θ/(2π) = ${nf(giri,2)} giri`},
-              {t:'Extra', d:`ω finale = ω₀+α·t = ${nf(wf,2)} rad/s; velocità del punto v = r·ω = ${nf(v,2)} m/s`} ] }; }
+      statement:`Una ruota ruota attorno al suo asse partendo con velocità angolare $\\omega_0 = ${knum(w0,1)}$ rad/s e accelera uniformemente con $\\alpha = ${knum(al,1)}$ rad/s². Un punto del bordo dista $r = ${knum(r,2)}$ m dall'asse.<br><b>Domanda:</b> di quale angolo $\\theta$ (in radianti) ruota la ruota in $t = ${t}$ s?`,
+      hints:[ 'È un moto rotatorio uniformemente accelerato: vale $\\theta = \\omega_0\\,t + \\tfrac12\\,\\alpha\\,t^2$ (stessa forma di $s = v_0\\,t + \\tfrac12\\,a\\,t^2$).',
+              'Sostituisci $\\omega_0$, $\\alpha$ e $t$. Calcola separatamente $\\omega_0\\,t$ e $\\tfrac12\\,\\alpha\\,t^2$, poi somma.',
+              `$\\tfrac12\\,\\alpha\\,t^2 = \\tfrac12\\cdot ${knum(al,1)}\\cdot ${t}^2 = ${knum(0.5*al*t*t,2)}$ rad.` ],
+      steps:[ {t:'Formula', d:'$\\theta = \\omega_0\\,t + \\tfrac12\\,\\alpha\\,t^2$'},
+              {t:'Sostituzione', d:`$\\theta = ${knum(w0,1)}\\cdot ${t} + \\tfrac12\\cdot ${knum(al,1)}\\cdot ${t}^2$`},
+              {t:'Calcolo', d:`$\\theta = ${knum(w0*t,2)} + ${knum(0.5*al*t*t,2)} = ${knum(th,2)}$ rad`},
+              {t:'In giri', d:`$n = \\dfrac{\\theta}{2\\pi} = ${knum(giri,2)}$ giri`},
+              {t:'Extra', d:`velocità finale $\\omega = \\omega_0+\\alpha t = ${knum(wf,2)}$ rad/s; velocità del punto $v = r\\,\\omega = ${knum(v,2)}$ m/s`} ] }; }
   },
   dinamica:{ title:'⚙️ Momento, inerzia e accelerazione di un disco', gen(){
     const F=rint(4,16), R=rstep(0.2,0.5,0.05), M=rstep(1,4,0.5), t=rint(2,5);
     const I=0.5*M*R*R, Mt=F*R, al=Mt/I, wf=al*t, L=I*wf;
     return { unit:'rad/s²', ans:al, tol:Math.max(0.3,0.02*al),
-      statement:`Un disco pieno omogeneo (massa <b>M = ${nf(M,1)} kg</b>, raggio <b>R = ${nf(R,2)} m</b>) è libero di ruotare attorno al suo asse. Gli si applica al bordo, tangenzialmente, una forza <b>F = ${F} N</b>.<br><b>Domanda:</b> quale <b>accelerazione angolare α</b> acquista?`,
-      hints:[ 'Per un disco pieno I = ½·M·R². Il momento di una forza tangenziale al bordo è M = F·R.',
-              'Applica la 2ª legge della rotazione: α = M / I (analoga ad a = F/m).',
-              `I = ½·${nf(M,1)}·${nf(R,2)}² = ${nf(I,3)} kg·m².` ],
-      steps:[ {t:'Inerzia', d:`I = ½·M·R² = ½·${nf(M,1)}·${nf(R,2)}² = ${nf(I,3)} kg·m²`},
-              {t:'Momento', d:`M = F·R = ${F}·${nf(R,2)} = ${nf(Mt,2)} N·m`},
-              {t:'2ª legge', d:`α = M/I = ${nf(Mt,2)}/${nf(I,3)} = <b>${nf(al,2)} rad/s²</b>`},
-              {t:'Dopo t', d:`in t = ${t} s: ω = α·t = ${nf(wf,2)} rad/s, con L = I·ω = ${nf(L,2)} kg·m²/s`} ] }; }
+      statement:`Un disco pieno omogeneo (massa $M = ${knum(M,1)}$ kg, raggio $R = ${knum(R,2)}$ m) è libero di ruotare attorno al suo asse. Gli si applica al bordo, tangenzialmente, una forza $F = ${F}$ N.<br><b>Domanda:</b> quale accelerazione angolare $\\alpha$ acquista?`,
+      hints:[ 'Per un disco pieno $I = \\tfrac12 M R^2$. Il momento di una forza tangenziale al bordo è $M = F\\,R$.',
+              'Applica la 2ª legge della rotazione: $\\alpha = M/I$ (analoga ad $a = F/m$).',
+              `$I = \\tfrac12\\cdot ${knum(M,1)}\\cdot ${knum(R,2)}^2 = ${knum(I,3)}$ kg·m².` ],
+      steps:[ {t:'Inerzia', d:`$I = \\tfrac12 M R^2 = \\tfrac12\\cdot ${knum(M,1)}\\cdot ${knum(R,2)}^2 = ${knum(I,3)}$ kg·m²`},
+              {t:'Momento', d:`$M = F\\,R = ${F}\\cdot ${knum(R,2)} = ${knum(Mt,2)}$ N·m`},
+              {t:'2ª legge', d:`$\\alpha = \\dfrac{M}{I} = \\dfrac{${knum(Mt,2)}}{${knum(I,3)}} = ${knum(al,2)}$ rad/s²`},
+              {t:'Dopo t', d:`in $t = ${t}$ s: $\\omega = \\alpha t = ${knum(wf,2)}$ rad/s, con $L = I\\,\\omega = ${knum(L,2)}$ kg·m²/s`} ] }; }
   },
   carrucola:{ title:'⛰️ Sistema con carrucola-disco', gen(){
     const m1=rstep(1,4,0.5), th1=rint(20,40), mu=rstep(0,0.2,0.05), Mp=rstep(1,4,0.5);
@@ -1428,26 +1430,26 @@ const PROVA={
     const d1=m1*G*Math.sin(th1*DEG), f=mu*m1*G*Math.cos(th1*DEG), denom=m1+m2+0.5*Mp;
     const a=(m2*G-d1-f)/denom;
     return { unit:'m/s²', ans:a, tol:Math.max(0.1,0.02*Math.abs(a)),
-      statement:`Una massa <b>m₁ = ${nf(m1,1)} kg</b> sta su un piano inclinato di <b>θ₁ = ${th1}°</b> (attrito <b>μ = ${nf(mu,2)}</b>) ed è collegata da un filo, che passa su una <b>carrucola-disco</b> (massa <b>M<sub>p</sub> = ${nf(Mp,1)} kg</b>), a una massa <b>m₂ = ${nf(m2,1)} kg</b> appesa nel vuoto.<br><b>Domanda:</b> con quale <b>accelerazione a</b> si muove il sistema? (g = 9,81 m/s²)`,
-      hints:[ 'La carrucola è un disco: aggiunge ½·M_p all’inerzia del sistema (denominatore m₁+m₂+½M_p).',
-              'Spinta = peso di m₂; resistenze = m₁g·sin θ₁ (componente lungo il piano) + μ·m₁g·cos θ₁ (attrito).',
-              `Denominatore = ${nf(m1,1)}+${nf(m2,1)}+½·${nf(Mp,1)} = ${nf(denom,2)} kg.` ],
-      steps:[ {t:'Spinta', d:`m₂·g = ${nf(m2,1)}·9,81 = ${nf(m2*G,1)} N`},
-              {t:'Resistenze', d:`m₁g·sin θ₁ = ${nf(d1,1)} N · attrito μ·m₁g·cos θ₁ = ${nf(f,1)} N`},
-              {t:'Inerzia totale', d:`m₁+m₂+½M_p = ${nf(denom,2)} kg`},
-              {t:'Accelerazione', d:`a = (${nf(m2*G,1)} − ${nf(d1,1)} − ${nf(f,1)}) / ${nf(denom,2)} = <b>${nf(a,2)} m/s²</b>`} ] }; }
+      statement:`Una massa $m_1 = ${knum(m1,1)}$ kg sta su un piano inclinato di $\\theta_1 = ${th1}^\\circ$ (attrito $\\mu = ${knum(mu,2)}$) ed è collegata da un filo, che passa su una <b>carrucola-disco</b> (massa $M_p = ${knum(Mp,1)}$ kg), a una massa $m_2 = ${knum(m2,1)}$ kg appesa nel vuoto.<br><b>Domanda:</b> con quale accelerazione $a$ si muove il sistema? ($g = 9{,}81$ m/s²)`,
+      hints:[ 'La carrucola è un disco: aggiunge $\\tfrac12 M_p$ all’inerzia del sistema (denominatore $m_1+m_2+\\tfrac12 M_p$).',
+              'Spinta = peso di $m_2$; resistenze = $m_1 g\\sin\\theta_1$ (componente lungo il piano) $+\\;\\mu\\,m_1 g\\cos\\theta_1$ (attrito).',
+              `Denominatore $= ${knum(m1,1)}+${knum(m2,1)}+\\tfrac12\\cdot ${knum(Mp,1)} = ${knum(denom,2)}$ kg.` ],
+      steps:[ {t:'Spinta', d:`$m_2\\,g = ${knum(m2,1)}\\cdot 9{,}81 = ${knum(m2*G,1)}$ N`},
+              {t:'Resistenze', d:`$m_1 g\\sin\\theta_1 = ${knum(d1,1)}$ N; attrito $\\mu\\,m_1 g\\cos\\theta_1 = ${knum(f,1)}$ N`},
+              {t:'Inerzia totale', d:`$m_1+m_2+\\tfrac12 M_p = ${knum(denom,2)}$ kg`},
+              {t:'Accelerazione', d:`$a = \\dfrac{${knum(m2*G,1)} - ${knum(d1,1)} - ${knum(f,1)}}{${knum(denom,2)}} = ${knum(a,2)}$ m/s²`} ] }; }
   },
   impulso:{ title:'⏱️ Frenare un volano', gen(){
     const M=rstep(1,5,0.5), R=rstep(0.3,0.6,0.05), w0=rint(8,20), Mb=rstep(1,4,0.5);
     const I=0.5*M*R*R, L=I*w0, dt=L/Mb;
     return { unit:'s', ans:dt, tol:Math.max(0.1,0.02*dt),
-      statement:`Un volano (disco pieno, massa <b>M = ${nf(M,1)} kg</b>, raggio <b>R = ${nf(R,2)} m</b>) ruota a <b>ω₀ = ${w0} rad/s</b>. Un freno applica un momento costante <b>M = ${nf(Mb,1)} N·m</b> opposto alla rotazione.<br><b>Domanda:</b> dopo quanto <b>tempo Δt</b> il volano si ferma?`,
-      hints:[ 'Usa il teorema dell’impulso angolare: M·Δt = ΔL. Per fermarsi ΔL = L₀ = I·ω₀.',
-              'Quindi Δt = I·ω₀ / M_freno (analogo a Δt = m·v₀/F per fermare un corpo).',
-              `I = ½·${nf(M,1)}·${nf(R,2)}² = ${nf(I,3)} kg·m².` ],
-      steps:[ {t:'Inerzia', d:`I = ½·M·R² = ${nf(I,3)} kg·m²`},
-              {t:'Momento angolare', d:`L₀ = I·ω₀ = ${nf(I,3)}·${w0} = ${nf(L,2)} kg·m²/s`},
-              {t:'Impulso angolare', d:`M·Δt = L₀ ⇒ Δt = L₀/M = ${nf(L,2)}/${nf(Mb,1)} = <b>${nf(dt,2)} s</b>`} ] }; }
+      statement:`Un volano (disco pieno, massa $M = ${knum(M,1)}$ kg, raggio $R = ${knum(R,2)}$ m) ruota a $\\omega_0 = ${w0}$ rad/s. Un freno applica un momento costante $M_f = ${knum(Mb,1)}$ N·m opposto alla rotazione.<br><b>Domanda:</b> dopo quanto tempo $\\Delta t$ il volano si ferma?`,
+      hints:[ 'Usa il teorema dell’impulso angolare: $M\\,\\Delta t = \\Delta L$. Per fermarsi $\\Delta L = L_0 = I\\,\\omega_0$.',
+              'Quindi $\\Delta t = \\dfrac{I\\,\\omega_0}{M_f}$ (analogo a $\\Delta t = m v_0/F$ per fermare un corpo).',
+              `$I = \\tfrac12\\cdot ${knum(M,1)}\\cdot ${knum(R,2)}^2 = ${knum(I,3)}$ kg·m².` ],
+      steps:[ {t:'Inerzia', d:`$I = \\tfrac12 M R^2 = ${knum(I,3)}$ kg·m²`},
+              {t:'Momento angolare', d:`$L_0 = I\\,\\omega_0 = ${knum(I,3)}\\cdot ${w0} = ${knum(L,2)}$ kg·m²/s`},
+              {t:'Impulso angolare', d:`$M_f\\,\\Delta t = L_0 \\;\\Rightarrow\\; \\Delta t = \\dfrac{L_0}{M_f} = \\dfrac{${knum(L,2)}}{${knum(Mb,1)}} = ${knum(dt,2)}$ s`} ] }; }
   },
   angolare:{ title:'🎯 Asta-pendolo colpita all’estremo', gen(){
     const M=rstep(1,4,0.5), L=rstep(0.6,1.4,0.1), m=rstep(0.1,0.6,0.05), v=rint(6,16);
@@ -1455,30 +1457,30 @@ const PROVA={
     const Ep=(M*G*L/2+m*G*L), al90=Ep/Itot;
     const cphi=1-0.5*Itot*om0*om0/Ep, full=cphi<=-1, phimax=full?180:Math.acos(clamp(cphi,-1,1))/DEG;
     return { unit:'rad/s', ans:om0, tol:Math.max(0.2,0.02*om0),
-      statement:`Un'asta rigida (massa <b>M = ${nf(M,1)} kg</b>, lunghezza <b>L = ${nf(L,2)} m</b>), imperniata a un estremo e ferma in verticale, è colpita all'estremo libero da un corpo (<b>m = ${nf(m,2)} kg</b>, <b>v = ${v} m/s</b> ⟂ all'asta) che vi resta conficcato.<br><b>Domanda:</b> quale <b>velocità angolare ω</b> ha l'asta subito dopo l'urto?`,
-      hints:[ 'Durante l’urto si conserva il momento angolare rispetto al perno: L_prima = L_dopo.',
-              'L_prima = m·v·L (corpo all’estremo); L_dopo = I_tot·ω, con I_tot = ⅓M·L² + m·L².',
-              `I_tot = ⅓·${nf(M,1)}·${nf(L,2)}² + ${nf(m,2)}·${nf(L,2)}² = ${nf(Itot,3)} kg·m².` ],
-      steps:[ {t:'Inerzia totale', d:`I_tot = ⅓M·L² + m·L² = ${nf((1/3)*M*L*L,3)} + ${nf(m*L*L,3)} = ${nf(Itot,3)} kg·m²`},
-              {t:'Conservazione di L', d:`m·v·L = I_tot·ω ⇒ ω = m·v·L / I_tot`},
-              {t:'Risultato (① urto)', d:`ω = ${nf(m,2)}·${v}·${nf(L,2)} / ${nf(Itot,3)} = <b>${nf(om0,2)} rad/s</b>`},
-              {t:'② Gravità → α', d:`a φ = 90° l’accelerazione angolare è α = g(M·L/2+m·L)/I_tot = ${nf(al90,2)} rad/s² (è 0 all’istante dell’urto, φ≈0)`},
-              {t:'Salita massima', d:`l’asta sale fino a φ ≈ ${full?'oltre 180° (fa il giro)':nf(phimax,0)+'°'}`} ] }; }
+      statement:`Un'asta rigida (massa $M = ${knum(M,1)}$ kg, lunghezza $L = ${knum(L,2)}$ m), imperniata a un estremo e ferma in verticale, è colpita all'estremo libero da un corpo ($m = ${knum(m,2)}$ kg, $v = ${v}$ m/s $\\perp$ all'asta) che vi resta conficcato.<br><b>Domanda:</b> quale velocità angolare $\\omega$ ha l'asta subito dopo l'urto?`,
+      hints:[ 'Durante l’urto si conserva il momento angolare rispetto al perno: $L_\\text{prima} = L_\\text{dopo}$.',
+              '$L_\\text{prima} = m\\,v\\,L$ (corpo all’estremo); $L_\\text{dopo} = I_\\text{tot}\\,\\omega$, con $I_\\text{tot} = \\tfrac13 M L^2 + m L^2$.',
+              `$I_\\text{tot} = \\tfrac13\\cdot ${knum(M,1)}\\cdot ${knum(L,2)}^2 + ${knum(m,2)}\\cdot ${knum(L,2)}^2 = ${knum(Itot,3)}$ kg·m².` ],
+      steps:[ {t:'Inerzia totale', d:`$I_\\text{tot} = \\tfrac13 M L^2 + m L^2 = ${knum((1/3)*M*L*L,3)} + ${knum(m*L*L,3)} = ${knum(Itot,3)}$ kg·m²`},
+              {t:'Conservazione di L', d:`$m\\,v\\,L = I_\\text{tot}\\,\\omega \\;\\Rightarrow\\; \\omega = \\dfrac{m\\,v\\,L}{I_\\text{tot}}$`},
+              {t:'Risultato (① urto)', d:`$\\omega = \\dfrac{${knum(m,2)}\\cdot ${v}\\cdot ${knum(L,2)}}{${knum(Itot,3)}} = ${knum(om0,2)}$ rad/s`},
+              {t:'② Gravità → α', d:`a $\\varphi = 90^\\circ$ l’accelerazione angolare è $\\alpha = \\dfrac{g\\,(M L/2+m L)}{I_\\text{tot}} = ${knum(al90,2)}$ rad/s² (è 0 all’istante dell’urto, $\\varphi\\approx 0$)`},
+              {t:'Salita massima', d:`l’asta sale fino a $\\varphi \\approx ${full?'180^\\circ\\ \\text{(fa il giro)}':knum(phimax,0)+'^\\circ'}$`} ] }; }
   },
   rototraslazione:{ title:'🎳 Corpo che rotola giù da un piano inclinato', gen(){
-    const shapes=[['una sfera piena',0.4,'⅖'],['un cilindro pieno',0.5,'½'],['un anello',1,'1']];
+    const shapes=[['una sfera piena',0.4,'\\tfrac25'],['un cilindro pieno',0.5,'\\tfrac12'],['un anello',1,'1']];
     const sh=rpick(shapes), c=sh[1], th=rint(15,35), h=rstep(0.5,2,0.5);
     const a=G*Math.sin(th*DEG)/(1+c), v=Math.sqrt(2*G*h/(1+c));
     return { unit:'m/s²', ans:a, tol:Math.max(0.1,0.02*a),
-      statement:`${sh[0].charAt(0).toUpperCase()+sh[0].slice(1)} (massa m, raggio R) rotola <b>senza strisciare</b> giù da un piano inclinato di <b>θ = ${th}°</b>. Per questa forma I<sub>cm</sub> = ${sh[2]}·m·R², cioè <b>c = ${nf(c,2)}</b>.<br><b>Domanda:</b> quanto vale l'<b>accelerazione del centro di massa a<sub>cm</sub></b>? (g = 9,81 m/s²)`,
-      hints:[ 'Per il rotolamento puro su un piano vale a_cm = g·sin θ / (1 + c), dove c = I_cm/(m·R²).',
-              'Nota: massa e raggio non compaiono! Conta solo la forma (c) e l’angolo θ.',
-              `g·sin θ = 9,81·sin ${th}° = ${nf(G*Math.sin(th*DEG),2)} m/s²; ora dividi per (1 + ${nf(c,2)}).` ],
-      steps:[ {t:'Formula', d:'a_cm = g·sin θ / (1 + c)'},
-              {t:'Componente lungo il piano', d:`g·sin θ = 9,81·sin ${th}° = ${nf(G*Math.sin(th*DEG),2)} m/s²`},
-              {t:'Divido per (1+c)', d:`a_cm = ${nf(G*Math.sin(th*DEG),2)} / (1 + ${nf(c,2)}) = <b>${nf(a,2)} m/s²</b>`},
-              {t:'Indipendenza', d:`il risultato non dipende da m né da R: cambia solo con la forma (c) e con θ`},
-              {t:'Extra (energia)', d:`partendo da un dislivello h = ${nf(h,1)} m, in fondo v = √(2gh/(1+c)) = ${nf(v,2)} m/s`} ] }; }
+      statement:`${sh[0].charAt(0).toUpperCase()+sh[0].slice(1)} (massa $m$, raggio $R$) rotola <b>senza strisciare</b> giù da un piano inclinato di $\\theta = ${th}^\\circ$. Per questa forma $I_\\text{cm} = ${sh[2]}\\,m R^2$, cioè $c = ${knum(c,2)}$.<br><b>Domanda:</b> quanto vale l'accelerazione del centro di massa $a_\\text{cm}$? ($g = 9{,}81$ m/s²)`,
+      hints:[ 'Per il rotolamento puro su un piano vale $a_\\text{cm} = \\dfrac{g\\sin\\theta}{1 + c}$, dove $c = I_\\text{cm}/(m R^2)$.',
+              'Nota: massa e raggio non compaiono! Conta solo la forma ($c$) e l’angolo $\\theta$.',
+              `$g\\sin\\theta = 9{,}81\\cdot\\sin ${th}^\\circ = ${knum(G*Math.sin(th*DEG),2)}$ m/s²; ora dividi per $(1 + ${knum(c,2)})$.` ],
+      steps:[ {t:'Formula', d:'$a_\\text{cm} = \\dfrac{g\\sin\\theta}{1 + c}$'},
+              {t:'Componente lungo il piano', d:`$g\\sin\\theta = 9{,}81\\cdot\\sin ${th}^\\circ = ${knum(G*Math.sin(th*DEG),2)}$ m/s²`},
+              {t:'Divido per (1+c)', d:`$a_\\text{cm} = \\dfrac{${knum(G*Math.sin(th*DEG),2)}}{1 + ${knum(c,2)}} = ${knum(a,2)}$ m/s²`},
+              {t:'Indipendenza', d:`il risultato non dipende da $m$ né da $R$: cambia solo con la forma ($c$) e con $\\theta$`},
+              {t:'Extra (energia)', d:`partendo da un dislivello $h = ${knum(h,1)}$ m, in fondo $v = \\sqrt{\\dfrac{2 g h}{1+c}} = ${knum(v,2)}$ m/s`} ] }; }
   }
 };
 const pState={};
@@ -1522,98 +1524,98 @@ function renderProva(sec){
 const QUIZ={
  cinematica:{
   teoria:[
-   {q:'La velocità angolare ω è definita come:',opts:['Δθ · Δt','Δθ / Δt','Δt / Δθ','θ · t'],ans:1,exp:'ω = Δθ/Δt: di quanto cambia l’angolo nell’unità di tempo (analoga a v = Δs/Δt).'},
-   {q:'Nel parallelismo traslazione–rotazione, l’analogo della velocità v è:',opts:['l’angolo θ','la velocità angolare ω','l’accelerazione angolare α','il momento d’inerzia I'],ans:1,exp:'θ↔s, ω↔v, α↔a. La velocità angolare ω è l’analogo della velocità lineare v.'},
-   {q:'Per un punto a distanza r dall’asse, la velocità lineare (tangenziale) vale:',opts:['v = r / ω','v = ω / r','v = r · ω','v = r · α'],ans:2,exp:'v = r·ω: tutti i punti hanno la stessa ω, ma v cresce con la distanza r dall’asse.'},
-   {q:'Un punto che ruota con ω costante ha accelerazione centripeta:',opts:['nulla','a꜀ = ω² · r','a꜀ = α · r','a꜀ = ω / r'],ans:1,exp:'Anche con ω costante la direzione della velocità cambia: a꜀ = ω²·r = v²/r, diretta verso l’asse.'},
-   {q:'Se α è costante, la velocità angolare nel tempo vale:',opts:['ω = ω₀','ω = ω₀ + α·t','ω = ω₀ + ½α·t²','ω = ω₀ · t'],ans:1,exp:'Moto uniformemente accelerato: ω = ω₀ + α·t, identico a v = v₀ + a·t.'}
+   {q:'La velocità angolare $\\omega$ è definita come:',opts:['$\\Delta\\theta \\cdot \\Delta t$','$\\Delta\\theta / \\Delta t$','$\\Delta t / \\Delta\\theta$','$\\theta \\cdot t$'],ans:1,exp:'$\\omega = \\Delta\\theta/\\Delta t$: di quanto cambia l’angolo nell’unità di tempo (analoga a $v = \\Delta s/\\Delta t$).'},
+   {q:'Nel parallelismo traslazione–rotazione, l’analogo della velocità $v$ è:',opts:['l’angolo $\\theta$','la velocità angolare $\\omega$','l’accelerazione angolare $\\alpha$','il momento d’inerzia $I$'],ans:1,exp:'$\\theta\\leftrightarrow s$, $\\omega\\leftrightarrow v$, $\\alpha\\leftrightarrow a$. La velocità angolare $\\omega$ è l’analogo della velocità lineare $v$.'},
+   {q:'Per un punto a distanza $r$ dall’asse, la velocità lineare (tangenziale) vale:',opts:['$v = r/\\omega$','$v = \\omega/r$','$v = r\\,\\omega$','$v = r\\,\\alpha$'],ans:2,exp:'$v = r\\,\\omega$: tutti i punti hanno la stessa $\\omega$, ma $v$ cresce con la distanza $r$ dall’asse.'},
+   {q:'Un punto che ruota con $\\omega$ costante ha accelerazione centripeta:',opts:['nulla','$a_c = \\omega^2 r$','$a_c = \\alpha\\,r$','$a_c = \\omega/r$'],ans:1,exp:'Anche con $\\omega$ costante la direzione della velocità cambia: $a_c = \\omega^2 r = v^2/r$, diretta verso l’asse.'},
+   {q:'Se $\\alpha$ è costante, la velocità angolare nel tempo vale:',opts:['$\\omega = \\omega_0$','$\\omega = \\omega_0 + \\alpha t$','$\\omega = \\omega_0 + \\tfrac12\\alpha t^2$','$\\omega = \\omega_0\\,t$'],ans:1,exp:'Moto uniformemente accelerato: $\\omega = \\omega_0 + \\alpha t$, identico a $v = v_0 + a t$.'}
   ],
   calcolo:[
-   {q:'ω₀ = 2 rad/s, α = 3 rad/s². Quanto vale ω dopo t = 4 s?',num:true,ans:14,tol:0.2,unit:'rad/s',exp:'ω = ω₀ + α·t = 2 + 3·4 = 14 rad/s.'},
-   {q:'Un punto dista r = 0,5 m dall’asse e la ruota gira a ω = 10 rad/s. Velocità del punto?',num:true,ans:5,tol:0.1,unit:'m/s',exp:'v = r·ω = 0,5·10 = 5 m/s.'},
-   {q:'Un angolo θ = 12,56 rad corrisponde a circa quanti giri?',opts:['1 giro','2 giri','4 giri','6 giri'],ans:1,exp:'n = θ/(2π) = 12,56/6,28 ≈ 2 giri.'},
-   {q:'Partendo da fermo (ω₀ = 0) con α = 2 rad/s², di quale angolo ruota in t = 3 s?',num:true,ans:9,tol:0.2,unit:'rad',exp:'θ = ½·α·t² = ½·2·9 = 9 rad.'},
-   {q:'Un punto a r = 0,25 m ruota a ω = 4 rad/s. Accelerazione centripeta?',opts:['1 m/s²','2 m/s²','4 m/s²','8 m/s²'],ans:2,exp:'a꜀ = ω²·r = 16·0,25 = 4 m/s².'}
+   {q:'$\\omega_0 = 2$ rad/s, $\\alpha = 3$ rad/s². Quanto vale $\\omega$ dopo $t = 4$ s?',num:true,ans:14,tol:0.2,unit:'rad/s',exp:'$\\omega = \\omega_0 + \\alpha t = 2 + 3\\cdot 4 = 14$ rad/s.'},
+   {q:'Un punto dista $r = 0{,}5$ m dall’asse e la ruota gira a $\\omega = 10$ rad/s. Velocità del punto?',num:true,ans:5,tol:0.1,unit:'m/s',exp:'$v = r\\,\\omega = 0{,}5\\cdot 10 = 5$ m/s.'},
+   {q:'Un angolo $\\theta = 12{,}56$ rad corrisponde a circa quanti giri?',opts:['1 giro','2 giri','4 giri','6 giri'],ans:1,exp:'$n = \\theta/(2\\pi) = 12{,}56/6{,}28 \\approx 2$ giri.'},
+   {q:'Partendo da fermo ($\\omega_0 = 0$) con $\\alpha = 2$ rad/s², di quale angolo ruota in $t = 3$ s?',num:true,ans:9,tol:0.2,unit:'rad',exp:'$\\theta = \\tfrac12\\alpha t^2 = \\tfrac12\\cdot 2\\cdot 9 = 9$ rad.'},
+   {q:'Un punto a $r = 0{,}25$ m ruota a $\\omega = 4$ rad/s. Accelerazione centripeta?',opts:['1 m/s²','2 m/s²','4 m/s²','8 m/s²'],ans:2,exp:'$a_c = \\omega^2 r = 16\\cdot 0{,}25 = 4$ m/s².'}
   ]
  },
  dinamica:{
   teoria:[
-   {q:'L’equazione M = I·α è l’analogo rotazionale di:',opts:['p = m·v','F = m·a','E = ½m·v²','v = a·t'],ans:1,exp:'M↔F, I↔m, α↔a: M = I·α è la «seconda legge» della rotazione.'},
-   {q:'Il momento d’inerzia di un disco pieno attorno al suo asse è:',opts:['m·R²','½·m·R²','⅖·m·R²','⅓·m·R²'],ans:1,exp:'Disco/cilindro pieno: I = ½·m·R². (Anello: m·R²; sfera: ⅖m·R².)'},
-   {q:'Il momento angolare L di un corpo che ruota vale:',opts:['I / ω','I · ω','½·I·ω²','I · α'],ans:1,exp:'L = I·ω, analogo di p = m·v.'},
-   {q:'Il momento di una forza è massimo quando la forza è:',opts:['diretta verso l’asse','perpendicolare al raggio','parallela al raggio','molto piccola'],ans:1,exp:'M = r·F·sin φ: massimo per φ = 90° (forza perpendicolare al raggio); nullo se diretta verso l’asse.'},
-   {q:'A parità di massa, avvicinando la massa all’asse il momento d’inerzia:',opts:['aumenta','diminuisce','resta uguale','si annulla'],ans:1,exp:'I = Σm·r²: meno distanza r ⇒ I più piccolo. La massa lontana «conta» di più.'}
+   {q:'L’equazione $M = I\\,\\alpha$ è l’analogo rotazionale di:',opts:['$p = m\\,v$','$F = m\\,a$','$E = \\tfrac12 m v^2$','$v = a\\,t$'],ans:1,exp:'$M\\leftrightarrow F$, $I\\leftrightarrow m$, $\\alpha\\leftrightarrow a$: $M = I\\,\\alpha$ è la «seconda legge» della rotazione.'},
+   {q:'Il momento d’inerzia di un disco pieno attorno al suo asse è:',opts:['$m R^2$','$\\tfrac12 m R^2$','$\\tfrac25 m R^2$','$\\tfrac13 m R^2$'],ans:1,exp:'Disco/cilindro pieno: $I = \\tfrac12 m R^2$. (Anello: $m R^2$; sfera: $\\tfrac25 m R^2$.)'},
+   {q:'Il momento angolare $L$ di un corpo che ruota vale:',opts:['$I/\\omega$','$I\\,\\omega$','$\\tfrac12 I\\omega^2$','$I\\,\\alpha$'],ans:1,exp:'$L = I\\,\\omega$, analogo di $p = m\\,v$.'},
+   {q:'Il momento di una forza è massimo quando la forza è:',opts:['diretta verso l’asse','perpendicolare al raggio','parallela al raggio','molto piccola'],ans:1,exp:'$M = r\\,F\\sin\\varphi$: massimo per $\\varphi = 90^\\circ$ (forza perpendicolare al raggio); nullo se diretta verso l’asse.'},
+   {q:'A parità di massa, avvicinando la massa all’asse il momento d’inerzia:',opts:['aumenta','diminuisce','resta uguale','si annulla'],ans:1,exp:'$I = \\sum m r^2$: meno distanza $r$ ⇒ $I$ più piccolo. La massa lontana «conta» di più.'}
   ],
   calcolo:[
-   {q:'Momento d’inerzia di un disco pieno di M = 2 kg e R = 0,5 m?',num:true,ans:0.25,tol:0.01,unit:'kg·m²',exp:'I = ½·M·R² = ½·2·0,25 = 0,25 kg·m².'},
-   {q:'Un momento M = 4 N·m agisce su un corpo con I = 0,25 kg·m². Accelerazione angolare?',num:true,ans:16,tol:0.3,unit:'rad/s²',exp:'α = M/I = 4/0,25 = 16 rad/s².'},
-   {q:'Una forza F = 10 N applicata tangenzialmente al bordo (R = 0,3 m). Momento?',opts:['0,3 N·m','3 N·m','30 N·m','10 N·m'],ans:1,exp:'M = F·R = 10·0,3 = 3 N·m.'},
-   {q:'Un corpo con I = 0,5 kg·m² ruota a ω = 8 rad/s. Momento angolare L?',num:true,ans:4,tol:0.1,unit:'kg·m²/s',exp:'L = I·ω = 0,5·8 = 4 kg·m²/s.'},
-   {q:'Massa puntiforme m = 2 kg a distanza r = 3 m dall’asse. Momento d’inerzia?',opts:['6 kg·m²','9 kg·m²','18 kg·m²','36 kg·m²'],ans:2,exp:'I = m·r² = 2·9 = 18 kg·m².'}
+   {q:'Momento d’inerzia di un disco pieno di $M = 2$ kg e $R = 0{,}5$ m?',num:true,ans:0.25,tol:0.01,unit:'kg·m²',exp:'$I = \\tfrac12 M R^2 = \\tfrac12\\cdot 2\\cdot 0{,}25 = 0{,}25$ kg·m².'},
+   {q:'Un momento $M = 4$ N·m agisce su un corpo con $I = 0{,}25$ kg·m². Accelerazione angolare?',num:true,ans:16,tol:0.3,unit:'rad/s²',exp:'$\\alpha = M/I = 4/0{,}25 = 16$ rad/s².'},
+   {q:'Una forza $F = 10$ N applicata tangenzialmente al bordo ($R = 0{,}3$ m). Momento?',opts:['$0{,}3$ N·m','$3$ N·m','$30$ N·m','$10$ N·m'],ans:1,exp:'$M = F\\,R = 10\\cdot 0{,}3 = 3$ N·m.'},
+   {q:'Un corpo con $I = 0{,}5$ kg·m² ruota a $\\omega = 8$ rad/s. Momento angolare $L$?',num:true,ans:4,tol:0.1,unit:'kg·m²/s',exp:'$L = I\\,\\omega = 0{,}5\\cdot 8 = 4$ kg·m²/s.'},
+   {q:'Massa puntiforme $m = 2$ kg a distanza $r = 3$ m dall’asse. Momento d’inerzia?',opts:['$6$ kg·m²','$9$ kg·m²','$18$ kg·m²','$36$ kg·m²'],ans:2,exp:'$I = m r^2 = 2\\cdot 9 = 18$ kg·m².'}
   ]
  },
  carrucola:{
   teoria:[
-   {q:'Con una carrucola dotata di massa, le tensioni ai due capi del filo:',opts:['sono uguali','sono diverse (T₂ ≠ T₁)','sono nulle','valgono entrambe il peso'],ans:1,exp:'Serve un momento per accelerare il disco: T₂ − T₁ = ½M_p·a ≠ 0.'},
-   {q:'Una carrucola-disco di massa M_p aggiunge all’inerzia del sistema un termine:',opts:['M_p','½·M_p','¼·M_p','2·M_p'],ans:1,exp:'Per un disco I = ½M_p R², che a denominatore dà il termine ½M_p.'},
-   {q:'Se la carrucola ha massa trascurabile (ideale), allora:',opts:['il sistema non si muove','T₁ = T₂','a = g sempre','T₂ − T₁ = M_p·a'],ans:1,exp:'Con M_p = 0 il termine ½M_p sparisce e le due tensioni diventano uguali.'},
-   {q:'Che cosa fa ruotare la carrucola?',opts:['il peso totale','la differenza di tensione T₂ − T₁','l’attrito dell’asse','nulla, gira da sola'],ans:1,exp:'È proprio lo squilibrio T₂ − T₁ a fornire il momento che la mette in rotazione.'},
-   {q:'Il sistema resta fermo (a = 0) se:',opts:['m₂ > m₁','la spinta non supera l’attrito statico massimo','μ = 0','M_p = 0'],ans:1,exp:'Se la spinta è ≤ dell’attrito statico massimo, il sistema non parte.'}
+   {q:'Con una carrucola dotata di massa, le tensioni ai due capi del filo:',opts:['sono uguali','sono diverse ($T_2 \\ne T_1$)','sono nulle','valgono entrambe il peso'],ans:1,exp:'Serve un momento per accelerare il disco: $T_2 - T_1 = \\tfrac12 M_p\\,a \\ne 0$.'},
+   {q:'Una carrucola-disco di massa $M_p$ aggiunge all’inerzia del sistema un termine:',opts:['$M_p$','$\\tfrac12 M_p$','$\\tfrac14 M_p$','$2 M_p$'],ans:1,exp:'Per un disco $I = \\tfrac12 M_p R^2$, che a denominatore dà il termine $\\tfrac12 M_p$.'},
+   {q:'Se la carrucola ha massa trascurabile (ideale), allora:',opts:['il sistema non si muove','$T_1 = T_2$','$a = g$ sempre','$T_2 - T_1 = M_p\\,a$'],ans:1,exp:'Con $M_p = 0$ il termine $\\tfrac12 M_p$ sparisce e le due tensioni diventano uguali.'},
+   {q:'Che cosa fa ruotare la carrucola?',opts:['il peso totale','la differenza di tensione $T_2 - T_1$','l’attrito dell’asse','nulla, gira da sola'],ans:1,exp:'È proprio lo squilibrio $T_2 - T_1$ a fornire il momento che la mette in rotazione.'},
+   {q:'Il sistema resta fermo ($a = 0$) se:',opts:['$m_2 > m_1$','la spinta non supera l’attrito statico massimo','$\\mu = 0$','$M_p = 0$'],ans:1,exp:'Se la spinta è $\\le$ dell’attrito statico massimo, il sistema non parte.'}
   ],
   calcolo:[
-   {q:'m₁ = 2 kg su un tavolo liscio (orizzontale, μ = 0), m₂ = 3 kg appesa, carrucola-disco M_p = 2 kg. Accelerazione? (g = 9,81)',num:true,ans:4.905,tol:0.2,unit:'m/s²',exp:'a = m₂g/(m₁+m₂+½M_p) = 29,43/6 = 4,9 m/s².'},
-   {q:'Se M_p = 2 kg e a = 4 m/s², quanto vale T₂ − T₁?',opts:['2 N','4 N','8 N','0 N'],ans:1,exp:'T₂ − T₁ = ½·M_p·a = ½·2·4 = 4 N.'},
-   {q:'m₁ = 2 kg su piano a 30° (liscio), m₂ = 4 kg appesa, carrucola M_p = 2 kg. Accelerazione? (g = 9,81)',num:true,ans:4.204,tol:0.2,unit:'m/s²',exp:'a = (m₂g − m₁g·sin30°)/(m₁+m₂+½M_p) = (39,24 − 9,81)/7 = 4,2 m/s².'},
-   {q:'Aumentando la massa della carrucola (resto invariato), l’accelerazione del sistema:',opts:['aumenta','diminuisce','resta uguale','si annulla'],ans:1,exp:'M_p compare a denominatore (+½M_p): più massa ⇒ a più piccola.'},
-   {q:'Se a = 4 m/s² e la carrucola ha R = 0,2 m, qual è la sua accelerazione angolare α?',num:true,ans:20,tol:0.5,unit:'rad/s²',exp:'α = a/R = 4/0,2 = 20 rad/s².'}
+   {q:'$m_1 = 2$ kg su un tavolo liscio (orizzontale, $\\mu = 0$), $m_2 = 3$ kg appesa, carrucola-disco $M_p = 2$ kg. Accelerazione? ($g = 9{,}81$)',num:true,ans:4.905,tol:0.2,unit:'m/s²',exp:'$a = \\dfrac{m_2 g}{m_1+m_2+\\tfrac12 M_p} = \\dfrac{29{,}43}{6} = 4{,}9$ m/s².'},
+   {q:'Se $M_p = 2$ kg e $a = 4$ m/s², quanto vale $T_2 - T_1$?',opts:['$2$ N','$4$ N','$8$ N','$0$ N'],ans:1,exp:'$T_2 - T_1 = \\tfrac12 M_p\\,a = \\tfrac12\\cdot 2\\cdot 4 = 4$ N.'},
+   {q:'$m_1 = 2$ kg su piano a $30^\\circ$ (liscio), $m_2 = 4$ kg appesa, carrucola $M_p = 2$ kg. Accelerazione? ($g = 9{,}81$)',num:true,ans:4.204,tol:0.2,unit:'m/s²',exp:'$a = \\dfrac{m_2 g - m_1 g\\sin 30^\\circ}{m_1+m_2+\\tfrac12 M_p} = \\dfrac{39{,}24 - 9{,}81}{7} = 4{,}2$ m/s².'},
+   {q:'Aumentando la massa della carrucola (resto invariato), l’accelerazione del sistema:',opts:['aumenta','diminuisce','resta uguale','si annulla'],ans:1,exp:'$M_p$ compare a denominatore ($+\\tfrac12 M_p$): più massa ⇒ $a$ più piccola.'},
+   {q:'Se $a = 4$ m/s² e la carrucola ha $R = 0{,}2$ m, qual è la sua accelerazione angolare $\\alpha$?',num:true,ans:20,tol:0.5,unit:'rad/s²',exp:'$\\alpha = a/R = 4/0{,}2 = 20$ rad/s².'}
   ]
  },
  impulso:{
   teoria:[
-   {q:'Il teorema dell’impulso angolare afferma che:',opts:['M = I·α','M·Δt = ΔL','L = I·ω','M = ΔL·Δt'],ans:1,exp:'M·Δt = ΔL: l’impulso angolare è uguale alla variazione di momento angolare.'},
-   {q:'La quantità M·Δt è l’analogo rotazionale di:',opts:['m·v','F·Δt (impulso)','½m·v²','F/m'],ans:1,exp:'F·Δt = Δp ↔ M·Δt = ΔL.'},
-   {q:'Per fermare un volano in un tempo Δt più lungo serve un momento frenante:',opts:['maggiore','minore','uguale','nullo'],ans:1,exp:'M = ΔL/Δt: a parità di ΔL, più lungo è Δt, minore è il momento (come l’airbag).'},
-   {q:'Un momento opposto al verso di rotazione fa sì che il momento angolare:',opts:['aumenti','diminuisca','resti costante','raddoppi'],ans:1,exp:'ΔL = M·Δt con M opposto ⇒ L diminuisce (il corpo rallenta, può fermarsi e invertire).'},
-   {q:'Se il momento è perpendicolare al momento angolare L, esso cambia:',opts:['il modulo di L','la direzione di L (precessione)','nulla','il momento d’inerzia'],ans:1,exp:'Momento ⟂ L: ruota la direzione di L senza cambiarne il modulo → precessione (trottola, giroscopio).'}
+   {q:'Il teorema dell’impulso angolare afferma che:',opts:['$M = I\\,\\alpha$','$M\\,\\Delta t = \\Delta L$','$L = I\\,\\omega$','$M = \\Delta L\\cdot\\Delta t$'],ans:1,exp:'$M\\,\\Delta t = \\Delta L$: l’impulso angolare è uguale alla variazione di momento angolare.'},
+   {q:'La quantità $M\\,\\Delta t$ è l’analogo rotazionale di:',opts:['$m\\,v$','$F\\,\\Delta t$ (impulso)','$\\tfrac12 m v^2$','$F/m$'],ans:1,exp:'$F\\,\\Delta t = \\Delta p \\;\\leftrightarrow\\; M\\,\\Delta t = \\Delta L$.'},
+   {q:'Per fermare un volano in un tempo $\\Delta t$ più lungo serve un momento frenante:',opts:['maggiore','minore','uguale','nullo'],ans:1,exp:'$M = \\Delta L/\\Delta t$: a parità di $\\Delta L$, più lungo è $\\Delta t$, minore è il momento (come l’airbag).'},
+   {q:'Un momento opposto al verso di rotazione fa sì che il momento angolare:',opts:['aumenti','diminuisca','resti costante','raddoppi'],ans:1,exp:'$\\Delta L = M\\,\\Delta t$ con $M$ opposto ⇒ $L$ diminuisce (il corpo rallenta, può fermarsi e invertire).'},
+   {q:'Se il momento è perpendicolare al momento angolare $\\vec L$, esso cambia:',opts:['il modulo di $\\vec L$','la direzione di $\\vec L$ (precessione)','nulla','il momento d’inerzia'],ans:1,exp:'Momento $\\perp \\vec L$: ruota la direzione di $\\vec L$ senza cambiarne il modulo → precessione (trottola, giroscopio).'}
   ],
   calcolo:[
-   {q:'Un momento M = 2 N·m agisce per Δt = 3 s. Variazione di momento angolare ΔL?',num:true,ans:6,tol:0.1,unit:'kg·m²/s',exp:'ΔL = M·Δt = 2·3 = 6 kg·m²/s.'},
-   {q:'Volano con I = 0,5 kg·m² a ω₀ = 10 rad/s. Un freno M = 2,5 N·m. Tempo per fermarlo?',num:true,ans:2,tol:0.1,unit:'s',exp:'Δt = I·ω₀/M = (0,5·10)/2,5 = 2 s.'},
-   {q:'I = 0,5 kg·m², ω₀ = 4 rad/s, momento M = 1 N·m applicato per Δt = 2 s. ω finale?',opts:['4 rad/s','6 rad/s','8 rad/s','12 rad/s'],ans:2,exp:'ω_f = ω₀ + (M/I)·Δt = 4 + (1/0,5)·2 = 8 rad/s.'},
-   {q:'Quale impulso angolare serve per aumentare di Δω = 5 rad/s un corpo con I = 0,4 kg·m²?',num:true,ans:2,tol:0.05,unit:'kg·m²/s',exp:'M·Δt = ΔL = I·Δω = 0,4·5 = 2 kg·m²/s.'},
-   {q:'Raddoppiando Δt a parità di M, l’impulso angolare M·Δt:',opts:['si dimezza','raddoppia','resta uguale','si annulla'],ans:1,exp:'M·Δt è proporzionale a Δt: raddoppia.'}
+   {q:'Un momento $M = 2$ N·m agisce per $\\Delta t = 3$ s. Variazione di momento angolare $\\Delta L$?',num:true,ans:6,tol:0.1,unit:'kg·m²/s',exp:'$\\Delta L = M\\,\\Delta t = 2\\cdot 3 = 6$ kg·m²/s.'},
+   {q:'Volano con $I = 0{,}5$ kg·m² a $\\omega_0 = 10$ rad/s. Un freno $M = 2{,}5$ N·m. Tempo per fermarlo?',num:true,ans:2,tol:0.1,unit:'s',exp:'$\\Delta t = I\\,\\omega_0/M = (0{,}5\\cdot 10)/2{,}5 = 2$ s.'},
+   {q:'$I = 0{,}5$ kg·m², $\\omega_0 = 4$ rad/s, momento $M = 1$ N·m applicato per $\\Delta t = 2$ s. $\\omega$ finale?',opts:['$4$ rad/s','$6$ rad/s','$8$ rad/s','$12$ rad/s'],ans:2,exp:'$\\omega_f = \\omega_0 + (M/I)\\,\\Delta t = 4 + (1/0{,}5)\\cdot 2 = 8$ rad/s.'},
+   {q:'Quale impulso angolare serve per aumentare di $\\Delta\\omega = 5$ rad/s un corpo con $I = 0{,}4$ kg·m²?',num:true,ans:2,tol:0.05,unit:'kg·m²/s',exp:'$M\\,\\Delta t = \\Delta L = I\\,\\Delta\\omega = 0{,}4\\cdot 5 = 2$ kg·m²/s.'},
+   {q:'Raddoppiando $\\Delta t$ a parità di $M$, l’impulso angolare $M\\,\\Delta t$:',opts:['si dimezza','raddoppia','resta uguale','si annulla'],ans:1,exp:'$M\\,\\Delta t$ è proporzionale a $\\Delta t$: raddoppia.'}
   ]
  },
  angolare:{
   teoria:[
-   {q:'Il momento angolare di un sistema si conserva quando:',opts:['I è molto grande','il momento esterno totale è nullo','ω è costante','c’è attrito'],ans:1,exp:'Se M_est = 0 allora ΔL = 0: L = I·ω resta costante.'},
-   {q:'Una pattinatrice che chiude le braccia (asse senza attrito):',opts:['rallenta','accelera la rotazione','si ferma','non cambia velocità'],ans:1,exp:'Chiudendo le braccia I diminuisce; poiché L = I·ω è costante, ω aumenta.'},
-   {q:'Una persona su una piattaforma rotante che si avvicina al centro fa:',opts:['diminuire ω','aumentare ω','fermare la piattaforma','aumentare L'],ans:1,exp:'Avvicinarsi al centro riduce I ⇒ ω aumenta (L costante).'},
-   {q:'Quando la ballerina chiude le braccia (L costante), la sua energia cinetica di rotazione:',opts:['diminuisce','resta uguale','aumenta','si annulla'],ans:2,exp:'E꜀ = ½I·ω² = ½L·ω: a L costante, se ω cresce E꜀ aumenta. La fornisce il lavoro muscolare.'},
+   {q:'Il momento angolare di un sistema si conserva quando:',opts:['$I$ è molto grande','il momento esterno totale è nullo','$\\omega$ è costante','c’è attrito'],ans:1,exp:'Se $M_\\text{est} = 0$ allora $\\Delta L = 0$: $L = I\\,\\omega$ resta costante.'},
+   {q:'Una pattinatrice che chiude le braccia (asse senza attrito):',opts:['rallenta','accelera la rotazione','si ferma','non cambia velocità'],ans:1,exp:'Chiudendo le braccia $I$ diminuisce; poiché $L = I\\,\\omega$ è costante, $\\omega$ aumenta.'},
+   {q:'Una persona su una piattaforma rotante che si avvicina al centro fa:',opts:['diminuire $\\omega$','aumentare $\\omega$','fermare la piattaforma','aumentare $L$'],ans:1,exp:'Avvicinarsi al centro riduce $I$ ⇒ $\\omega$ aumenta ($L$ costante).'},
+   {q:'Quando la ballerina chiude le braccia ($L$ costante), la sua energia cinetica di rotazione:',opts:['diminuisce','resta uguale','aumenta','si annulla'],ans:2,exp:'$E_c = \\tfrac12 I\\omega^2 = \\tfrac12 L\\omega$: a $L$ costante, se $\\omega$ cresce $E_c$ aumenta. La fornisce il lavoro muscolare.'},
    {q:'Nell’urto di un corpo contro l’asta imperniata, si conserva:',opts:['l’energia cinetica','il momento angolare rispetto al perno','la quantità di moto lineare','la velocità del corpo'],ans:1,exp:'L’urto è impulsivo: si conserva il momento angolare rispetto al perno (le forze del perno hanno braccio nullo). L’energia cinetica no (urto anelastico).'}
   ],
   calcolo:[
-   {q:'Sistema con I₁ = 4 kg·m² e ω₁ = 2 rad/s. Si chiude fino a I₂ = 2 kg·m². Nuova ω₂?',num:true,ans:4,tol:0.1,unit:'rad/s',exp:'I₁ω₁ = I₂ω₂ ⇒ ω₂ = 4·2/2 = 4 rad/s.'},
-   {q:'Asta (M = 2 kg, L = 1 m) imperniata all’estremo, colpita all’estremo da m = 0,2 kg a v = 10 m/s. ω subito dopo l’urto?',num:true,ans:2.31,tol:0.15,unit:'rad/s',exp:'I_tot = ⅓·2·1 + 0,2·1 = 0,867 kg·m²; ω = m·v·L/I_tot = 2/0,867 ≈ 2,31 rad/s.'},
-   {q:'Se il momento d’inerzia si dimezza e L si conserva, la velocità angolare ω:',opts:['si dimezza','raddoppia','resta uguale','quadruplica'],ans:1,exp:'L = I·ω costante: se I → I/2 allora ω → 2ω.'},
-   {q:'Una persona ha I = 5 kg·m² e ruota a ω₀ = 1,2 rad/s; tirando i pesi scende a I = 2 kg·m². Nuova ω?',num:true,ans:3,tol:0.1,unit:'rad/s',exp:'ω = I₀ω₀/I = (5·1,2)/2 = 3 rad/s.'},
-   {q:'Per l’asta colpita, l’accelerazione angolare nell’istante esatto dell’urto (asta verticale, φ = 0) è:',opts:['massima','zero','pari a g/L','infinita'],ans:1,exp:'α = −g(M·L/2+m·L)·sin φ / I_tot: con φ = 0 si ha sin 0 = 0 ⇒ α = 0. Cresce man mano che l’asta sale.'}
+   {q:'Sistema con $I_1 = 4$ kg·m² e $\\omega_1 = 2$ rad/s. Si chiude fino a $I_2 = 2$ kg·m². Nuova $\\omega_2$?',num:true,ans:4,tol:0.1,unit:'rad/s',exp:'$I_1\\omega_1 = I_2\\omega_2 \\Rightarrow \\omega_2 = 4\\cdot 2/2 = 4$ rad/s.'},
+   {q:'Asta ($M = 2$ kg, $L = 1$ m) imperniata all’estremo, colpita all’estremo da $m = 0{,}2$ kg a $v = 10$ m/s. $\\omega$ subito dopo l’urto?',num:true,ans:2.31,tol:0.15,unit:'rad/s',exp:'$I_\\text{tot} = \\tfrac13\\cdot 2\\cdot 1 + 0{,}2\\cdot 1 = 0{,}867$ kg·m²; $\\omega = m v L/I_\\text{tot} = 2/0{,}867 \\approx 2{,}31$ rad/s.'},
+   {q:'Se il momento d’inerzia si dimezza e $L$ si conserva, la velocità angolare $\\omega$:',opts:['si dimezza','raddoppia','resta uguale','quadruplica'],ans:1,exp:'$L = I\\,\\omega$ costante: se $I \\to I/2$ allora $\\omega \\to 2\\omega$.'},
+   {q:'Una persona ha $I = 5$ kg·m² e ruota a $\\omega_0 = 1{,}2$ rad/s; tirando i pesi scende a $I = 2$ kg·m². Nuova $\\omega$?',num:true,ans:3,tol:0.1,unit:'rad/s',exp:'$\\omega = I_0\\omega_0/I = (5\\cdot 1{,}2)/2 = 3$ rad/s.'},
+   {q:'Per l’asta colpita, l’accelerazione angolare nell’istante esatto dell’urto (asta verticale, $\\varphi = 0$) è:',opts:['massima','zero','pari a $g/L$','infinita'],ans:1,exp:'$\\alpha = -g(M L/2+m L)\\sin\\varphi / I_\\text{tot}$: con $\\varphi = 0$ si ha $\\sin 0 = 0 \\Rightarrow \\alpha = 0$. Cresce man mano che l’asta sale.'}
   ]
  },
  rototraslazione:{
   teoria:[
-   {q:'Nel rotolamento puro (senza strisciare), il legame fra velocità del centro e velocità angolare è:',opts:['v = ω/R','v = ω·R','v = R/ω','v = ω·R²'],ans:1,exp:'Rotolamento puro: v_cm = ω·R (e analogamente a_cm = α·R).'},
-   {q:'In un corpo che rotola senza strisciare, il punto a contatto col suolo ha velocità:',opts:['uguale al centro','doppia del centro','nulla','massima'],ans:2,exp:'Il contatto è istantaneamente fermo: è l’asse istantaneo di rotazione. Il centro va a v, la sommità a 2v.'},
-   {q:'Sfera, cilindro e anello rotolano giù dallo stesso piano. Chi arriva primo?',opts:['l’anello','il cilindro','la sfera','arrivano insieme'],ans:2,exp:'a = g·sinθ/(1+c): vince il c più piccolo. Sfera (c=0,4) > cilindro (0,5) > anello (1).'},
-   {q:'L’accelerazione di un corpo che rotola giù da un piano dipende da:',opts:['massa e raggio','solo dalla forma (c) e da θ','solo dalla massa','solo dal raggio'],ans:1,exp:'a = g·sinθ/(1+c): m e R si semplificano, conta solo la forma e l’inclinazione.'},
-   {q:'L’energia cinetica di un corpo che rotola è:',opts:['solo ½m·v²','solo ½I·ω²','½m·v² + ½I·ω²','m·g·h'],ans:2,exp:'È la somma di traslazione (½m·v²) e rotazione (½I·ω²).'}
+   {q:'Nel rotolamento puro (senza strisciare), il legame fra velocità del centro e velocità angolare è:',opts:['$v = \\omega/R$','$v = \\omega R$','$v = R/\\omega$','$v = \\omega R^2$'],ans:1,exp:'Rotolamento puro: $v_\\text{cm} = \\omega R$ (e analogamente $a_\\text{cm} = \\alpha R$).'},
+   {q:'In un corpo che rotola senza strisciare, il punto a contatto col suolo ha velocità:',opts:['uguale al centro','doppia del centro','nulla','massima'],ans:2,exp:'Il contatto è istantaneamente fermo: è l’asse istantaneo di rotazione. Il centro va a $v$, la sommità a $2v$.'},
+   {q:'Sfera, cilindro e anello rotolano giù dallo stesso piano. Chi arriva primo?',opts:['l’anello','il cilindro','la sfera','arrivano insieme'],ans:2,exp:'$a = g\\sin\\theta/(1+c)$: vince il $c$ più piccolo. Sfera ($c=0{,}4$) > cilindro ($0{,}5$) > anello ($1$).'},
+   {q:'L’accelerazione di un corpo che rotola giù da un piano dipende da:',opts:['massa e raggio','solo dalla forma ($c$) e da $\\theta$','solo dalla massa','solo dal raggio'],ans:1,exp:'$a = g\\sin\\theta/(1+c)$: $m$ e $R$ si semplificano, conta solo la forma e l’inclinazione.'},
+   {q:'L’energia cinetica di un corpo che rotola è:',opts:['solo $\\tfrac12 m v^2$','solo $\\tfrac12 I\\omega^2$','$\\tfrac12 m v^2 + \\tfrac12 I\\omega^2$','$m g h$'],ans:2,exp:'È la somma di traslazione ($\\tfrac12 m v^2$) e rotazione ($\\tfrac12 I\\omega^2$).'}
   ],
   calcolo:[
-   {q:'Un cilindro (c = 0,5) rotola senza strisciare su un piano a θ = 30°. Accelerazione del centro? (g = 9,81)',num:true,ans:3.27,tol:0.15,unit:'m/s²',exp:'a = g·sin30°/(1+0,5) = 4,905/1,5 = 3,27 m/s².'},
-   {q:'Una ruota rotola senza strisciare: ω = 20 rad/s, R = 0,30 m. Velocità del centro?',num:true,ans:6,tol:0.1,unit:'m/s',exp:'v = ω·R = 20·0,30 = 6 m/s.'},
-   {q:'Se il centro di una ruota va a v = 4 m/s, la sua sommità (rotolamento puro) va a:',opts:['2 m/s','4 m/s','8 m/s','0 m/s'],ans:2,exp:'v_sommità = 2·v_cm = 8 m/s; il contatto invece è fermo.'},
-   {q:'Una sfera (c = 0,4) parte da ferma e rotola giù per un dislivello h = 2 m. Velocità in fondo? (g = 9,81)',num:true,ans:5.29,tol:0.15,unit:'m/s',exp:'v = √(2gh/(1+c)) = √(2·9,81·2/1,4) = √28,0 ≈ 5,29 m/s.'},
-   {q:'Un anello (c = 1) rotola su un piano a θ = 20°. Accelerazione del centro? (g = 9,81)',num:true,ans:1.68,tol:0.1,unit:'m/s²',exp:'a = g·sin20°/(1+1) = 3,355/2 = 1,68 m/s².'}
+   {q:'Un cilindro ($c = 0{,}5$) rotola senza strisciare su un piano a $\\theta = 30^\\circ$. Accelerazione del centro? ($g = 9{,}81$)',num:true,ans:3.27,tol:0.15,unit:'m/s²',exp:'$a = g\\sin 30^\\circ/(1+0{,}5) = 4{,}905/1{,}5 = 3{,}27$ m/s².'},
+   {q:'Una ruota rotola senza strisciare: $\\omega = 20$ rad/s, $R = 0{,}30$ m. Velocità del centro?',num:true,ans:6,tol:0.1,unit:'m/s',exp:'$v = \\omega R = 20\\cdot 0{,}30 = 6$ m/s.'},
+   {q:'Se il centro di una ruota va a $v = 4$ m/s, la sua sommità (rotolamento puro) va a:',opts:['$2$ m/s','$4$ m/s','$8$ m/s','$0$ m/s'],ans:2,exp:'$v_\\text{sommità} = 2 v_\\text{cm} = 8$ m/s; il contatto invece è fermo.'},
+   {q:'Una sfera ($c = 0{,}4$) parte da ferma e rotola giù per un dislivello $h = 2$ m. Velocità in fondo? ($g = 9{,}81$)',num:true,ans:5.29,tol:0.15,unit:'m/s',exp:'$v = \\sqrt{2gh/(1+c)} = \\sqrt{2\\cdot 9{,}81\\cdot 2/1{,}4} = \\sqrt{28{,}0} \\approx 5{,}29$ m/s.'},
+   {q:'Un anello ($c = 1$) rotola su un piano a $\\theta = 20^\\circ$. Accelerazione del centro? ($g = 9{,}81$)',num:true,ans:1.68,tol:0.1,unit:'m/s²',exp:'$a = g\\sin 20^\\circ/(1+1) = 3{,}355/2 = 1{,}68$ m/s².'}
   ]
  }
 };
