@@ -1235,10 +1235,12 @@ function anStep(dt){
     } else if(anState.phase==='swing'){
       const al=-p.k*Math.sin(anState.phi);
       anState.omega+=al*dt; anState.phi+=anState.omega*dt;
+      anState.swingT=(anState.swingT||0)+dt;
+      if(anState.swingT>6 && Math.abs(anState.phi)<0.18) anLaunchRod(); // ripete l'urto da capo
     }
   }
 }
-function anLaunchRod(){ anState.phase='incoming'; anState.projx=-120; anState.phi=0; anState.omega=0; }
+function anLaunchRod(){ anState.phase='incoming'; anState.projx=-120; anState.phi=0; anState.omega=0; anState.swingT=0; }
 function anDraw(){
   let s='';
   if(anScn()==='plat'){
@@ -1298,7 +1300,8 @@ function anSwitch(){
   document.getElementById('anCtrlPlat').style.display=rod?'none':'';
   document.getElementById('anCtrlRod').style.display=rod?'':'none';
   document.getElementById('anLaunch').style.display=rod?'':'none';
-  anState.phase='idle'; anState.projx=-120; anState.phi=0; anState.omega=0; anState.theta=0;
+  if(rod){ anLaunchRod(); }   // l'urto parte subito appena si entra nello scenario
+  else { anState.phase='idle'; anState.projx=-120; anState.phi=0; anState.omega=0; anState.theta=0; }
   anDraw();
 }
 
