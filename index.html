@@ -67,9 +67,13 @@ ul.cl{margin:.3rem 0 .3rem 1.1rem}ul.cl li{margin:.18rem 0}
 
 /* ===== Formulas ===== */
 .formula{background:var(--primary-l);border-left:3px solid var(--primary);
-  padding:.6rem .9rem;margin:.5rem 0;border-radius:0 8px 8px 0;
-  font-family:"Cambria Math","STIX Two Math",Georgia,serif;font-size:1.05em;
-  overflow-x:auto;white-space:nowrap;line-height:1.9}
+  padding:.55rem .9rem;margin:.5rem 0;border-radius:0 8px 8px 0;
+  font-family:"Cambria Math","STIX Two Math",Georgia,serif;font-size:1.04em;
+  overflow-x:auto;overflow-y:hidden;line-height:1.7}
+.formula .katex-display{margin:.15rem 0;text-align:left}
+.formula .katex{font-size:1.12em}
+.where{font-size:.84em;color:var(--muted);margin:.1rem 0 .55rem;line-height:1.7}
+.where b{color:var(--text)}
 .tip{background:#eaf6ec;border-left:3px solid #2e7d32;padding:.5rem .9rem;
   margin:.55rem 0;border-radius:0 8px 8px 0;font-size:.9em}
 .warn{background:#fef6e6;border-left:3px solid #f9a825;padding:.5rem .9rem;
@@ -249,6 +253,9 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
   .lead{display:none}
 }
 </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <header>
@@ -275,13 +282,13 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
     <table class="cmp">
       <thead><tr><th>Ruolo</th><th>Traslazione</th><th>Rotazione</th></tr></thead>
       <tbody>
-        <tr><td>posizione</td><td class="tra">s</td><td class="rot">θ</td></tr>
-        <tr><td>velocità</td><td class="tra">v</td><td class="rot">ω</td></tr>
-        <tr><td>accelerazione</td><td class="tra">a</td><td class="rot">α</td></tr>
-        <tr><td>inerzia</td><td class="tra">m (massa)</td><td class="rot">I (mom. d'inerzia)</td></tr>
-        <tr><td>«causa»</td><td class="tra">F (forza)</td><td class="rot">M (momento)</td></tr>
-        <tr><td>2ª legge</td><td class="tra">F = m·a</td><td class="rot">M = I·α</td></tr>
-        <tr><td>quantità di moto</td><td class="tra">p = m·v</td><td class="rot">L = I·ω</td></tr>
+        <tr><td>posizione</td><td class="tra">$s$</td><td class="rot">$\theta$</td></tr>
+        <tr><td>velocità</td><td class="tra">$v$</td><td class="rot">$\omega$</td></tr>
+        <tr><td>accelerazione</td><td class="tra">$a$</td><td class="rot">$\alpha$</td></tr>
+        <tr><td>inerzia</td><td class="tra">$m$ (massa)</td><td class="rot">$I$ (mom. d'inerzia)</td></tr>
+        <tr><td>«causa»</td><td class="tra">$F$ (forza)</td><td class="rot">$M$ (momento)</td></tr>
+        <tr><td>2ª legge</td><td class="tra">$F = m\,a$</td><td class="rot">$M = I\,\alpha$</td></tr>
+        <tr><td>quantità di moto</td><td class="tra">$p = m\,v$</td><td class="rot">$L = I\,\omega$</td></tr>
       </tbody>
     </table>
     <div class="tip">💡 In ogni sezione trovi sempre la stessa struttura: <strong>Teoria</strong> (concetti e formule) → <strong>Simulazioni</strong> (cursori e animazioni) → <strong>Prova tu</strong> (esercizi guidati con soluzione passo-passo) → <strong>Quiz</strong> (a scelta multipla e di calcolo).</div>
@@ -304,24 +311,28 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
   <p class="sec-label">Teoria</p>
   <div class="card">
     <h2>🎯 Le grandezze angolari</h2>
-    <p>Per descrivere la rotazione misuriamo gli angoli in <strong>radianti</strong> (rad): un giro completo vale 2π rad ≈ 6,28 rad.</p>
+    <p>Per descrivere la rotazione misuriamo gli angoli in <strong>radianti</strong> (rad): un giro completo vale $2\pi$ rad $\approx 6{,}28$ rad.</p>
     <ul class="cl">
-      <li><strong>Angolo di rotazione θ</strong> — di quanto è ruotato il corpo (analogo allo spostamento s).</li>
-      <li><strong>Velocità angolare ω</strong> = quanto velocemente cambia l'angolo: ω = Δθ/Δt (analoga a v).</li>
-      <li><strong>Accelerazione angolare α</strong> = quanto velocemente cambia ω: α = Δω/Δt (analoga ad a).</li>
+      <li><strong>Angolo di rotazione $\theta$</strong> — di quanto è ruotato il corpo (analogo allo spostamento $s$).</li>
+      <li><strong>Velocità angolare $\omega$</strong> — quanto velocemente cambia l'angolo (analoga a $v$).</li>
+      <li><strong>Accelerazione angolare $\alpha$</strong> — quanto velocemente cambia $\omega$ (analoga ad $a$).</li>
     </ul>
-    <div class="formula">ω = Δθ / Δt &nbsp;·&nbsp; α = Δω / Δt</div>
+    <div class="formula">$$\omega = \frac{\Delta\theta}{\Delta t} \qquad\qquad \alpha = \frac{\Delta\omega}{\Delta t}$$</div>
+    <p class="where"><b>dove:</b> $\theta$ = angolo (rad) &nbsp;·&nbsp; $\omega$ = velocità angolare (rad/s) &nbsp;·&nbsp; $\alpha$ = accelerazione angolare (rad/s²) &nbsp;·&nbsp; $\Delta t$ = intervallo di tempo (s).</p>
     <h3>Moto rotatorio uniformemente accelerato</h3>
-    <p>Se α è costante, valgono equazioni <em>identiche</em> a quelle del moto rettilineo uniformemente accelerato — con θ, ω, α al posto di s, v, a:</p>
-    <div class="formula">ω = ω₀ + α·t</div>
-    <div class="formula">θ = θ₀ + ω₀·t + ½·α·t²</div>
-    <div class="formula">ω² = ω₀² + 2·α·Δθ</div>
+    <p>Se $\alpha$ è costante, valgono equazioni <em>identiche</em> a quelle del moto rettilineo uniformemente accelerato — con $\theta,\ \omega,\ \alpha$ al posto di $s,\ v,\ a$:</p>
+    <div class="formula">$$\omega = \omega_0 + \alpha\,t$$</div>
+    <div class="formula">$$\theta = \theta_0 + \omega_0\,t + \tfrac{1}{2}\,\alpha\,t^{2}$$</div>
+    <div class="formula">$$\omega^{2} = \omega_0^{\,2} + 2\,\alpha\,\Delta\theta$$</div>
+    <p class="where"><b>dove:</b> $\omega_0$ = velocità angolare iniziale &nbsp;·&nbsp; $\theta_0$ = angolo iniziale &nbsp;·&nbsp; $t$ = tempo (s) &nbsp;·&nbsp; $\Delta\theta=\theta-\theta_0$.</p>
     <h3>Il legame con le grandezze lineari</h3>
-    <p>Un punto del corpo a distanza <em>r</em> dall'asse percorre un arco di lunghezza s = r·θ. Derivando rispetto al tempo si ottengono velocità e accelerazione <strong>tangenziali</strong>:</p>
-    <div class="formula">s = r·θ &nbsp;·&nbsp; v = r·ω &nbsp;·&nbsp; a<sub>t</sub> = r·α</div>
-    <p>Inoltre, anche muovendosi con ω costante, il punto ha un'<strong>accelerazione centripeta</strong> diretta verso l'asse:</p>
-    <div class="formula">a<sub>c</sub> = ω²·r = v² / r</div>
-    <div class="tip">📐 Più un punto è lontano dall'asse (r grande), più è veloce: la velocità angolare ω è la stessa per tutti, ma la velocità lineare v = r·ω cresce con r. Ecco perché l'estremità di una pala di elicottero «sferza» l'aria.</div>
+    <p>Un punto del corpo a distanza $r$ dall'asse percorre un arco di lunghezza $s = r\,\theta$. Derivando rispetto al tempo si ottengono velocità e accelerazione <strong>tangenziali</strong>:</p>
+    <div class="formula">$$\begin{aligned} s &= r\,\theta \\[2pt] v &= r\,\omega \\[2pt] a_t &= r\,\alpha \end{aligned}$$</div>
+    <p class="where"><b>dove:</b> $r$ = distanza dall'asse (m) &nbsp;·&nbsp; $s$ = arco percorso (m) &nbsp;·&nbsp; $v$ = velocità tangenziale (m/s) &nbsp;·&nbsp; $a_t$ = accelerazione tangenziale (m/s²).</p>
+    <p>Inoltre, anche muovendosi con $\omega$ costante, il punto ha un'<strong>accelerazione centripeta</strong> diretta verso l'asse:</p>
+    <div class="formula">$$a_c = \omega^{2}\,r = \frac{v^{2}}{r}$$</div>
+    <p class="where"><b>dove:</b> $a_c$ = accelerazione centripeta (m/s²), diretta dal punto verso l'asse di rotazione.</p>
+    <div class="tip">📐 Più un punto è lontano dall'asse ($r$ grande), più è veloce: la velocità angolare $\omega$ è la stessa per tutti, ma la velocità lineare $v = r\,\omega$ cresce con $r$. Ecco perché l'estremità di una pala di elicottero «sferza» l'aria.</div>
     <svg class="diagram" viewBox="0 0 420 230" role="img" aria-label="Disco rotante con grandezze angolari e lineari">
       <circle cx="150" cy="120" r="92" fill="#eef3fb" stroke="#9aa3b2" stroke-width="1.5"/>
       <circle cx="150" cy="120" r="3.5" fill="#1a1a2e"/>
@@ -396,40 +407,43 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
   <p class="sec-label">Teoria</p>
   <div class="card">
     <h2>⚙️ Che cosa fa ruotare un corpo</h2>
-    <h3>Il momento M di una forza</h3>
-    <p>Una forza fa ruotare un corpo solo se è applicata «con leva». Il <strong>momento</strong> (o momento torcente) misura questa capacità: dipende dalla forza F, dalla distanza r dal punto di applicazione all'asse e dall'angolo φ fra loro.</p>
-    <div class="formula">M = r·F·sin φ = F·b</div>
-    <p>dove <em>b = r·sin φ</em> è il <strong>braccio</strong> (distanza dell'asse dalla retta d'azione). Il momento è massimo quando la forza è perpendicolare (φ = 90°), nullo se è diretta verso l'asse.</p>
-    <h3>Il momento d'inerzia I</h3>
+    <h3>Il momento $M$ di una forza</h3>
+    <p>Una forza fa ruotare un corpo solo se è applicata «con leva». Il <strong>momento</strong> (o momento torcente) misura questa capacità: dipende dalla forza $F$, dalla distanza $r$ dal punto di applicazione all'asse e dall'angolo $\varphi$ fra loro.</p>
+    <div class="formula">$$M = r\,F\,\sin\varphi = F\,b$$</div>
+    <p class="where"><b>dove:</b> $M$ = momento (N·m) &nbsp;·&nbsp; $F$ = forza (N) &nbsp;·&nbsp; $r$ = distanza dall'asse (m) &nbsp;·&nbsp; $\varphi$ = angolo fra $\vec r$ e $\vec F$ &nbsp;·&nbsp; $b = r\,\sin\varphi$ = <strong>braccio</strong> (distanza dell'asse dalla retta d'azione, m).</p>
+    <p>Il momento è massimo quando la forza è perpendicolare ($\varphi = 90^\circ$), nullo se è diretta verso l'asse.</p>
+    <h3>Il momento d'inerzia $I$</h3>
     <p>L'inerzia alla rotazione non dipende solo dalla massa, ma da <strong>come</strong> è distribuita attorno all'asse: massa lontana dall'asse «pesa» di più.</p>
-    <div class="formula">I = Σ m<sub>i</sub>·r<sub>i</sub>²</div>
+    <div class="formula">$$I = \sum_i m_i\,r_i^{\,2}$$</div>
+    <p class="where"><b>dove:</b> $I$ = momento d'inerzia (kg·m²) &nbsp;·&nbsp; $m_i$ = massa dell'$i$-esimo elemento &nbsp;·&nbsp; $r_i$ = sua distanza dall'asse (m).</p>
     <table class="cmp">
       <thead><tr><th>Corpo (asse)</th><th>Momento d'inerzia</th></tr></thead>
       <tbody>
-        <tr><td>punto materiale</td><td class="rot">I = m·r²</td></tr>
-        <tr><td>anello / cilindro cavo (asse)</td><td class="rot">I = m·R²</td></tr>
-        <tr><td>disco / cilindro pieno (asse)</td><td class="rot">I = ½·m·R²</td></tr>
-        <tr><td>sfera piena (diametro)</td><td class="rot">I = ⅖·m·R²</td></tr>
-        <tr><td>asta (centro)</td><td class="rot">I = 1/12·m·L²</td></tr>
-        <tr><td>asta (estremo)</td><td class="rot">I = ⅓·m·L²</td></tr>
+        <tr><td>punto materiale</td><td class="rot">$I = m\,r^{2}$</td></tr>
+        <tr><td>anello / cilindro cavo (asse)</td><td class="rot">$I = m\,R^{2}$</td></tr>
+        <tr><td>disco / cilindro pieno (asse)</td><td class="rot">$I = \tfrac{1}{2}\,m\,R^{2}$</td></tr>
+        <tr><td>sfera piena (diametro)</td><td class="rot">$I = \tfrac{2}{5}\,m\,R^{2}$</td></tr>
+        <tr><td>asta (centro)</td><td class="rot">$I = \tfrac{1}{12}\,m\,L^{2}$</td></tr>
+        <tr><td>asta (estremo)</td><td class="rot">$I = \tfrac{1}{3}\,m\,L^{2}$</td></tr>
       </tbody>
     </table>
     <h3>La 2ª legge della dinamica rotazionale</h3>
-    <p>Il momento totale produce un'accelerazione angolare proporzionale, con I come «inerzia». È la copia esatta di F = m·a:</p>
-    <div class="formula">M = I·α &nbsp;&nbsp;⟷&nbsp;&nbsp; F = m·a</div>
-    <h3>Il momento angolare L</h3>
-    <p>L'analogo della quantità di moto p = m·v è il <strong>momento angolare</strong> L = I·ω. E come F = Δp/Δt, vale:</p>
-    <div class="formula">L = I·ω &nbsp;·&nbsp; M = ΔL / Δt</div>
-    <p>Infine l'energia cinetica di rotazione ricalca ½m·v²:</p>
-    <div class="formula">E<sub>c,rot</sub> = ½·I·ω²</div>
+    <p>Il momento totale produce un'accelerazione angolare proporzionale, con $I$ come «inerzia». È la copia esatta di $F = m\,a$:</p>
+    <div class="formula">$$M = I\,\alpha \qquad\Longleftrightarrow\qquad F = m\,a$$</div>
+    <h3>Il momento angolare $L$</h3>
+    <p>L'analogo della quantità di moto $p = m\,v$ è il <strong>momento angolare</strong> $L = I\,\omega$. E come $F = \Delta p/\Delta t$, vale:</p>
+    <div class="formula">$$L = I\,\omega \qquad\qquad M = \frac{\Delta L}{\Delta t}$$</div>
+    <p>Infine l'energia cinetica di rotazione ricalca $\tfrac{1}{2}m\,v^{2}$:</p>
+    <div class="formula">$$E_{c,\text{rot}} = \tfrac{1}{2}\,I\,\omega^{2}$$</div>
+    <p class="where"><b>dove:</b> $L$ = momento angolare (kg·m²/s) &nbsp;·&nbsp; $E_{c,\text{rot}}$ = energia cinetica di rotazione (J) &nbsp;·&nbsp; $\Delta t$ = intervallo di tempo (s).</p>
     <table class="cmp">
       <thead><tr><th>Grandezza</th><th>Traslazione</th><th>Rotazione</th></tr></thead>
       <tbody>
-        <tr><td>2ª legge</td><td class="tra">F = m·a</td><td class="rot">M = I·α</td></tr>
-        <tr><td>quantità di moto</td><td class="tra">p = m·v</td><td class="rot">L = I·ω</td></tr>
-        <tr><td>«impulso»</td><td class="tra">F·Δt = Δp</td><td class="rot">M·Δt = ΔL</td></tr>
-        <tr><td>energia cinetica</td><td class="tra">½·m·v²</td><td class="rot">½·I·ω²</td></tr>
-        <tr><td>lavoro</td><td class="tra">F·s</td><td class="rot">M·θ</td></tr>
+        <tr><td>2ª legge</td><td class="tra">$F = m\,a$</td><td class="rot">$M = I\,\alpha$</td></tr>
+        <tr><td>quantità di moto</td><td class="tra">$p = m\,v$</td><td class="rot">$L = I\,\omega$</td></tr>
+        <tr><td>«impulso»</td><td class="tra">$F\,\Delta t = \Delta p$</td><td class="rot">$M\,\Delta t = \Delta L$</td></tr>
+        <tr><td>energia cinetica</td><td class="tra">$\tfrac{1}{2}m\,v^{2}$</td><td class="rot">$\tfrac{1}{2}I\,\omega^{2}$</td></tr>
+        <tr><td>lavoro</td><td class="tra">$F\,s$</td><td class="rot">$M\,\theta$</td></tr>
       </tbody>
     </table>
     <svg class="diagram" viewBox="0 0 420 210" role="img" aria-label="Momento di una forza su un disco">
@@ -502,31 +516,33 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
     <h2>⛰️ Corpi collegati da un filo su una carrucola che ruota</h2>
     <p>Due corpi sono collegati da un <strong>filo inestensibile e di massa trascurabile</strong> che passa su una <strong>carrucola</strong>. Se la carrucola fosse ideale (senza massa) la tensione sarebbe la stessa ai due capi. Ma una carrucola reale è un <strong>disco che ruota</strong>: per metterla in rotazione serve un momento, quindi le due tensioni <em>non sono uguali</em>.</p>
     <h3>Le tre equazioni del sistema</h3>
-    <p>Consideriamo una massa m₁ su un piano inclinato (angolo θ₁, attrito μ) collegata a una massa m₂ appesa. Se m₂ scende, il sistema accelera con accelerazione <em>a</em> uguale per i due corpi (filo inestensibile), e la carrucola (disco, massa M<sub>p</sub>, raggio R) ruota con α = a/R.</p>
-    <div class="formula">m₂: &nbsp; m₂g − T₂ = m₂·a</div>
-    <div class="formula">m₁: &nbsp; T₁ − m₁g·sin θ₁ − f<sub>a</sub> = m₁·a</div>
-    <div class="formula">carrucola: &nbsp; (T₂ − T₁)·R = I·α = ½M<sub>p</sub>R²·(a/R)</div>
-    <p>Dall'ultima: <strong>T₂ − T₁ = ½·M<sub>p</sub>·a</strong>. Sommando le tre equazioni la tensione si elimina e si ricava:</p>
-    <div class="formula">a = (m₂g − m₁g·sin θ₁ − μ·m₁g·cos θ₁) / (m₁ + m₂ + ½·M<sub>p</sub>)</div>
-    <p>Il termine <strong>½·M<sub>p</sub></strong> a denominatore è il contributo d'inerzia della carrucola: equivale ad aggiungere «metà della sua massa» al sistema. Con due piani inclinati (θ₁ e θ₂) basta sostituire la spinta di m₂ con m₂g·sin θ₂.</p>
-    <div class="tip">🧩 Tre conseguenze importanti: <strong>(1)</strong> la carrucola pesante rallenta il sistema (a più piccola); <strong>(2)</strong> T₁ ≠ T₂, ed è proprio questa differenza a farla ruotare; <strong>(3)</strong> se M<sub>p</sub> → 0 si ritrova il caso ideale T₁ = T₂.</div>
-    <div class="warn">⚠️ Il sistema parte solo se la spinta supera l'attrito statico massimo. Se m₂g (o m₂g·sin θ₂) non basta a vincere m₁g·sin θ₁ + μ·m₁g·cos θ₁, resta fermo: a = 0.</div>
-    <svg class="diagram" viewBox="0 0 420 220" role="img" aria-label="Piano inclinato con carrucola e massa appesa">
-      <polygon points="40,180 250,180 40,70" fill="#eef3fb" stroke="#9aa3b2" stroke-width="1.5"/>
-      <line x1="40" y1="180" x2="250" y2="180" stroke="#5b6470" stroke-width="2"/>
-      <rect x="120" y="118" width="34" height="24" rx="3" fill="#ffd54f" stroke="#8d6e00" stroke-width="1.3" transform="rotate(-27 137 130)"/>
-      <text x="118" y="120" font-size="11" fill="#5d4e00" font-weight="700">m₁</text>
-      <circle cx="250" cy="70" r="16" fill="#cfe0f5" stroke="#1565c0" stroke-width="2.5"/>
-      <circle cx="250" cy="70" r="3" fill="#1565c0"/>
-      <line x1="58" y1="84" x2="234" y2="62" stroke="#6b7280" stroke-width="1.5"/>
-      <line x1="266" y1="70" x2="266" y2="150" stroke="#6b7280" stroke-width="1.5"/>
-      <rect x="250" y="150" width="32" height="26" rx="3" fill="#ffab91" stroke="#bf360c" stroke-width="1.3"/>
-      <text x="288" y="167" font-size="11" fill="#bf360c" font-weight="700">m₂</text>
-      <text x="150" y="100" font-size="11" fill="#1565c0" font-weight="700">T₁</text>
-      <text x="270" y="120" font-size="11" fill="#7b1fa2" font-weight="700">T₂</text>
-      <path d="M 95 180 A 45 45 0 0 0 80 148" fill="none" stroke="#00897b" stroke-width="1.6"/>
-      <text x="100" y="166" font-size="11" fill="#00897b" font-weight="700">θ₁</text>
-      <text x="245" y="40" font-size="11" fill="#1565c0" font-weight="700">carrucola = disco</text>
+    <p>Consideriamo una massa $m_1$ su un piano inclinato (angolo $\theta_1$, attrito $\mu$) collegata a una massa $m_2$ appesa. Se $m_2$ scende, il sistema accelera con accelerazione $a$ uguale per i due corpi (filo inestensibile), e la carrucola (disco, massa $M_p$, raggio $R$) ruota con $\alpha = a/R$.</p>
+    <div class="formula">$$\begin{aligned}
+      m_2:\ \ & m_2\,g - T_2 = m_2\,a \\[3pt]
+      m_1:\ \ & T_1 - m_1\,g\sin\theta_1 - f_a = m_1\,a \\[3pt]
+      \text{carrucola:}\ \ & (T_2 - T_1)\,R = I\,\alpha = \tfrac{1}{2}M_p R^{2}\cdot\frac{a}{R}
+      \end{aligned}$$</div>
+    <p>Dall'ultima equazione: $\;T_2 - T_1 = \tfrac{1}{2}\,M_p\,a$. Sommando le tre equazioni la tensione si elimina e si ricava:</p>
+    <div class="formula">$$a = \frac{m_2\,g - m_1\,g\sin\theta_1 - \mu\,m_1\,g\cos\theta_1}{m_1 + m_2 + \tfrac{1}{2}M_p}$$</div>
+    <p class="where"><b>dove:</b> $a$ = accelerazione (m/s²) &nbsp;·&nbsp; $T_1,T_2$ = tensioni del filo (N) &nbsp;·&nbsp; $f_a=\mu\,m_1 g\cos\theta_1$ = attrito (N) &nbsp;·&nbsp; $M_p$ = massa carrucola (kg) &nbsp;·&nbsp; $R$ = raggio carrucola (m) &nbsp;·&nbsp; $g=9{,}81$ m/s².</p>
+    <p>Il termine $\tfrac{1}{2}M_p$ a denominatore è il contributo d'inerzia della carrucola: equivale ad aggiungere «metà della sua massa» al sistema. Con due piani inclinati ($\theta_1$ e $\theta_2$) basta sostituire la spinta di $m_2$ con $m_2\,g\sin\theta_2$.</p>
+    <div class="tip">🧩 Tre conseguenze importanti: <strong>(1)</strong> la carrucola pesante rallenta il sistema ($a$ più piccola); <strong>(2)</strong> $T_1 \ne T_2$, ed è proprio questa differenza a farla ruotare; <strong>(3)</strong> se $M_p \to 0$ si ritrova il caso ideale $T_1 = T_2$.</div>
+    <div class="warn">⚠️ Il sistema parte solo se la spinta supera l'attrito statico massimo. Se $m_2 g$ (o $m_2 g\sin\theta_2$) non basta a vincere $m_1 g\sin\theta_1 + \mu\,m_1 g\cos\theta_1$, resta fermo: $a = 0$.</div>
+    <svg class="diagram" viewBox="0 0 420 215" role="img" aria-label="Massa su piano inclinato collegata a una massa appesa tramite carrucola in cima">
+      <polygon points="60,185 255,63 255,185" fill="#eef3fb" stroke="#9aa3b2" stroke-width="1.5"/>
+      <line x1="36" y1="185" x2="320" y2="185" stroke="#5b6470" stroke-width="2"/>
+      <path d="M 92 185 A 32 32 0 0 0 87.1 168.0" fill="none" stroke="#00897b" stroke-width="1.6"/>
+      <text x="98" y="179" font-size="12" fill="#00897b" font-weight="700">θ₁</text>
+      <g transform="rotate(-32 150 112)"><rect x="132" y="100" width="36" height="24" rx="3" fill="#ffd54f" stroke="#8d6e00" stroke-width="1.3"/><text x="150" y="116" text-anchor="middle" font-size="11" fill="#5d4e00" font-weight="700">m₁</text></g>
+      <circle cx="262" cy="52" r="14" fill="#cfe0f5" stroke="#1565c0" stroke-width="2.5"/>
+      <circle cx="262" cy="52" r="3" fill="#1565c0"/>
+      <text x="206" y="32" font-size="11" fill="#1565c0" font-weight="700">carrucola = disco</text>
+      <line x1="160" y1="104" x2="251" y2="58" stroke="#6b7280" stroke-width="1.6"/>
+      <text x="194" y="74" font-size="11" fill="#1565c0" font-weight="700">T₁</text>
+      <line x1="276" y1="52" x2="276" y2="120" stroke="#6b7280" stroke-width="1.6"/>
+      <text x="282" y="92" font-size="11" fill="#7b1fa2" font-weight="700">T₂</text>
+      <rect x="260" y="120" width="32" height="26" rx="3" fill="#ffab91" stroke="#bf360c" stroke-width="1.3"/>
+      <text x="276" y="137" text-anchor="middle" font-size="11" fill="#7a2200" font-weight="700">m₂</text>
     </svg>
     <p class="dcap">Diagramma: la differenza T₂ − T₁ = ½M<sub>p</sub>·a fa ruotare la carrucola-disco.</p>
   </div>
@@ -587,19 +603,20 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
 
   <p class="sec-label">Teoria</p>
   <div class="card">
-    <h2>⏱️ Che cosa succede se un momento agisce per un tempo Δt</h2>
-    <p>Un corpo rigido sta già ruotando con velocità angolare ω₀. Se gli applichiamo un momento M per un intervallo di tempo Δt, il suo momento angolare cambia. È il <strong>teorema dell'impulso angolare</strong>, copia esatta del teorema dell'impulso (F·Δt = Δp):</p>
-    <div class="formula">M·Δt = ΔL = I·ω<sub>f</sub> − I·ω₀</div>
-    <p>La quantità <strong>M·Δt</strong> si chiama <em>impulso angolare</em>. Se M è costante, dividendo per I si ritrova α = M/I e quindi:</p>
-    <div class="formula">ω<sub>f</sub> = ω₀ + (M / I)·Δt = ω₀ + α·Δt</div>
+    <h2>⏱️ Che cosa succede se un momento agisce per un tempo $\Delta t$</h2>
+    <p>Un corpo rigido sta già ruotando con velocità angolare $\omega_0$. Se gli applichiamo un momento $M$ per un intervallo di tempo $\Delta t$, il suo momento angolare cambia. È il <strong>teorema dell'impulso angolare</strong>, copia esatta del teorema dell'impulso ($F\,\Delta t = \Delta p$):</p>
+    <div class="formula">$$M\,\Delta t = \Delta L = I\,\omega_f - I\,\omega_0$$</div>
+    <p>La quantità $M\,\Delta t$ si chiama <em>impulso angolare</em>. Se $M$ è costante, dividendo per $I$ si ritrova $\alpha = M/I$ e quindi:</p>
+    <div class="formula">$$\omega_f = \omega_0 + \frac{M}{I}\,\Delta t = \omega_0 + \alpha\,\Delta t$$</div>
+    <p class="where"><b>dove:</b> $M$ = momento applicato (N·m) &nbsp;·&nbsp; $\Delta t$ = durata (s) &nbsp;·&nbsp; $\Delta L$ = variazione di momento angolare (kg·m²/s) &nbsp;·&nbsp; $\omega_0,\ \omega_f$ = velocità angolare iniziale e finale (rad/s) &nbsp;·&nbsp; $I$ = momento d'inerzia (kg·m²).</p>
     <h3>Quali effetti?</h3>
     <ul class="cl">
-      <li>Se M è <strong>concorde</strong> con la rotazione → il corpo <strong>accelera</strong> (ω aumenta, L aumenta).</li>
-      <li>Se M è <strong>opposto</strong> (es. un freno) → il corpo <strong>rallenta</strong>, può fermarsi e perfino invertire il senso.</li>
-      <li>Per fermare in un tempo Δt un volano con momento angolare L serve un momento medio M = L/Δt: più lungo è Δt, minore è il momento necessario (come l'airbag per la quantità di moto).</li>
+      <li>Se $M$ è <strong>concorde</strong> con la rotazione → il corpo <strong>accelera</strong> ($\omega$ aumenta, $L$ aumenta).</li>
+      <li>Se $M$ è <strong>opposto</strong> (es. un freno) → il corpo <strong>rallenta</strong>, può fermarsi e perfino invertire il senso.</li>
+      <li>Per fermare in un tempo $\Delta t$ un volano con momento angolare $L$ serve un momento medio $M = L/\Delta t$: più lungo è $\Delta t$, minore è il momento necessario (come l'airbag per la quantità di moto).</li>
     </ul>
-    <div class="formula">Δt = ΔL / M = I·Δω / M</div>
-    <div class="tip">🌀 Se invece il momento è <em>perpendicolare</em> al momento angolare (come la gravità su una trottola o un giroscopio in moto), non cambia il modulo di L ma la sua direzione: l'asse «gira lentamente» attorno alla verticale. È la <strong>precessione</strong>.</div>
+    <div class="formula">$$\Delta t = \frac{\Delta L}{M} = \frac{I\,\Delta\omega}{M}$$</div>
+    <div class="tip">🌀 Se invece il momento è <em>perpendicolare</em> al momento angolare (come la gravità su una trottola o un giroscopio in moto), non cambia il modulo di $\vec L$ ma la sua direzione: l'asse «gira lentamente» attorno alla verticale. È la <strong>precessione</strong>.</div>
     <svg class="diagram" viewBox="0 0 420 180" role="img" aria-label="Volano con momento applicato per un tempo">
       <circle cx="110" cy="90" r="55" fill="#eef3fb" stroke="#9aa3b2" stroke-width="1.5"/>
       <circle cx="110" cy="90" r="4" fill="#1a1a2e"/>
@@ -666,22 +683,24 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
   <p class="sec-label">Teoria</p>
   <div class="card">
     <h2>💫 Quando il momento angolare si conserva</h2>
-    <p>Dalla relazione M = ΔL/Δt segue subito un principio potentissimo: se il <strong>momento esterno totale è nullo</strong>, il momento angolare <strong>si conserva</strong>.</p>
-    <div class="formula">se M<sub>est</sub> = 0 &nbsp;⇒&nbsp; L = I·ω = costante</div>
-    <p>Il corpo può però <em>cambiare forma</em> e quindi il proprio momento d'inerzia I. Poiché I·ω resta costante, se I diminuisce allora ω <strong>aumenta</strong> (e viceversa):</p>
-    <div class="formula">I₁·ω₁ = I₂·ω₂</div>
+    <p>Dalla relazione $M = \Delta L/\Delta t$ segue subito un principio potentissimo: se il <strong>momento esterno totale è nullo</strong>, il momento angolare <strong>si conserva</strong>.</p>
+    <div class="formula">$$\text{se}\ \ M_\text{est} = 0 \quad\Rightarrow\quad L = I\,\omega = \text{costante}$$</div>
+    <p>Il corpo può però <em>cambiare forma</em> e quindi il proprio momento d'inerzia $I$. Poiché $I\,\omega$ resta costante, se $I$ diminuisce allora $\omega$ <strong>aumenta</strong> (e viceversa):</p>
+    <div class="formula">$$I_1\,\omega_1 = I_2\,\omega_2$$</div>
+    <p class="where"><b>dove:</b> $L$ = momento angolare (kg·m²/s) &nbsp;·&nbsp; $I$ = momento d'inerzia (kg·m²) &nbsp;·&nbsp; $\omega$ = velocità angolare (rad/s) &nbsp;·&nbsp; gli indici $1,2$ indicano prima e dopo il cambio di forma.</p>
     <h3>🎡 Persona sulla piattaforma rotante</h3>
-    <p>Una persona su una piattaforma girevole (attrito dell'asse trascurabile) <strong>si avvicina al centro</strong>: il suo I diminuisce (la massa è più vicina all'asse), quindi ω aumenta e la piattaforma <strong>gira più veloce</strong>. Se si allontana, rallenta. Il momento angolare non cambia, ma l'energia cinetica ½I·ω² aumenta: a fornirla è il <em>lavoro muscolare</em> fatto per tirarsi verso il centro.</p>
+    <p>Una persona su una piattaforma girevole (attrito dell'asse trascurabile) <strong>si avvicina al centro</strong>: il suo $I$ diminuisce (la massa è più vicina all'asse), quindi $\omega$ aumenta e la piattaforma <strong>gira più veloce</strong>. Se si allontana, rallenta. Il momento angolare non cambia, ma l'energia cinetica $\tfrac{1}{2}I\,\omega^{2}$ aumenta: a fornirla è il <em>lavoro muscolare</em> fatto per tirarsi verso il centro.</p>
     <h3>💃 La piroetta della ballerina</h3>
-    <p>Stesso principio: la ballerina (o il pattinatore) parte con le braccia larghe (I grande, ω piccola) e, <strong>chiudendo le braccia</strong>, riduce I e accelera la piroetta. Allargandole di nuovo, rallenta per fermarsi con eleganza.</p>
+    <p>Stesso principio: la ballerina (o il pattinatore) parte con le braccia larghe ($I$ grande, $\omega$ piccola) e, <strong>chiudendo le braccia</strong>, riduce $I$ e accelera la piroetta. Allargandole di nuovo, rallenta per fermarsi con eleganza.</p>
     <h3>🎯 Asta-pendolo colpita da un corpo (trattazione completa)</h3>
-    <p>Un'asta rigida (massa M, lunghezza L), imperniata a un estremo e inizialmente ferma, viene colpita all'estremo libero da un corpo (massa m) con velocità v perpendicolare all'asta, e vi resta conficcato.</p>
+    <p>Un'asta rigida (massa $M$, lunghezza $L$), imperniata a un estremo e inizialmente ferma, viene colpita all'estremo libero da un corpo (massa $m$) con velocità $v$ perpendicolare all'asta, e vi resta conficcato.</p>
     <p><strong>① Durante l'urto</strong> — l'urto è brevissimo: il momento angolare rispetto al perno si conserva (le forze impulsive del perno hanno braccio nullo). Subito dopo l'urto:</p>
-    <div class="formula">m·v·L = (⅓M·L² + m·L²)·ω &nbsp;⇒&nbsp; ω = m·v·L / (⅓M·L² + m·L²)</div>
-    <p><strong>② Dopo l'urto</strong> — l'asta (con il corpo conficcato) ruota verso l'alto come un <em>pendolo composto</em>: ora agisce il momento della gravità, che produce un'accelerazione angolare. Quando l'asta è inclinata di φ rispetto alla verticale:</p>
-    <div class="formula">α = − g·(M·L/2 + m·L)·sin φ / (⅓M·L² + m·L²)</div>
-    <p>All'istante dell'urto (φ ≈ 0) l'accelerazione angolare è quasi nulla; cresce man mano che l'asta sale, frenando la rotazione fino all'altezza massima.</p>
-    <div class="tip">⚖️ Riassunto: l'<strong>urto</strong> fissa la velocità angolare ω (conservazione di L); la <strong>gravità</strong> determina poi l'accelerazione angolare α durante la salita. Sono due fasi distinte con due principi diversi.</div>
+    <div class="formula">$$m\,v\,L = \left(\tfrac{1}{3}M L^{2} + m L^{2}\right)\omega \quad\Rightarrow\quad \omega = \frac{m\,v\,L}{\tfrac{1}{3}M L^{2} + m L^{2}}$$</div>
+    <p><strong>② Dopo l'urto</strong> — l'asta (con il corpo conficcato) ruota verso l'alto come un <em>pendolo composto</em>: ora agisce il momento della gravità, che produce un'accelerazione angolare. Quando l'asta è inclinata di $\varphi$ rispetto alla verticale:</p>
+    <div class="formula">$$\alpha = -\,\frac{g\left(M\,\tfrac{L}{2} + m\,L\right)\sin\varphi}{\tfrac{1}{3}M L^{2} + m L^{2}}$$</div>
+    <p class="where"><b>dove:</b> $M,\ L$ = massa e lunghezza dell'asta &nbsp;·&nbsp; $m,\ v$ = massa e velocità del corpo &nbsp;·&nbsp; $\omega$ = velocità angolare subito dopo l'urto &nbsp;·&nbsp; $\varphi$ = angolo dell'asta rispetto alla verticale &nbsp;·&nbsp; il segno «$-$» indica che la gravità <em>frena</em> la salita.</p>
+    <p>All'istante dell'urto ($\varphi \approx 0$) l'accelerazione angolare è quasi nulla; cresce man mano che l'asta sale, frenando la rotazione fino all'altezza massima.</p>
+    <div class="tip">⚖️ Riassunto: l'<strong>urto</strong> fissa la velocità angolare $\omega$ (conservazione di $L$); la <strong>gravità</strong> determina poi l'accelerazione angolare $\alpha$ durante la salita. Sono due fasi distinte con due principi diversi.</div>
     <svg class="diagram" viewBox="0 0 420 200" role="img" aria-label="Pattinatrice e asta colpita">
       <circle cx="95" cy="105" r="58" fill="#eef3fb" stroke="#9aa3b2" stroke-width="1.5"/>
       <circle cx="95" cy="105" r="3" fill="#1a1a2e"/>
@@ -775,32 +794,33 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
   <div class="card">
     <h2>🎳 Quando un corpo trasla e ruota nello stesso istante</h2>
     <p>Una ruota che avanza, una palla che rotola: il corpo <strong>trasla</strong> (il suo centro di massa si sposta) e contemporaneamente <strong>ruota</strong> attorno al centro di massa. La velocità di un punto qualsiasi è la somma:</p>
-    <div class="formula"><b>v</b><sub>punto</sub> = <b>v</b><sub>cm</sub> + <b>v</b><sub>rotazione</sub></div>
+    <div class="formula">$$\vec v_\text{punto} = \vec v_\text{cm} + \vec v_\text{rotazione}$$</div>
     <h3>Rotolamento puro (senza strisciare)</h3>
     <p>Se il corpo rotola <em>senza strisciare</em>, il punto a contatto col suolo in quell'istante è <strong>fermo</strong>. Da qui i due legami fondamentali fra grandezze lineari e angolari:</p>
-    <div class="formula">v<sub>cm</sub> = ω·R &nbsp;·&nbsp; a<sub>cm</sub> = α·R</div>
-    <p>Conseguenza sui punti notevoli: il <strong>contatto</strong> ha velocità 0, il <strong>centro</strong> ha velocità v<sub>cm</sub>, la <strong>sommità</strong> ha velocità doppia 2·v<sub>cm</sub>. È come se in ogni istante il corpo ruotasse attorno al punto di contatto (asse istantaneo di rotazione).</p>
+    <div class="formula">$$v_\text{cm} = \omega\,R \qquad\qquad a_\text{cm} = \alpha\,R$$</div>
+    <p class="where"><b>dove:</b> $v_\text{cm}$ = velocità del centro di massa (m/s) &nbsp;·&nbsp; $a_\text{cm}$ = sua accelerazione (m/s²) &nbsp;·&nbsp; $\omega$ = velocità angolare (rad/s) &nbsp;·&nbsp; $R$ = raggio (m).</p>
+    <p>Conseguenza sui punti notevoli: il <strong>contatto</strong> ha velocità $0$, il <strong>centro</strong> ha velocità $v_\text{cm}$, la <strong>sommità</strong> ha velocità doppia $2\,v_\text{cm}$. È come se in ogni istante il corpo ruotasse attorno al punto di contatto (asse istantaneo di rotazione).</p>
     <h3>Energia cinetica: due contributi</h3>
     <p>L'energia cinetica è la somma di quella di traslazione e di quella di rotazione:</p>
-    <div class="formula">E<sub>c</sub> = ½·m·v<sub>cm</sub>² + ½·I<sub>cm</sub>·ω²</div>
-    <p>Scrivendo I<sub>cm</sub> = c·m·R² (con c che dipende solo dalla forma) e usando v = ω·R:</p>
-    <div class="formula">E<sub>c</sub> = ½·m·v<sub>cm</sub>²·(1 + c) &nbsp;·&nbsp; con c: anello 1 · cilindro ½ · sfera ⅖</div>
+    <div class="formula">$$E_c = \tfrac{1}{2}\,m\,v_\text{cm}^{2} + \tfrac{1}{2}\,I_\text{cm}\,\omega^{2}$$</div>
+    <p>Scrivendo $I_\text{cm} = c\,m\,R^{2}$ (con $c$ che dipende solo dalla forma) e usando $v = \omega R$:</p>
+    <div class="formula">$$E_c = \tfrac{1}{2}\,m\,v_\text{cm}^{2}\,(1 + c) \qquad c=\begin{cases}1 & \text{anello}\\[2pt] \tfrac{1}{2} & \text{cilindro}\\[2pt] \tfrac{2}{5} & \text{sfera}\end{cases}$$</div>
     <h3>Rotolamento lungo un piano inclinato</h3>
-    <p>Un corpo che rotola senza strisciare giù da un piano di angolo θ ha accelerazione del centro di massa:</p>
-    <div class="formula">a<sub>cm</sub> = g·sin θ / (1 + c)</div>
-    <p>Sorpresa: <strong>non dipende né dalla massa né dal raggio</strong>, ma solo dalla forma (cioè da c)! Quindi in una «gara» giù dal piano arriva prima il corpo con c più piccolo:</p>
+    <p>Un corpo che rotola senza strisciare giù da un piano di angolo $\theta$ ha accelerazione del centro di massa:</p>
+    <div class="formula">$$a_\text{cm} = \frac{g\sin\theta}{1 + c}$$</div>
+    <p>Sorpresa: <strong>non dipende né dalla massa né dal raggio</strong>, ma solo dalla forma (cioè da $c$)! Quindi in una «gara» giù dal piano arriva prima il corpo con $c$ più piccolo:</p>
     <table class="cmp">
-      <thead><tr><th>Corpo</th><th>I<sub>cm</sub></th><th>c</th><th>a<sub>cm</sub> sul piano</th></tr></thead>
+      <thead><tr><th>Corpo</th><th>$I_\text{cm}$</th><th>$c$</th><th>$a_\text{cm}$ sul piano</th></tr></thead>
       <tbody>
-        <tr><td>blocco che scivola (no attrito)</td><td class="rot">—</td><td>0</td><td class="rot">g·sin θ &nbsp;(il più veloce)</td></tr>
-        <tr><td>sfera piena</td><td class="rot">⅖mR²</td><td>0,40</td><td class="rot">5/7·g·sin θ</td></tr>
-        <tr><td>cilindro / disco</td><td class="rot">½mR²</td><td>0,50</td><td class="rot">2/3·g·sin θ</td></tr>
-        <tr><td>anello / cilindro cavo</td><td class="rot">mR²</td><td>1,00</td><td class="rot">½·g·sin θ &nbsp;(il più lento)</td></tr>
+        <tr><td>blocco che scivola (no attrito)</td><td class="rot">—</td><td>$0$</td><td class="rot">$g\sin\theta$ (il più veloce)</td></tr>
+        <tr><td>sfera piena</td><td class="rot">$\tfrac{2}{5}mR^{2}$</td><td>$0{,}40$</td><td class="rot">$\tfrac{5}{7}\,g\sin\theta$</td></tr>
+        <tr><td>cilindro / disco</td><td class="rot">$\tfrac{1}{2}mR^{2}$</td><td>$0{,}50$</td><td class="rot">$\tfrac{2}{3}\,g\sin\theta$</td></tr>
+        <tr><td>anello / cilindro cavo</td><td class="rot">$mR^{2}$</td><td>$1{,}00$</td><td class="rot">$\tfrac{1}{2}\,g\sin\theta$ (il più lento)</td></tr>
       </tbody>
     </table>
-    <p>Con la conservazione dell'energia (partendo da un dislivello h) si trova anche la velocità in fondo:</p>
-    <div class="formula">m·g·h = ½·m·v²·(1+c) &nbsp;⇒&nbsp; v = √( 2·g·h / (1+c) )</div>
-    <div class="tip">🔧 <strong>Il ruolo dell'attrito.</strong> È l'attrito <em>statico</em> a fornire il momento che fa rotolare il corpo. Poiché il punto di contatto è fermo, questo attrito <strong>non compie lavoro</strong>: l'energia meccanica si conserva. Serve però abbastanza attrito: se μ < (c/(1+c))·tan θ il corpo comincia a strisciare.</div>
+    <p>Con la conservazione dell'energia (partendo da un dislivello $h$) si trova anche la velocità in fondo:</p>
+    <div class="formula">$$m\,g\,h = \tfrac{1}{2}\,m\,v^{2}\,(1+c) \quad\Rightarrow\quad v = \sqrt{\frac{2\,g\,h}{1+c}}$$</div>
+    <div class="tip">🔧 <strong>Il ruolo dell'attrito.</strong> È l'attrito <em>statico</em> a fornire il momento che fa rotolare il corpo. Poiché il punto di contatto è fermo, questo attrito <strong>non compie lavoro</strong>: l'energia meccanica si conserva. Serve però abbastanza attrito: se $\mu < \dfrac{c}{1+c}\tan\theta$ il corpo comincia a strisciare.</div>
     <svg class="diagram" viewBox="0 0 420 210" role="img" aria-label="Velocità dei punti di una ruota che rotola">
       <line x1="20" y1="170" x2="400" y2="170" stroke="#5b6470" stroke-width="2"/>
       <g>
@@ -891,6 +911,15 @@ function p3(x){ if(!isFinite(x)) return '—'; const a=Math.abs(x);
   return Number(x.toPrecision(3)).toString().replace('.',','); }
 function clamp(v,lo,hi){ return Math.max(lo,Math.min(hi,v)); }
 function parseNum(s){ if(s===null||s===undefined) return NaN; return parseFloat(String(s).replace(',','.').replace(/\s/g,'')); }
+
+/* ===== KaTeX: rendering delle formule (con fallback se il CDN non risponde) ===== */
+const KDELIMS=[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}];
+function typeset(el){
+  if(el&&window.renderMathInElement){
+    try{ renderMathInElement(el,{delimiters:KDELIMS,throwOnError:false,
+      ignoredTags:['script','noscript','style','textarea','pre','code','option','input']}); }catch(e){}
+  }
+}
 
 /* ===== Helper: freccia SVG ===== */
 function arrow(x1,y1,x2,y2,color,label,w){
@@ -1486,6 +1515,7 @@ function renderProva(sec){
     h+=`</div>`;
   }
   el.innerHTML=h;
+  typeset(el);
 }
 
 /* ============ QUIZ ============ */
@@ -1607,6 +1637,7 @@ function renderQuiz(sec){
     <button class="${t==='calcolo'?'active':''}" onclick="setQTab('${sec}','calcolo')">🔢 Quiz di calcolo</button>
   </div>`;
   el.innerHTML=`<div class="card"><h2>🧩 Quiz</h2>${seg}${quizBody(sec,t)}</div>`;
+  typeset(el);
 }
 function quizBody(sec,t){
   const key=qKey(sec,t), st=qState[key], qs=QUIZ[sec][t]||[], total=qs.length;
@@ -1724,6 +1755,11 @@ ckDraw(); dnDraw(); plDraw(); imDraw(); anSwitch(); rtDraw();
 const _hdr=document.querySelector('header'), _nav=document.querySelector('nav.main');
 function _updateNavTop(){ _nav.style.top=_hdr.offsetHeight+'px'; }
 new ResizeObserver(_updateNavTop).observe(_hdr); _updateNavTop();
+
+/* rendering KaTeX dopo che la libreria (defer/CDN) è pronta */
+if(document.readyState==='loading') window.addEventListener('DOMContentLoaded',()=>typeset(document.body));
+else typeset(document.body);
+window.addEventListener('load',()=>typeset(document.body));
 
 requestAnimationFrame(loop);
 </script>
