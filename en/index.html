@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#ffffff">
-<title>Corpi rigidi in rotazione · Fisica</title>
+<title>Rotation of rigid bodies · Physics</title>
 <style>
 :root{
   --bg:#f7f8fa;--surface:#fff;--surface2:#f9fafc;
@@ -259,84 +259,84 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
 </head>
 <body>
 <header>
-  <h1>🔄 Corpi rigidi in rotazione</h1>
+  <h1>🔄 Rotation of rigid bodies</h1>
   <div style="display:flex;gap:.5rem;align-items:center">
-    <a class="btn-print" href="en/index.html" title="English version" style="text-decoration:none">🌐 EN</a>
-    <button class="btn-print" onclick="window.print()">🖨️ Stampa teoria</button>
+    <a class="btn-print" href="../index.html" title="Versione italiana" style="text-decoration:none">🌐 IT</a>
+    <button class="btn-print" onclick="window.print()">🖨️ Print theory</button>
   </div>
 </header>
 <nav class="main" id="mainNav">
   <button data-tab="home" class="active">🏠 Home</button>
-  <button data-tab="cinematica">🎯 Cinematica</button>
-  <button data-tab="dinamica">⚙️ Dinamica</button>
-  <button data-tab="carrucola">⛰️ Carrucola</button>
-  <button data-tab="impulso">⏱️ Momento &amp; tempo</button>
-  <button data-tab="angolare">💫 Mom. angolare</button>
-  <button data-tab="rototraslazione">🎳 Rototraslazione</button>
+  <button data-tab="cinematica">🎯 Kinematics</button>
+  <button data-tab="dinamica">⚙️ Dynamics</button>
+  <button data-tab="carrucola">⛰️ Pulley</button>
+  <button data-tab="impulso">⏱️ Torque &amp; time</button>
+  <button data-tab="angolare">💫 Angular momentum</button>
+  <button data-tab="rototraslazione">🎳 Rolling</button>
 </nav>
 <main>
 
 <!-- ============ HOME ============ -->
-<section class="scene active" id="home" data-title="Corpi rigidi in rotazione">
+<section class="scene active" id="home" data-title="Rotation of rigid bodies">
   <div class="card">
-    <h2>Dal moto di traslazione al moto di rotazione</h2>
-    <p>Un <strong>corpo rigido esteso</strong> non è un punto: ha una forma e una distribuzione di massa. Quando ruota, ogni suo punto descrive una circonferenza, ma tutti condividono lo <em>stesso angolo</em>, la <em>stessa velocità angolare</em> e la <em>stessa accelerazione angolare</em>.</p>
-    <p>La fisica della rotazione ricalca, formula per formula, quella della traslazione che già conosci: basta sostituire le grandezze lineari con le loro <strong>analoghe angolari</strong>.</p>
+    <h2>From translational motion to rotational motion</h2>
+    <p>An <strong>extended rigid body</strong> is not a point: it has a shape and a distribution of mass. When it rotates, every point traces a circle, but all of them share the <em>same angle</em>, the <em>same angular velocity</em> and the <em>same angular acceleration</em>.</p>
+    <p>The physics of rotation mirrors, formula by formula, the translational physics you already know: you just replace the linear quantities with their <strong>angular analogues</strong>.</p>
     <table class="cmp">
-      <thead><tr><th>Ruolo</th><th>Traslazione</th><th>Rotazione</th></tr></thead>
+      <thead><tr><th>Role</th><th>Translation</th><th>Rotation</th></tr></thead>
       <tbody>
-        <tr><td>posizione</td><td class="tra">$s$</td><td class="rot">$\theta$</td></tr>
-        <tr><td>velocità</td><td class="tra">$v$</td><td class="rot">$\omega$</td></tr>
-        <tr><td>accelerazione</td><td class="tra">$a$</td><td class="rot">$\alpha$</td></tr>
-        <tr><td>inerzia</td><td class="tra">$m$ (massa)</td><td class="rot">$I$ (mom. d'inerzia)</td></tr>
-        <tr><td>«causa»</td><td class="tra">$F$ (forza)</td><td class="rot">$M$ (momento)</td></tr>
-        <tr><td>2ª legge</td><td class="tra">$F = m\,a$</td><td class="rot">$M = I\,\alpha$</td></tr>
-        <tr><td>quantità di moto</td><td class="tra">$p = m\,v$</td><td class="rot">$L = I\,\omega$</td></tr>
+        <tr><td>position</td><td class="tra">$s$</td><td class="rot">$\theta$</td></tr>
+        <tr><td>velocity</td><td class="tra">$v$</td><td class="rot">$\omega$</td></tr>
+        <tr><td>acceleration</td><td class="tra">$a$</td><td class="rot">$\alpha$</td></tr>
+        <tr><td>inertia</td><td class="tra">$m$ (mass)</td><td class="rot">$I$ (moment of inertia)</td></tr>
+        <tr><td>«cause»</td><td class="tra">$F$ (force)</td><td class="rot">$M$ (torque)</td></tr>
+        <tr><td>2nd law</td><td class="tra">$F = m\,a$</td><td class="rot">$M = I\,\alpha$</td></tr>
+        <tr><td>momentum</td><td class="tra">$p = m\,v$</td><td class="rot">$L = I\,\omega$</td></tr>
       </tbody>
     </table>
-    <div class="tip">💡 In ogni sezione trovi sempre la stessa struttura: <strong>Teoria</strong> (concetti e formule) → <strong>Simulazioni</strong> (cursori e animazioni) → <strong>Prova tu</strong> (esercizi guidati con soluzione passo-passo) → <strong>Quiz</strong> (a scelta multipla e di calcolo).</div>
+    <div class="tip">💡 Every section has the same structure: <strong>Theory</strong> (concepts and formulas) → <strong>Simulations</strong> (sliders and animations) → <strong>Try it</strong> (guided exercises with step-by-step solutions) → <strong>Quiz</strong> (multiple-choice and numerical).</div>
   </div>
-  <p class="sec-label">Percorso</p>
+  <p class="sec-label">Path</p>
   <div class="home-grid">
-    <button class="home-card" data-go="cinematica"><span class="ico">🎯</span><strong>1 · Cinematica rotazionale</strong><span>θ, ω, α e i legami con s, v, a</span></button>
-    <button class="home-card" data-go="dinamica"><span class="ico">⚙️</span><strong>2 · Dinamica rotazionale</strong><span>M, I, L e M = I·α</span></button>
-    <button class="home-card" data-go="carrucola"><span class="ico">⛰️</span><strong>3 · Piani inclinati e carrucola</strong><span>Corpi collegati, carrucola-disco</span></button>
-    <button class="home-card" data-go="impulso"><span class="ico">⏱️</span><strong>4 · Momento e tempo</strong><span>Impulso angolare M·Δt = ΔL</span></button>
-    <button class="home-card" data-go="angolare"><span class="ico">💫</span><strong>5 · Momento angolare</strong><span>Piattaforma, ballerina, asta colpita</span></button>
-    <button class="home-card" data-go="rototraslazione"><span class="ico">🎳</span><strong>6 · Rototraslazione</strong><span>Rotolamento puro, v = ω·R, energia</span></button>
+    <button class="home-card" data-go="cinematica"><span class="ico">🎯</span><strong>1 · Rotational kinematics</strong><span>θ, ω, α and the links with s, v, a</span></button>
+    <button class="home-card" data-go="dinamica"><span class="ico">⚙️</span><strong>2 · Rotational dynamics</strong><span>M, I, L and M = I·α</span></button>
+    <button class="home-card" data-go="carrucola"><span class="ico">⛰️</span><strong>3 · Inclined planes and pulley</strong><span>Connected bodies, pulley = disk</span></button>
+    <button class="home-card" data-go="impulso"><span class="ico">⏱️</span><strong>4 · Torque and time</strong><span>Angular impulse M·Δt = ΔL</span></button>
+    <button class="home-card" data-go="angolare"><span class="ico">💫</span><strong>5 · Angular momentum</strong><span>Platform, dancer, struck rod</span></button>
+    <button class="home-card" data-go="rototraslazione"><span class="ico">🎳</span><strong>6 · Rolling</strong><span>Pure rolling, v = ω·R, energy</span></button>
   </div>
 </section>
 
 <!-- ============ 1 · CINEMATICA ============ -->
-<section class="scene" id="cinematica" data-title="1 · Cinematica rotazionale">
-  <p class="sec-label step" data-n="1">Cinematica rotazionale</p>
+<section class="scene" id="cinematica" data-title="1 · Rotational kinematics">
+  <p class="sec-label step" data-n="1">Rotational kinematics</p>
 
-  <p class="sec-label">Teoria</p>
+  <p class="sec-label">Theory</p>
   <div class="card">
-    <h2>🎯 Le grandezze angolari</h2>
-    <p>Per descrivere la rotazione misuriamo gli angoli in <strong>radianti</strong> (rad): un giro completo vale $2\pi$ rad $\approx 6{,}28$ rad.</p>
+    <h2>🎯 The angular quantities</h2>
+    <p>To describe rotation we measure angles in <strong>radians</strong> (rad): one full revolution equals $2\pi$ rad $\approx 6.28$ rad.</p>
     <ul class="cl">
-      <li><strong>Angolo di rotazione $\theta$</strong> — di quanto è ruotato il corpo (analogo allo spostamento $s$).</li>
-      <li><strong>Velocità angolare $\omega$</strong> — quanto velocemente cambia l'angolo (analoga a $v$).</li>
-      <li><strong>Accelerazione angolare $\alpha$</strong> — quanto velocemente cambia $\omega$ (analoga ad $a$).</li>
+      <li><strong>Rotation angle $\theta$</strong> — how much the body has rotated (analogous to the displacement $s$).</li>
+      <li><strong>Angular velocity $\omega$</strong> — how fast the angle changes (analogous to $v$).</li>
+      <li><strong>Angular acceleration $\alpha$</strong> — how fast $\omega$ changes (analogous to $a$).</li>
     </ul>
     <div class="formula">$$\omega = \frac{\Delta\theta}{\Delta t} \qquad\qquad \alpha = \frac{\Delta\omega}{\Delta t}$$</div>
-    <p class="where"><b>dove:</b> $\theta$ = angolo (rad) &nbsp;·&nbsp; $\omega$ = velocità angolare (rad/s) &nbsp;·&nbsp; $\alpha$ = accelerazione angolare (rad/s²) &nbsp;·&nbsp; $\Delta t$ = intervallo di tempo (s).</p>
-    <h3>Moto rotatorio uniformemente accelerato</h3>
-    <p>Se $\alpha$ è costante, valgono equazioni <em>identiche</em> a quelle del moto rettilineo uniformemente accelerato — con $\theta,\ \omega,\ \alpha$ al posto di $s,\ v,\ a$:</p>
+    <p class="where"><b>where:</b> $\theta$ = angle (rad) &nbsp;·&nbsp; $\omega$ = angular velocity (rad/s) &nbsp;·&nbsp; $\alpha$ = angular acceleration (rad/s²) &nbsp;·&nbsp; $\Delta t$ = time interval (s).</p>
+    <h3>Uniformly accelerated rotational motion</h3>
+    <p>If $\alpha$ is constant, the equations are <em>identical</em> to those of uniformly accelerated linear motion — with $\theta,\ \omega,\ \alpha$ in place of $s,\ v,\ a$:</p>
     <div class="formula">$$\omega = \omega_0 + \alpha\,t$$</div>
     <div class="formula">$$\theta = \theta_0 + \omega_0\,t + \tfrac{1}{2}\,\alpha\,t^{2}$$</div>
     <div class="formula">$$\omega^{2} = \omega_0^{\,2} + 2\,\alpha\,\Delta\theta$$</div>
-    <p class="where"><b>dove:</b> $\omega_0$ = velocità angolare iniziale &nbsp;·&nbsp; $\theta_0$ = angolo iniziale &nbsp;·&nbsp; $t$ = tempo (s) &nbsp;·&nbsp; $\Delta\theta=\theta-\theta_0$.</p>
-    <h3>Il legame con le grandezze lineari</h3>
-    <p>Un punto del corpo a distanza $r$ dall'asse percorre un arco di lunghezza $s = r\,\theta$. Derivando rispetto al tempo si ottengono velocità e accelerazione <strong>tangenziali</strong>:</p>
+    <p class="where"><b>where:</b> $\omega_0$ = initial angular velocity &nbsp;·&nbsp; $\theta_0$ = initial angle &nbsp;·&nbsp; $t$ = time (s) &nbsp;·&nbsp; $\Delta\theta=\theta-\theta_0$.</p>
+    <h3>The link with linear quantities</h3>
+    <p>A point of the body at distance $r$ from the axis travels an arc of length $s = r\,\theta$. Differentiating with respect to time gives the <strong>tangential</strong> velocity and acceleration:</p>
     <div class="formula">$$\begin{aligned} s &= r\,\theta \\[2pt] v &= r\,\omega \\[2pt] a_t &= r\,\alpha \end{aligned}$$</div>
-    <p class="where"><b>dove:</b> $r$ = distanza dall'asse (m) &nbsp;·&nbsp; $s$ = arco percorso (m) &nbsp;·&nbsp; $v$ = velocità tangenziale (m/s) &nbsp;·&nbsp; $a_t$ = accelerazione tangenziale (m/s²).</p>
-    <p>Inoltre, anche muovendosi con $\omega$ costante, il punto ha un'<strong>accelerazione centripeta</strong> diretta verso l'asse:</p>
+    <p class="where"><b>where:</b> $r$ = distance from the axis (m) &nbsp;·&nbsp; $s$ = arc travelled (m) &nbsp;·&nbsp; $v$ = tangential velocity (m/s) &nbsp;·&nbsp; $a_t$ = tangential acceleration (m/s²).</p>
+    <p>Moreover, even when moving with constant $\omega$, the point has a <strong>centripetal acceleration</strong> directed toward the axis:</p>
     <div class="formula">$$a_c = \omega^{2}\,r = \frac{v^{2}}{r}$$</div>
-    <p class="where"><b>dove:</b> $a_c$ = accelerazione centripeta (m/s²), diretta dal punto verso l'asse di rotazione.</p>
-    <div class="tip">📐 Più un punto è lontano dall'asse ($r$ grande), più è veloce: la velocità angolare $\omega$ è la stessa per tutti, ma la velocità lineare $v = r\,\omega$ cresce con $r$. Ecco perché l'estremità di una pala di elicottero «sferza» l'aria.</div>
-    <svg class="diagram" viewBox="0 0 420 230" role="img" aria-label="Disco rotante con grandezze angolari e lineari">
+    <p class="where"><b>where:</b> $a_c$ = centripetal acceleration (m/s²), directed from the point toward the axis of rotation.</p>
+    <div class="tip">📐 The farther a point is from the axis ($r$ large), the faster it goes: the angular velocity $\omega$ is the same for all, but the linear velocity $v = r\,\omega$ grows with $r$. That is why the tip of a helicopter blade «whips» through the air.</div>
+    <svg class="diagram" viewBox="0 0 420 230" role="img" aria-label="Rotating disk with angular and linear quantities">
       <circle cx="150" cy="120" r="92" fill="#eef3fb" stroke="#9aa3b2" stroke-width="1.5"/>
       <circle cx="150" cy="120" r="3.5" fill="#1a1a2e"/>
       <line x1="150" y1="120" x2="215" y2="55" stroke="#5b6470" stroke-width="2"/>
@@ -354,102 +354,102 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
       <path d="M 256 150 A 70 70 0 0 1 222 196" fill="none" stroke="#1565c0" stroke-width="2.5"/>
       <polygon points="222,196 226,184 233,191" fill="#1565c0"/>
       <text x="250" y="184" font-size="12" fill="#1565c0" font-weight="700">ω</text>
-      <text x="150" y="227" font-size="11" fill="#6b7280" text-anchor="middle">r = distanza dall'asse · s = r·θ</text>
+      <text x="150" y="227" font-size="11" fill="#6b7280" text-anchor="middle">r = distance from axis · s = r·θ</text>
     </svg>
-    <p class="dcap">Diagramma: angolo θ, velocità tangenziale v, accelerazione centripeta a꜀ e verso di ω.</p>
+    <p class="dcap">Diagram: angle θ, tangential velocity v, centripetal acceleration a꜀ and the direction of ω.</p>
   </div>
 
-  <p class="sec-label">Simulazioni</p>
+  <p class="sec-label">Simulations</p>
   <div class="card sim-block">
-    <h3>🎡 Disco che ruota</h3>
-    <p class="lead">Imposta la velocità angolare iniziale ω₀ e l'accelerazione angolare α: osserva θ crescere e, su un punto P del bordo, la velocità tangenziale (verde), l'accelerazione centripeta (rossa) e quella tangenziale (arancio). Cambia r per vedere che ω è uguale per tutti, ma v = r·ω no.</p>
+    <h3>🎡 Spinning disk</h3>
+    <p class="lead">Set the initial angular velocity ω₀ and the angular acceleration α: watch θ grow and, on a point P on the rim, the tangential velocity (green), the centripetal acceleration (red) and the tangential acceleration (orange). Change r to see that ω is the same for everyone, but v = r·ω is not.</p>
     <div class="sim-layout">
       <div class="sim-pane">
         <svg class="sim" id="svgCk" viewBox="0 0 360 300" preserveAspectRatio="xMidYMid meet"></svg>
         <div class="legend">
-          <span style="color:var(--vV)"><i style="background:var(--vV)"></i>v tangenziale</span>
-          <span style="color:var(--vA)"><i style="background:var(--vA)"></i>a centripeta</span>
-          <span style="color:var(--vAl)"><i style="background:var(--vAl)"></i>a tangenziale</span>
+          <span style="color:var(--vV)"><i style="background:var(--vV)"></i>v tangential</span>
+          <span style="color:var(--vA)"><i style="background:var(--vA)"></i>a centripetal</span>
+          <span style="color:var(--vAl)"><i style="background:var(--vAl)"></i>a tangential</span>
         </div>
         <div class="sim-foot">
-          <button class="play-btn" id="ckPlay">⏸️ Pausa</button>
-          <button class="play-btn soft" id="ckReset">↺ Riparti da θ=0</button>
+          <button class="play-btn" id="ckPlay">⏸️ Pause</button>
+          <button class="play-btn soft" id="ckReset">↺ Restart from θ=0</button>
         </div>
       </div>
       <div class="ctrl-pane">
         <div class="ctrl">
-          <label><span class="nm">ω₀ iniziale</span><input type="range" id="ckW0" min="-4" max="4" step="0.1" value="1.5"><span class="v" id="ckW0v">1,5 rad/s</span></label>
-          <label><span class="nm">α</span><input type="range" id="ckAl" min="-2" max="2" step="0.1" value="0.4"><span class="v" id="ckAlv">0,4 rad/s²</span></label>
-          <label><span class="nm">raggio r di P</span><input type="range" id="ckR" min="0.1" max="0.5" step="0.01" value="0.30"><span class="v" id="ckRv">0,30 m</span></label>
+          <label><span class="nm">initial ω₀</span><input type="range" id="ckW0" min="-4" max="4" step="0.1" value="1.5"><span class="v" id="ckW0v">1.5 rad/s</span></label>
+          <label><span class="nm">α</span><input type="range" id="ckAl" min="-2" max="2" step="0.1" value="0.4"><span class="v" id="ckAlv">0.4 rad/s²</span></label>
+          <label><span class="nm">radius r of P</span><input type="range" id="ckR" min="0.1" max="0.5" step="0.01" value="0.30"><span class="v" id="ckRv">0.30 m</span></label>
         </div>
         <div class="read">
-          <div class="it"><span class="l">angolo θ</span><span class="v" id="ckTheta">—</span> rad</div>
-          <div class="it"><span class="l">n° giri</span><span class="v" id="ckGiri">—</span></div>
-          <div class="it"><span class="l">ω attuale</span><span class="v" id="ckOm">—</span> rad/s</div>
+          <div class="it"><span class="l">angle θ</span><span class="v" id="ckTheta">—</span> rad</div>
+          <div class="it"><span class="l">revolutions</span><span class="v" id="ckGiri">—</span></div>
+          <div class="it"><span class="l">current ω</span><span class="v" id="ckOm">—</span> rad/s</div>
           <div class="it"><span class="l">v = r·ω</span><span class="v" id="ckV">—</span> m/s</div>
           <div class="it"><span class="l">a<sub>t</sub> = r·α</span><span class="v" id="ckAt">—</span> m/s²</div>
           <div class="it"><span class="l">a<sub>c</sub> = ω²·r</span><span class="v" id="ckAc">—</span> m/s²</div>
-          <div class="it"><span class="l">periodo T</span><span class="v" id="ckT">—</span> s</div>
-          <div class="it"><span class="l">frequenza f</span><span class="v" id="ckF">—</span> Hz</div>
+          <div class="it"><span class="l">period T</span><span class="v" id="ckT">—</span> s</div>
+          <div class="it"><span class="l">frequency f</span><span class="v" id="ckF">—</span> Hz</div>
         </div>
         <div class="eqs ok" id="ckBadge">θ = ω₀·t + ½·α·t²</div>
       </div>
     </div>
   </div>
 
-  <p class="sec-label">Prova tu</p>
+  <p class="sec-label">Try it</p>
   <div class="card prova-block" id="prova-cinematica"></div>
 
   <div id="qz-cinematica" class="quiz-block"></div>
 </section>
 
 <!-- ============ 2 · DINAMICA ============ -->
-<section class="scene" id="dinamica" data-title="2 · Dinamica rotazionale">
-  <p class="sec-label step" data-n="2">Dinamica rotazionale</p>
+<section class="scene" id="dinamica" data-title="2 · Rotational dynamics">
+  <p class="sec-label step" data-n="2">Rotational dynamics</p>
 
-  <p class="sec-label">Teoria</p>
+  <p class="sec-label">Theory</p>
   <div class="card">
-    <h2>⚙️ Che cosa fa ruotare un corpo</h2>
-    <h3>Il momento $M$ di una forza</h3>
-    <p>Una forza fa ruotare un corpo solo se è applicata «con leva». Il <strong>momento</strong> (o momento torcente) misura questa capacità: dipende dalla forza $F$, dalla distanza $r$ dal punto di applicazione all'asse e dall'angolo $\varphi$ fra loro.</p>
+    <h2>⚙️ What makes a body rotate</h2>
+    <h3>The torque $M$ of a force</h3>
+    <p>A force makes a body rotate only if it is applied «with leverage». The <strong>torque</strong> measures this ability: it depends on the force $F$, on the distance $r$ from the point of application to the axis and on the angle $\varphi$ between them.</p>
     <div class="formula">$$M = r\,F\,\sin\varphi = F\,b$$</div>
-    <p class="where"><b>dove:</b> $M$ = momento (N·m) &nbsp;·&nbsp; $F$ = forza (N) &nbsp;·&nbsp; $r$ = distanza dall'asse (m) &nbsp;·&nbsp; $\varphi$ = angolo fra $\vec r$ e $\vec F$ &nbsp;·&nbsp; $b = r\,\sin\varphi$ = <strong>braccio</strong> (distanza dell'asse dalla retta d'azione, m).</p>
-    <p>Il momento è massimo quando la forza è perpendicolare ($\varphi = 90^\circ$), nullo se è diretta verso l'asse.</p>
-    <h3>Il momento d'inerzia $I$</h3>
-    <p>L'inerzia alla rotazione non dipende solo dalla massa, ma da <strong>come</strong> è distribuita attorno all'asse: massa lontana dall'asse «pesa» di più.</p>
+    <p class="where"><b>where:</b> $M$ = torque (N·m) &nbsp;·&nbsp; $F$ = force (N) &nbsp;·&nbsp; $r$ = distance from the axis (m) &nbsp;·&nbsp; $\varphi$ = angle between $\vec r$ and $\vec F$ &nbsp;·&nbsp; $b = r\,\sin\varphi$ = <strong>lever arm</strong> (distance of the axis from the line of action, m).</p>
+    <p>The torque is maximum when the force is perpendicular ($\varphi = 90^\circ$), and zero if it is directed toward the axis.</p>
+    <h3>The moment of inertia $I$</h3>
+    <p>Rotational inertia does not depend only on the mass, but on <strong>how</strong> it is distributed around the axis: mass far from the axis «weighs» more.</p>
     <div class="formula">$$I = \sum_i m_i\,r_i^{\,2}$$</div>
-    <p class="where"><b>dove:</b> $I$ = momento d'inerzia (kg·m²) &nbsp;·&nbsp; $m_i$ = massa dell'$i$-esimo elemento &nbsp;·&nbsp; $r_i$ = sua distanza dall'asse (m).</p>
+    <p class="where"><b>where:</b> $I$ = moment of inertia (kg·m²) &nbsp;·&nbsp; $m_i$ = mass of the $i$-th element &nbsp;·&nbsp; $r_i$ = its distance from the axis (m).</p>
     <table class="cmp">
-      <thead><tr><th>Corpo (asse)</th><th>Momento d'inerzia</th></tr></thead>
+      <thead><tr><th>Body (axis)</th><th>Moment of inertia</th></tr></thead>
       <tbody>
-        <tr><td>punto materiale</td><td class="rot">$I = m\,r^{2}$</td></tr>
-        <tr><td>anello / cilindro cavo (asse)</td><td class="rot">$I = m\,R^{2}$</td></tr>
-        <tr><td>disco / cilindro pieno (asse)</td><td class="rot">$I = \tfrac{1}{2}\,m\,R^{2}$</td></tr>
-        <tr><td>sfera piena (diametro)</td><td class="rot">$I = \tfrac{2}{5}\,m\,R^{2}$</td></tr>
-        <tr><td>asta (centro)</td><td class="rot">$I = \tfrac{1}{12}\,m\,L^{2}$</td></tr>
-        <tr><td>asta (estremo)</td><td class="rot">$I = \tfrac{1}{3}\,m\,L^{2}$</td></tr>
+        <tr><td>point mass</td><td class="rot">$I = m\,r^{2}$</td></tr>
+        <tr><td>ring / hollow cylinder (axis)</td><td class="rot">$I = m\,R^{2}$</td></tr>
+        <tr><td>disk / solid cylinder (axis)</td><td class="rot">$I = \tfrac{1}{2}\,m\,R^{2}$</td></tr>
+        <tr><td>solid sphere (diameter)</td><td class="rot">$I = \tfrac{2}{5}\,m\,R^{2}$</td></tr>
+        <tr><td>rod (center)</td><td class="rot">$I = \tfrac{1}{12}\,m\,L^{2}$</td></tr>
+        <tr><td>rod (end)</td><td class="rot">$I = \tfrac{1}{3}\,m\,L^{2}$</td></tr>
       </tbody>
     </table>
-    <h3>La 2ª legge della dinamica rotazionale</h3>
-    <p>Il momento totale produce un'accelerazione angolare proporzionale, con $I$ come «inerzia». È la copia esatta di $F = m\,a$:</p>
+    <h3>The 2nd law of rotational dynamics</h3>
+    <p>The total torque produces a proportional angular acceleration, with $I$ as the «inertia». It is an exact copy of $F = m\,a$:</p>
     <div class="formula">$$M = I\,\alpha \qquad\Longleftrightarrow\qquad F = m\,a$$</div>
-    <h3>Il momento angolare $L$</h3>
-    <p>L'analogo della quantità di moto $p = m\,v$ è il <strong>momento angolare</strong> $L = I\,\omega$. E come $F = \Delta p/\Delta t$, vale:</p>
+    <h3>The angular momentum $L$</h3>
+    <p>The analogue of momentum $p = m\,v$ is the <strong>angular momentum</strong> $L = I\,\omega$. And just as $F = \Delta p/\Delta t$, we have:</p>
     <div class="formula">$$L = I\,\omega \qquad\qquad M = \frac{\Delta L}{\Delta t}$$</div>
-    <p>Infine l'energia cinetica di rotazione ricalca $\tfrac{1}{2}m\,v^{2}$:</p>
+    <p>Finally, the rotational kinetic energy mirrors $\tfrac{1}{2}m\,v^{2}$:</p>
     <div class="formula">$$E_{c,\text{rot}} = \tfrac{1}{2}\,I\,\omega^{2}$$</div>
-    <p class="where"><b>dove:</b> $L$ = momento angolare (kg·m²/s) &nbsp;·&nbsp; $E_{c,\text{rot}}$ = energia cinetica di rotazione (J) &nbsp;·&nbsp; $\Delta t$ = intervallo di tempo (s).</p>
+    <p class="where"><b>where:</b> $L$ = angular momentum (kg·m²/s) &nbsp;·&nbsp; $E_{c,\text{rot}}$ = rotational kinetic energy (J) &nbsp;·&nbsp; $\Delta t$ = time interval (s).</p>
     <table class="cmp">
-      <thead><tr><th>Grandezza</th><th>Traslazione</th><th>Rotazione</th></tr></thead>
+      <thead><tr><th>Quantity</th><th>Translation</th><th>Rotation</th></tr></thead>
       <tbody>
-        <tr><td>2ª legge</td><td class="tra">$F = m\,a$</td><td class="rot">$M = I\,\alpha$</td></tr>
-        <tr><td>quantità di moto</td><td class="tra">$p = m\,v$</td><td class="rot">$L = I\,\omega$</td></tr>
-        <tr><td>«impulso»</td><td class="tra">$F\,\Delta t = \Delta p$</td><td class="rot">$M\,\Delta t = \Delta L$</td></tr>
-        <tr><td>energia cinetica</td><td class="tra">$\tfrac{1}{2}m\,v^{2}$</td><td class="rot">$\tfrac{1}{2}I\,\omega^{2}$</td></tr>
-        <tr><td>lavoro</td><td class="tra">$F\,s$</td><td class="rot">$M\,\theta$</td></tr>
+        <tr><td>2nd law</td><td class="tra">$F = m\,a$</td><td class="rot">$M = I\,\alpha$</td></tr>
+        <tr><td>momentum</td><td class="tra">$p = m\,v$</td><td class="rot">$L = I\,\omega$</td></tr>
+        <tr><td>«impulse»</td><td class="tra">$F\,\Delta t = \Delta p$</td><td class="rot">$M\,\Delta t = \Delta L$</td></tr>
+        <tr><td>kinetic energy</td><td class="tra">$\tfrac{1}{2}m\,v^{2}$</td><td class="rot">$\tfrac{1}{2}I\,\omega^{2}$</td></tr>
+        <tr><td>work</td><td class="tra">$F\,s$</td><td class="rot">$M\,\theta$</td></tr>
       </tbody>
     </table>
-    <svg class="diagram" viewBox="0 0 420 210" role="img" aria-label="Momento di una forza su un disco">
+    <svg class="diagram" viewBox="0 0 420 210" role="img" aria-label="Torque of a force on a disk">
       <circle cx="160" cy="105" r="80" fill="#eef3fb" stroke="#9aa3b2" stroke-width="1.5"/>
       <circle cx="160" cy="105" r="3.5" fill="#1a1a2e"/>
       <line x1="160" y1="105" x2="160" y2="45" stroke="#5b6470" stroke-width="2"/>
@@ -461,42 +461,42 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
       <path d="M 196 168 A 75 75 0 0 0 228 120" fill="none" stroke="#f57c00" stroke-width="2.8"/>
       <polygon points="228,120 216,124 224,131" fill="#f57c00"/>
       <text x="216" y="158" font-size="12" fill="#f57c00" font-weight="700">α</text>
-      <text x="200" y="200" font-size="11" fill="#6b7280" text-anchor="middle">M = r·F (forza ⟂) → α = M / I</text>
+      <text x="200" y="200" font-size="11" fill="#6b7280" text-anchor="middle">M = r·F (force ⟂) → α = M / I</text>
     </svg>
-    <p class="dcap">Diagramma: una forza F applicata a distanza r genera un momento M che accelera la rotazione (α).</p>
+    <p class="dcap">Diagram: a force F applied at distance r generates a torque M that accelerates the rotation (α).</p>
   </div>
 
-  <p class="sec-label">Simulazioni</p>
+  <p class="sec-label">Simulations</p>
   <div class="card sim-block">
-    <h3>🔧 Una forza che mette in rotazione un disco</h3>
-    <p class="lead">Applichi una forza F a distanza r dall'asse, con inclinazione φ. Osserva il braccio, il momento M = r·F·sin φ e l'accelerazione α = M/I del disco (I = ½·m·R²). Il momento angolare L = I·ω cresce nel tempo.</p>
+    <h3>🔧 A force that sets a disk spinning</h3>
+    <p class="lead">You apply a force F at distance r from the axis, at angle φ. Watch the lever arm, the torque M = r·F·sin φ and the acceleration α = M/I of the disk (I = ½·m·R²). The angular momentum L = I·ω grows over time.</p>
     <div class="sim-layout">
       <div class="sim-pane">
         <svg class="sim" id="svgDn" viewBox="0 0 360 300" preserveAspectRatio="xMidYMid meet"></svg>
         <div class="legend">
-          <span style="color:var(--vF)"><i style="background:var(--vF)"></i>forza F</span>
-          <span style="color:var(--vM)"><i style="background:var(--vM)"></i>braccio b</span>
+          <span style="color:var(--vF)"><i style="background:var(--vF)"></i>force F</span>
+          <span style="color:var(--vM)"><i style="background:var(--vM)"></i>lever arm b</span>
           <span style="color:var(--vAl)"><i style="background:var(--vAl)"></i>α</span>
         </div>
         <div class="sim-foot">
-          <button class="play-btn" id="dnPlay">⏸️ Pausa</button>
-          <button class="play-btn soft" id="dnReset">↺ Riparti da ω=0</button>
+          <button class="play-btn" id="dnPlay">⏸️ Pause</button>
+          <button class="play-btn soft" id="dnReset">↺ Restart from ω=0</button>
         </div>
       </div>
       <div class="ctrl-pane">
         <div class="ctrl">
-          <label><span class="nm">forza F</span><input type="range" id="dnF" min="0" max="20" step="0.5" value="8"><span class="v" id="dnFv">8 N</span></label>
-          <label><span class="nm">raggio r</span><input type="range" id="dnRr" min="0.2" max="1" step="0.05" value="1"><span class="v" id="dnRrv">1,00 R</span></label>
-          <label><span class="nm">angolo φ</span><input type="range" id="dnPhi" min="0" max="90" step="1" value="90"><span class="v" id="dnPhiv">90°</span></label>
-          <label><span class="nm">massa disco</span><input type="range" id="dnM" min="0.5" max="6" step="0.5" value="2"><span class="v" id="dnMv">2,0 kg</span></label>
-          <label><span class="nm">raggio R disco</span><input type="range" id="dnR" min="0.2" max="0.6" step="0.05" value="0.40"><span class="v" id="dnRv">0,40 m</span></label>
+          <label><span class="nm">force F</span><input type="range" id="dnF" min="0" max="20" step="0.5" value="8"><span class="v" id="dnFv">8 N</span></label>
+          <label><span class="nm">radius r</span><input type="range" id="dnRr" min="0.2" max="1" step="0.05" value="1"><span class="v" id="dnRrv">1.00 R</span></label>
+          <label><span class="nm">angle φ</span><input type="range" id="dnPhi" min="0" max="90" step="1" value="90"><span class="v" id="dnPhiv">90°</span></label>
+          <label><span class="nm">disk mass</span><input type="range" id="dnM" min="0.5" max="6" step="0.5" value="2"><span class="v" id="dnMv">2.0 kg</span></label>
+          <label><span class="nm">disk radius R</span><input type="range" id="dnR" min="0.2" max="0.6" step="0.05" value="0.40"><span class="v" id="dnRv">0.40 m</span></label>
         </div>
         <div class="read">
-          <div class="it"><span class="l">braccio b</span><span class="v" id="dnB">—</span> m</div>
-          <div class="it"><span class="l">momento M</span><span class="v" id="dnMom">—</span> N·m</div>
-          <div class="it"><span class="l">inerzia I</span><span class="v" id="dnI">—</span> kg·m²</div>
+          <div class="it"><span class="l">lever arm b</span><span class="v" id="dnB">—</span> m</div>
+          <div class="it"><span class="l">torque M</span><span class="v" id="dnMom">—</span> N·m</div>
+          <div class="it"><span class="l">inertia I</span><span class="v" id="dnI">—</span> kg·m²</div>
           <div class="it"><span class="l">α = M/I</span><span class="v" id="dnAl">—</span> rad/s²</div>
-          <div class="it"><span class="l">ω attuale</span><span class="v" id="dnOm">—</span> rad/s</div>
+          <div class="it"><span class="l">current ω</span><span class="v" id="dnOm">—</span> rad/s</div>
           <div class="it"><span class="l">L = I·ω</span><span class="v" id="dnL">—</span> kg·m²/s</div>
         </div>
         <div class="eqs ok" id="dnBadge">M = I·α &nbsp;↔&nbsp; F = m·a</div>
@@ -504,34 +504,34 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
     </div>
   </div>
 
-  <p class="sec-label">Prova tu</p>
+  <p class="sec-label">Try it</p>
   <div class="card prova-block" id="prova-dinamica"></div>
 
   <div id="qz-dinamica" class="quiz-block"></div>
 </section>
 
 <!-- ============ 3 · CARRUCOLA ============ -->
-<section class="scene" id="carrucola" data-title="3 · Piani inclinati e carrucola">
-  <p class="sec-label step" data-n="3">Piani inclinati collegati da una carrucola</p>
+<section class="scene" id="carrucola" data-title="3 · Inclined planes and pulley">
+  <p class="sec-label step" data-n="3">Inclined planes connected by a pulley</p>
 
-  <p class="sec-label">Teoria</p>
+  <p class="sec-label">Theory</p>
   <div class="card">
-    <h2>⛰️ Corpi collegati da un filo su una carrucola che ruota</h2>
-    <p>Due corpi sono collegati da un <strong>filo inestensibile e di massa trascurabile</strong> che passa su una <strong>carrucola</strong>. Se la carrucola fosse ideale (senza massa) la tensione sarebbe la stessa ai due capi. Ma una carrucola reale è un <strong>disco che ruota</strong>: per metterla in rotazione serve un momento, quindi le due tensioni <em>non sono uguali</em>.</p>
-    <h3>Le tre equazioni del sistema</h3>
-    <p>Consideriamo una massa $m_1$ su un piano inclinato (angolo $\theta_1$, attrito $\mu$) collegata a una massa $m_2$ appesa. Se $m_2$ scende, il sistema accelera con accelerazione $a$ uguale per i due corpi (filo inestensibile), e la carrucola (disco, massa $M_p$, raggio $R$) ruota con $\alpha = a/R$.</p>
+    <h2>⛰️ Bodies connected by a string over a rotating pulley</h2>
+    <p>Two bodies are connected by an <strong>inextensible, massless string</strong> that runs over a <strong>pulley</strong>. If the pulley were ideal (massless) the tension would be the same at both ends. But a real pulley is a <strong>rotating disk</strong>: setting it spinning requires a torque, so the two tensions are <em>not equal</em>.</p>
+    <h3>The three equations of the system</h3>
+    <p>Consider a mass $m_1$ on an inclined plane (angle $\theta_1$, friction $\mu$) connected to a hanging mass $m_2$. If $m_2$ descends, the system accelerates with acceleration $a$ that is the same for the two bodies (inextensible string), and the pulley (disk, mass $M_p$, radius $R$) rotates with $\alpha = a/R$.</p>
     <div class="formula">$$\begin{aligned}
       m_2:\ \ & m_2\,g - T_2 = m_2\,a \\[3pt]
       m_1:\ \ & T_1 - m_1\,g\sin\theta_1 - f_a = m_1\,a \\[3pt]
-      \text{carrucola:}\ \ & (T_2 - T_1)\,R = I\,\alpha = \tfrac{1}{2}M_p R^{2}\cdot\frac{a}{R}
+      \text{pulley:}\ \ & (T_2 - T_1)\,R = I\,\alpha = \tfrac{1}{2}M_p R^{2}\cdot\frac{a}{R}
       \end{aligned}$$</div>
-    <p>Dall'ultima equazione: $\;T_2 - T_1 = \tfrac{1}{2}\,M_p\,a$. Sommando le tre equazioni la tensione si elimina e si ricava:</p>
+    <p>From the last equation: $\;T_2 - T_1 = \tfrac{1}{2}\,M_p\,a$. Adding the three equations the tension cancels out and we obtain:</p>
     <div class="formula">$$a = \frac{m_2\,g - m_1\,g\sin\theta_1 - \mu\,m_1\,g\cos\theta_1}{m_1 + m_2 + \tfrac{1}{2}M_p}$$</div>
-    <p class="where"><b>dove:</b> $a$ = accelerazione (m/s²) &nbsp;·&nbsp; $T_1,T_2$ = tensioni del filo (N) &nbsp;·&nbsp; $f_a=\mu\,m_1 g\cos\theta_1$ = attrito (N) &nbsp;·&nbsp; $M_p$ = massa carrucola (kg) &nbsp;·&nbsp; $R$ = raggio carrucola (m) &nbsp;·&nbsp; $g=9{,}81$ m/s².</p>
-    <p>Il termine $\tfrac{1}{2}M_p$ a denominatore è il contributo d'inerzia della carrucola: equivale ad aggiungere «metà della sua massa» al sistema. Con due piani inclinati ($\theta_1$ e $\theta_2$) basta sostituire la spinta di $m_2$ con $m_2\,g\sin\theta_2$.</p>
-    <div class="tip">🧩 Tre conseguenze importanti: <strong>(1)</strong> la carrucola pesante rallenta il sistema ($a$ più piccola); <strong>(2)</strong> $T_1 \ne T_2$, ed è proprio questa differenza a farla ruotare; <strong>(3)</strong> se $M_p \to 0$ si ritrova il caso ideale $T_1 = T_2$.</div>
-    <div class="warn">⚠️ Il sistema parte solo se la spinta supera l'attrito statico massimo. Se $m_2 g$ (o $m_2 g\sin\theta_2$) non basta a vincere $m_1 g\sin\theta_1 + \mu\,m_1 g\cos\theta_1$, resta fermo: $a = 0$.</div>
-    <svg class="diagram" viewBox="0 0 420 215" role="img" aria-label="Massa su piano inclinato collegata a una massa appesa tramite carrucola in cima">
+    <p class="where"><b>where:</b> $a$ = acceleration (m/s²) &nbsp;·&nbsp; $T_1,T_2$ = string tensions (N) &nbsp;·&nbsp; $f_a=\mu\,m_1 g\cos\theta_1$ = friction (N) &nbsp;·&nbsp; $M_p$ = pulley mass (kg) &nbsp;·&nbsp; $R$ = pulley radius (m) &nbsp;·&nbsp; $g=9.81$ m/s².</p>
+    <p>The term $\tfrac{1}{2}M_p$ in the denominator is the pulley's inertia contribution: it is equivalent to adding «half its mass» to the system. With two inclined planes ($\theta_1$ and $\theta_2$) you just replace the drive from $m_2$ with $m_2\,g\sin\theta_2$.</p>
+    <div class="tip">🧩 Three important consequences: <strong>(1)</strong> a heavy pulley slows the system down (smaller $a$); <strong>(2)</strong> $T_1 \ne T_2$, and it is precisely this difference that makes it rotate; <strong>(3)</strong> if $M_p \to 0$ we recover the ideal case $T_1 = T_2$.</div>
+    <div class="warn">⚠️ The system starts only if the drive exceeds the maximum static friction. If $m_2 g$ (or $m_2 g\sin\theta_2$) is not enough to overcome $m_1 g\sin\theta_1 + \mu\,m_1 g\cos\theta_1$, it stays at rest: $a = 0$.</div>
+    <svg class="diagram" viewBox="0 0 420 215" role="img" aria-label="Mass on an inclined plane connected to a hanging mass via a pulley at the top">
       <polygon points="60,185 255,63 255,185" fill="#eef3fb" stroke="#9aa3b2" stroke-width="1.5"/>
       <line x1="36" y1="185" x2="320" y2="185" stroke="#5b6470" stroke-width="2"/>
       <path d="M 92 185 A 32 32 0 0 0 87.1 168.0" fill="none" stroke="#00897b" stroke-width="1.6"/>
@@ -539,7 +539,7 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
       <g transform="rotate(-32 150 112)"><rect x="132" y="100" width="36" height="24" rx="3" fill="#ffd54f" stroke="#8d6e00" stroke-width="1.3"/><text x="150" y="116" text-anchor="middle" font-size="11" fill="#5d4e00" font-weight="700">m₁</text></g>
       <circle cx="262" cy="52" r="14" fill="#cfe0f5" stroke="#1565c0" stroke-width="2.5"/>
       <circle cx="262" cy="52" r="3" fill="#1565c0"/>
-      <text x="206" y="32" font-size="11" fill="#1565c0" font-weight="700">carrucola = disco</text>
+      <text x="206" y="32" font-size="11" fill="#1565c0" font-weight="700">pulley = disk</text>
       <line x1="160" y1="104" x2="251" y2="58" stroke="#6b7280" stroke-width="1.6"/>
       <text x="194" y="74" font-size="11" fill="#1565c0" font-weight="700">T₁</text>
       <line x1="276" y1="52" x2="276" y2="120" stroke="#6b7280" stroke-width="1.6"/>
@@ -547,80 +547,80 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
       <rect x="260" y="120" width="32" height="26" rx="3" fill="#ffab91" stroke="#bf360c" stroke-width="1.3"/>
       <text x="276" y="137" text-anchor="middle" font-size="11" fill="#7a2200" font-weight="700">m₂</text>
     </svg>
-    <p class="dcap">Diagramma: la differenza T₂ − T₁ = ½M<sub>p</sub>·a fa ruotare la carrucola-disco.</p>
+    <p class="dcap">Diagram: the difference T₂ − T₁ = ½M<sub>p</sub>·a makes the pulley-disk rotate.</p>
   </div>
 
-  <p class="sec-label">Simulazioni</p>
+  <p class="sec-label">Simulations</p>
   <div class="card sim-block">
-    <h3>⛓️ Sistema con carrucola-disco</h3>
-    <p class="lead">Scegli lo scenario, regola masse, angoli, attrito e la carrucola. Osserva come l'accelerazione cambia e come T₁ ≠ T₂ quando la carrucola ha massa. Premi avvia per vedere i corpi accelerare.</p>
+    <h3>⛓️ System with a pulley-disk</h3>
+    <p class="lead">Choose the scenario, adjust the masses, angles, friction and the pulley. Watch how the acceleration changes and how T₁ ≠ T₂ when the pulley has mass. Press start to see the bodies accelerate.</p>
     <div class="sim-layout">
       <div class="sim-pane">
         <svg class="sim" id="svgPl" viewBox="0 0 360 300" preserveAspectRatio="xMidYMid meet"></svg>
         <div class="legend">
           <span style="color:var(--vT)"><i style="background:var(--vT)"></i>T₁</span>
           <span style="color:var(--vL)"><i style="background:var(--vL)"></i>T₂</span>
-          <span style="color:var(--vAl)"><i style="background:var(--vAl)"></i>α carrucola</span>
+          <span style="color:var(--vAl)"><i style="background:var(--vAl)"></i>α pulley</span>
         </div>
         <div class="sim-foot">
-          <button class="play-btn" id="plPlay">▶️ Avvia</button>
+          <button class="play-btn" id="plPlay">▶️ Start</button>
           <button class="play-btn soft" id="plReset">↺ Reset</button>
         </div>
       </div>
       <div class="ctrl-pane">
         <div class="preset-row"><span class="nm">scenario</span>
           <select id="plScn">
-            <option value="A">Piano inclinato + massa appesa</option>
-            <option value="B">Due piani inclinati</option>
+            <option value="A">Inclined plane + hanging mass</option>
+            <option value="B">Two inclined planes</option>
           </select>
         </div>
         <div class="ctrl">
-          <label><span class="nm">massa m₁</span><input type="range" id="plM1" min="0.5" max="10" step="0.5" value="3"><span class="v" id="plM1v">3,0 kg</span></label>
-          <label><span class="nm">massa m₂</span><input type="range" id="plM2" min="0.5" max="10" step="0.5" value="5"><span class="v" id="plM2v">5,0 kg</span></label>
-          <label><span class="nm">angolo θ₁</span><input type="range" id="plTh1" min="0" max="60" step="1" value="30"><span class="v" id="plTh1v">30°</span></label>
-          <label><span class="nm">angolo θ₂</span><input type="range" id="plTh2" min="0" max="80" step="1" value="50"><span class="v" id="plTh2v">50°</span></label>
-          <label><span class="nm">attrito μ</span><input type="range" id="plMu" min="0" max="0.6" step="0.01" value="0.10"><span class="v" id="plMuv">0,10</span></label>
-          <label><span class="nm">massa carrucola</span><input type="range" id="plMp" min="0" max="6" step="0.25" value="2"><span class="v" id="plMpv">2,00 kg</span></label>
-          <label><span class="nm">raggio carrucola</span><input type="range" id="plR" min="0.1" max="0.4" step="0.01" value="0.20"><span class="v" id="plRv">0,20 m</span></label>
+          <label><span class="nm">mass m₁</span><input type="range" id="plM1" min="0.5" max="10" step="0.5" value="3"><span class="v" id="plM1v">3.0 kg</span></label>
+          <label><span class="nm">mass m₂</span><input type="range" id="plM2" min="0.5" max="10" step="0.5" value="5"><span class="v" id="plM2v">5.0 kg</span></label>
+          <label><span class="nm">angle θ₁</span><input type="range" id="plTh1" min="0" max="60" step="1" value="30"><span class="v" id="plTh1v">30°</span></label>
+          <label><span class="nm">angle θ₂</span><input type="range" id="plTh2" min="0" max="80" step="1" value="50"><span class="v" id="plTh2v">50°</span></label>
+          <label><span class="nm">friction μ</span><input type="range" id="plMu" min="0" max="0.6" step="0.01" value="0.10"><span class="v" id="plMuv">0.10</span></label>
+          <label><span class="nm">pulley mass</span><input type="range" id="plMp" min="0" max="6" step="0.25" value="2"><span class="v" id="plMpv">2.00 kg</span></label>
+          <label><span class="nm">pulley radius</span><input type="range" id="plR" min="0.1" max="0.4" step="0.01" value="0.20"><span class="v" id="plRv">0.20 m</span></label>
         </div>
         <div class="read">
-          <div class="it"><span class="l">accelerazione a</span><span class="v" id="plA">—</span> m/s²</div>
-          <div class="it"><span class="l">tensione T₁</span><span class="v" id="plT1">—</span> N</div>
-          <div class="it"><span class="l">tensione T₂</span><span class="v" id="plT2">—</span> N</div>
-          <div class="it"><span class="l">α carrucola</span><span class="v" id="plAlf">—</span> rad/s²</div>
+          <div class="it"><span class="l">acceleration a</span><span class="v" id="plA">—</span> m/s²</div>
+          <div class="it"><span class="l">tension T₁</span><span class="v" id="plT1">—</span> N</div>
+          <div class="it"><span class="l">tension T₂</span><span class="v" id="plT2">—</span> N</div>
+          <div class="it"><span class="l">α pulley</span><span class="v" id="plAlf">—</span> rad/s²</div>
         </div>
         <div class="eqs ok" id="plStat">—</div>
       </div>
     </div>
   </div>
 
-  <p class="sec-label">Prova tu</p>
+  <p class="sec-label">Try it</p>
   <div class="card prova-block" id="prova-carrucola"></div>
 
   <div id="qz-carrucola" class="quiz-block"></div>
 </section>
 
 <!-- ============ 4 · IMPULSO ANGOLARE ============ -->
-<section class="scene" id="impulso" data-title="4 · Momento e tempo (impulso angolare)">
-  <p class="sec-label step" data-n="4">Momento applicato per un intervallo di tempo</p>
+<section class="scene" id="impulso" data-title="4 · Torque and time (angular impulse)">
+  <p class="sec-label step" data-n="4">Torque applied for a time interval</p>
 
-  <p class="sec-label">Teoria</p>
+  <p class="sec-label">Theory</p>
   <div class="card">
-    <h2>⏱️ Che cosa succede se un momento agisce per un tempo $\Delta t$</h2>
-    <p>Un corpo rigido sta già ruotando con velocità angolare $\omega_0$. Se gli applichiamo un momento $M$ per un intervallo di tempo $\Delta t$, il suo momento angolare cambia. È il <strong>teorema dell'impulso angolare</strong>, copia esatta del teorema dell'impulso ($F\,\Delta t = \Delta p$):</p>
+    <h2>⏱️ What happens if a torque acts for a time $\Delta t$</h2>
+    <p>A rigid body is already rotating with angular velocity $\omega_0$. If we apply a torque $M$ to it for a time interval $\Delta t$, its angular momentum changes. This is the <strong>angular impulse theorem</strong>, an exact copy of the impulse theorem ($F\,\Delta t = \Delta p$):</p>
     <div class="formula">$$M\,\Delta t = \Delta L = I\,\omega_f - I\,\omega_0$$</div>
-    <p>La quantità $M\,\Delta t$ si chiama <em>impulso angolare</em>. Se $M$ è costante, dividendo per $I$ si ritrova $\alpha = M/I$ e quindi:</p>
+    <p>The quantity $M\,\Delta t$ is called the <em>angular impulse</em>. If $M$ is constant, dividing by $I$ we recover $\alpha = M/I$ and therefore:</p>
     <div class="formula">$$\omega_f = \omega_0 + \frac{M}{I}\,\Delta t = \omega_0 + \alpha\,\Delta t$$</div>
-    <p class="where"><b>dove:</b> $M$ = momento applicato (N·m) &nbsp;·&nbsp; $\Delta t$ = durata (s) &nbsp;·&nbsp; $\Delta L$ = variazione di momento angolare (kg·m²/s) &nbsp;·&nbsp; $\omega_0,\ \omega_f$ = velocità angolare iniziale e finale (rad/s) &nbsp;·&nbsp; $I$ = momento d'inerzia (kg·m²).</p>
-    <h3>Quali effetti?</h3>
+    <p class="where"><b>where:</b> $M$ = applied torque (N·m) &nbsp;·&nbsp; $\Delta t$ = duration (s) &nbsp;·&nbsp; $\Delta L$ = change in angular momentum (kg·m²/s) &nbsp;·&nbsp; $\omega_0,\ \omega_f$ = initial and final angular velocity (rad/s) &nbsp;·&nbsp; $I$ = moment of inertia (kg·m²).</p>
+    <h3>What effects?</h3>
     <ul class="cl">
-      <li>Se $M$ è <strong>concorde</strong> con la rotazione → il corpo <strong>accelera</strong> ($\omega$ aumenta, $L$ aumenta).</li>
-      <li>Se $M$ è <strong>opposto</strong> (es. un freno) → il corpo <strong>rallenta</strong>, può fermarsi e perfino invertire il senso.</li>
-      <li>Per fermare in un tempo $\Delta t$ un volano con momento angolare $L$ serve un momento medio $M = L/\Delta t$: più lungo è $\Delta t$, minore è il momento necessario (come l'airbag per la quantità di moto).</li>
+      <li>If $M$ is <strong>in the same direction</strong> as the rotation → the body <strong>speeds up</strong> ($\omega$ increases, $L$ increases).</li>
+      <li>If $M$ is <strong>opposite</strong> (e.g. a brake) → the body <strong>slows down</strong>, can stop and even reverse direction.</li>
+      <li>To stop a flywheel with angular momentum $L$ in a time $\Delta t$ you need an average torque $M = L/\Delta t$: the longer $\Delta t$, the smaller the torque needed (like the airbag for momentum).</li>
     </ul>
     <div class="formula">$$\Delta t = \frac{\Delta L}{M} = \frac{I\,\Delta\omega}{M}$$</div>
-    <div class="tip">🌀 Se invece il momento è <em>perpendicolare</em> al momento angolare (come la gravità su una trottola o un giroscopio in moto), non cambia il modulo di $\vec L$ ma la sua direzione: l'asse «gira lentamente» attorno alla verticale. È la <strong>precessione</strong>.</div>
-    <svg class="diagram" viewBox="0 0 420 180" role="img" aria-label="Volano con momento applicato per un tempo">
+    <div class="tip">🌀 If instead the torque is <em>perpendicular</em> to the angular momentum (like gravity on a spinning top or a moving gyroscope), it does not change the magnitude of $\vec L$ but its direction: the axis «slowly turns» around the vertical. This is <strong>precession</strong>.</div>
+    <svg class="diagram" viewBox="0 0 420 180" role="img" aria-label="Flywheel with a torque applied for a time">
       <circle cx="110" cy="90" r="55" fill="#eef3fb" stroke="#9aa3b2" stroke-width="1.5"/>
       <circle cx="110" cy="90" r="4" fill="#1a1a2e"/>
       <path d="M 150 128 A 55 55 0 0 0 165 78" fill="none" stroke="#1565c0" stroke-width="2.6"/>
@@ -633,39 +633,39 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
       <text x="250" y="105" font-size="13" fill="#0d47a1">ωf = ω₀ + (M/I)·Δt</text>
       <text x="250" y="135" font-size="11" fill="#6b7280">F·Δt = Δp &nbsp;↔&nbsp; M·Δt = ΔL</text>
     </svg>
-    <p class="dcap">Diagramma: un momento M applicato per Δt cambia il momento angolare di ΔL = M·Δt.</p>
+    <p class="dcap">Diagram: a torque M applied for Δt changes the angular momentum by ΔL = M·Δt.</p>
   </div>
 
-  <p class="sec-label">Simulazioni</p>
+  <p class="sec-label">Simulations</p>
   <div class="card sim-block">
-    <h3>🛞 Volano e impulso angolare</h3>
-    <p class="lead">Il volano ruota a ω₀. Imposta il momento M (positivo accelera, negativo frena) e la durata Δt, poi premi «Applica M per Δt»: osserva ω cambiare esattamente di Δω = (M/I)·Δt e poi restare costante. Confronta la previsione ω<sub>f</sub> con il valore misurato.</p>
+    <h3>🛞 Flywheel and angular impulse</h3>
+    <p class="lead">The flywheel rotates at ω₀. Set the torque M (positive speeds up, negative brakes) and the duration Δt, then press «Apply M for Δt»: watch ω change by exactly Δω = (M/I)·Δt and then stay constant. Compare the prediction ω<sub>f</sub> with the measured value.</p>
     <div class="sim-layout">
       <div class="sim-pane">
         <svg class="sim" id="svgIm" viewBox="0 0 360 300" preserveAspectRatio="xMidYMid meet"></svg>
         <div class="legend">
           <span style="color:var(--vOm)"><i style="background:var(--vOm)"></i>ω</span>
-          <span style="color:var(--vM)"><i style="background:var(--vM)"></i>M applicato</span>
+          <span style="color:var(--vM)"><i style="background:var(--vM)"></i>M applied</span>
         </div>
         <div class="sim-foot">
-          <button class="play-btn" id="imApply">⚡ Applica M per Δt</button>
+          <button class="play-btn" id="imApply">⚡ Apply M for Δt</button>
           <button class="play-btn soft" id="imReset">↺ Reset ω = ω₀</button>
         </div>
       </div>
       <div class="ctrl-pane">
         <div class="ctrl">
-          <label><span class="nm">ω₀ iniziale</span><input type="range" id="imOm0" min="0" max="10" step="0.5" value="6"><span class="v" id="imOm0v">6,0 rad/s</span></label>
-          <label><span class="nm">momento M</span><input type="range" id="imMom" min="-6" max="6" step="0.25" value="-2"><span class="v" id="imMomv">−2,00 N·m</span></label>
-          <label><span class="nm">durata Δt</span><input type="range" id="imDt" min="0.2" max="5" step="0.1" value="2"><span class="v" id="imDtv">2,0 s</span></label>
-          <label><span class="nm">massa volano</span><input type="range" id="imM" min="0.5" max="6" step="0.5" value="2"><span class="v" id="imMv">2,0 kg</span></label>
-          <label><span class="nm">raggio R</span><input type="range" id="imR" min="0.2" max="0.6" step="0.05" value="0.40"><span class="v" id="imRv">0,40 m</span></label>
+          <label><span class="nm">initial ω₀</span><input type="range" id="imOm0" min="0" max="10" step="0.5" value="6"><span class="v" id="imOm0v">6.0 rad/s</span></label>
+          <label><span class="nm">torque M</span><input type="range" id="imMom" min="-6" max="6" step="0.25" value="-2"><span class="v" id="imMomv">−2.00 N·m</span></label>
+          <label><span class="nm">duration Δt</span><input type="range" id="imDt" min="0.2" max="5" step="0.1" value="2"><span class="v" id="imDtv">2.0 s</span></label>
+          <label><span class="nm">flywheel mass</span><input type="range" id="imM" min="0.5" max="6" step="0.5" value="2"><span class="v" id="imMv">2.0 kg</span></label>
+          <label><span class="nm">radius R</span><input type="range" id="imR" min="0.2" max="0.6" step="0.05" value="0.40"><span class="v" id="imRv">0.40 m</span></label>
         </div>
         <div class="read">
-          <div class="it"><span class="l">inerzia I</span><span class="v" id="imI">—</span> kg·m²</div>
-          <div class="it"><span class="l">ω attuale</span><span class="v" id="imOm">—</span> rad/s</div>
+          <div class="it"><span class="l">inertia I</span><span class="v" id="imI">—</span> kg·m²</div>
+          <div class="it"><span class="l">current ω</span><span class="v" id="imOm">—</span> rad/s</div>
           <div class="it"><span class="l">L = I·ω</span><span class="v" id="imL">—</span> kg·m²/s</div>
-          <div class="it"><span class="l">impulso M·Δt</span><span class="v" id="imDL">—</span> kg·m²/s</div>
-          <div class="it"><span class="l">ω<sub>f</sub> previsto</span><span class="v" id="imOmf">—</span> rad/s</div>
+          <div class="it"><span class="l">impulse M·Δt</span><span class="v" id="imDL">—</span> kg·m²/s</div>
+          <div class="it"><span class="l">predicted ω<sub>f</sub></span><span class="v" id="imOmf">—</span> rad/s</div>
           <div class="it"><span class="l">α = M/I</span><span class="v" id="imAlf">—</span> rad/s²</div>
         </div>
         <div class="eqs ok" id="imBadge">M·Δt = ΔL = I·Δω</div>
@@ -673,158 +673,158 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
     </div>
   </div>
 
-  <p class="sec-label">Prova tu</p>
+  <p class="sec-label">Try it</p>
   <div class="card prova-block" id="prova-impulso"></div>
 
   <div id="qz-impulso" class="quiz-block"></div>
 </section>
 
 <!-- ============ 5 · MOMENTO ANGOLARE ============ -->
-<section class="scene" id="angolare" data-title="5 · Momento angolare e applicazioni">
-  <p class="sec-label step" data-n="5">Conservazione del momento angolare</p>
+<section class="scene" id="angolare" data-title="5 · Angular momentum and applications">
+  <p class="sec-label step" data-n="5">Conservation of angular momentum</p>
 
-  <p class="sec-label">Teoria</p>
+  <p class="sec-label">Theory</p>
   <div class="card">
-    <h2>💫 Quando il momento angolare si conserva</h2>
-    <p>Dalla relazione $M = \Delta L/\Delta t$ segue subito un principio potentissimo: se il <strong>momento esterno totale è nullo</strong>, il momento angolare <strong>si conserva</strong>.</p>
-    <div class="formula">$$\text{se}\ \ M_\text{est} = 0 \quad\Rightarrow\quad L = I\,\omega = \text{costante}$$</div>
-    <p>Il corpo può però <em>cambiare forma</em> e quindi il proprio momento d'inerzia $I$. Poiché $I\,\omega$ resta costante, se $I$ diminuisce allora $\omega$ <strong>aumenta</strong> (e viceversa):</p>
+    <h2>💫 When angular momentum is conserved</h2>
+    <p>From the relation $M = \Delta L/\Delta t$ a very powerful principle follows immediately: if the <strong>total external torque is zero</strong>, the angular momentum <strong>is conserved</strong>.</p>
+    <div class="formula">$$\text{if}\ \ M_\text{est} = 0 \quad\Rightarrow\quad L = I\,\omega = \text{constant}$$</div>
+    <p>The body can, however, <em>change shape</em> and thus its own moment of inertia $I$. Since $I\,\omega$ stays constant, if $I$ decreases then $\omega$ <strong>increases</strong> (and vice versa):</p>
     <div class="formula">$$I_1\,\omega_1 = I_2\,\omega_2$$</div>
-    <p class="where"><b>dove:</b> $L$ = momento angolare (kg·m²/s) &nbsp;·&nbsp; $I$ = momento d'inerzia (kg·m²) &nbsp;·&nbsp; $\omega$ = velocità angolare (rad/s) &nbsp;·&nbsp; gli indici $1,2$ indicano prima e dopo il cambio di forma.</p>
-    <h3>🎡 Persona sulla piattaforma rotante</h3>
-    <p>Una persona su una piattaforma girevole (attrito dell'asse trascurabile) <strong>si avvicina al centro</strong>: il suo $I$ diminuisce (la massa è più vicina all'asse), quindi $\omega$ aumenta e la piattaforma <strong>gira più veloce</strong>. Se si allontana, rallenta. Il momento angolare non cambia, ma l'energia cinetica $\tfrac{1}{2}I\,\omega^{2}$ aumenta: a fornirla è il <em>lavoro muscolare</em> fatto per tirarsi verso il centro.</p>
-    <h3>💃 La piroetta della ballerina</h3>
-    <p>Stesso principio: la ballerina (o il pattinatore) parte con le braccia larghe ($I$ grande, $\omega$ piccola) e, <strong>chiudendo le braccia</strong>, riduce $I$ e accelera la piroetta. Allargandole di nuovo, rallenta per fermarsi con eleganza.</p>
-    <h3>🎯 Asta-pendolo colpita da un corpo (trattazione completa)</h3>
-    <p>Un'asta rigida (massa $M$, lunghezza $L$), imperniata a un estremo e inizialmente ferma, viene colpita all'estremo libero da un corpo (massa $m$) con velocità $v$ perpendicolare all'asta, e vi resta conficcato.</p>
-    <p><strong>① Durante l'urto</strong> — l'urto è brevissimo: il momento angolare rispetto al perno si conserva (le forze impulsive del perno hanno braccio nullo). Subito dopo l'urto:</p>
+    <p class="where"><b>where:</b> $L$ = angular momentum (kg·m²/s) &nbsp;·&nbsp; $I$ = moment of inertia (kg·m²) &nbsp;·&nbsp; $\omega$ = angular velocity (rad/s) &nbsp;·&nbsp; the indices $1,2$ denote before and after the change of shape.</p>
+    <h3>🎡 Person on a rotating platform</h3>
+    <p>A person on a rotating platform (negligible axle friction) <strong>moves toward the center</strong>: their $I$ decreases (the mass is closer to the axis), so $\omega$ increases and the platform <strong>spins faster</strong>. If they move away, it slows down. The angular momentum does not change, but the kinetic energy $\tfrac{1}{2}I\,\omega^{2}$ increases: it is supplied by the <em>muscular work</em> done to pull inward toward the center.</p>
+    <h3>💃 The dancer's pirouette</h3>
+    <p>Same principle: the dancer (or the skater) starts with arms out ($I$ large, $\omega$ small) and, by <strong>pulling the arms in</strong>, reduces $I$ and speeds up the pirouette. By opening them again, they slow down to stop gracefully.</p>
+    <h3>🎯 A rod-pendulum struck by a body (full treatment)</h3>
+    <p>A rigid rod (mass $M$, length $L$), pivoted at one end and initially at rest, is struck at the free end by a body (mass $m$) with velocity $v$ perpendicular to the rod, and stays embedded in it.</p>
+    <p><strong>① During the collision</strong> — the collision is very brief: the angular momentum about the pivot is conserved (the impulsive pivot forces have zero lever arm). Right after the collision:</p>
     <div class="formula">$$m\,v\,L = \left(\tfrac{1}{3}M L^{2} + m L^{2}\right)\omega \quad\Rightarrow\quad \omega = \frac{m\,v\,L}{\tfrac{1}{3}M L^{2} + m L^{2}}$$</div>
-    <p><strong>② Dopo l'urto</strong> — l'asta (con il corpo conficcato) ruota verso l'alto come un <em>pendolo composto</em>: ora agisce il momento della gravità, che produce un'accelerazione angolare. Quando l'asta è inclinata di $\varphi$ rispetto alla verticale:</p>
+    <p><strong>② After the collision</strong> — the rod (with the body embedded) swings upward like a <em>compound pendulum</em>: now the torque of gravity acts, producing an angular acceleration. When the rod is tilted by $\varphi$ from the vertical:</p>
     <div class="formula">$$\alpha = -\,\frac{g\left(M\,\tfrac{L}{2} + m\,L\right)\sin\varphi}{\tfrac{1}{3}M L^{2} + m L^{2}}$$</div>
-    <p class="where"><b>dove:</b> $M,\ L$ = massa e lunghezza dell'asta &nbsp;·&nbsp; $m,\ v$ = massa e velocità del corpo &nbsp;·&nbsp; $\omega$ = velocità angolare subito dopo l'urto &nbsp;·&nbsp; $\varphi$ = angolo dell'asta rispetto alla verticale &nbsp;·&nbsp; il segno «$-$» indica che la gravità <em>frena</em> la salita.</p>
-    <p>All'istante dell'urto ($\varphi \approx 0$) l'accelerazione angolare è quasi nulla; cresce man mano che l'asta sale, frenando la rotazione fino all'altezza massima.</p>
-    <div class="tip">⚖️ Riassunto: l'<strong>urto</strong> fissa la velocità angolare $\omega$ (conservazione di $L$); la <strong>gravità</strong> determina poi l'accelerazione angolare $\alpha$ durante la salita. Sono due fasi distinte con due principi diversi.</div>
-    <svg class="diagram" viewBox="0 0 420 200" role="img" aria-label="Pattinatrice e asta colpita">
+    <p class="where"><b>where:</b> $M,\ L$ = mass and length of the rod &nbsp;·&nbsp; $m,\ v$ = mass and velocity of the body &nbsp;·&nbsp; $\omega$ = angular velocity right after the collision &nbsp;·&nbsp; $\varphi$ = angle of the rod from the vertical &nbsp;·&nbsp; the «$-$» sign indicates that gravity <em>slows</em> the rise.</p>
+    <p>At the instant of the collision ($\varphi \approx 0$) the angular acceleration is almost zero; it grows as the rod rises, slowing the rotation up to the maximum height.</p>
+    <div class="tip">⚖️ Summary: the <strong>collision</strong> sets the angular velocity $\omega$ (conservation of $L$); then <strong>gravity</strong> determines the angular acceleration $\alpha$ during the rise. They are two distinct phases with two different principles.</div>
+    <svg class="diagram" viewBox="0 0 420 200" role="img" aria-label="Skater and struck rod">
       <circle cx="95" cy="105" r="58" fill="#eef3fb" stroke="#9aa3b2" stroke-width="1.5"/>
       <circle cx="95" cy="105" r="3" fill="#1a1a2e"/>
       <line x1="95" y1="105" x2="55" y2="105" stroke="#7b1fa2" stroke-width="3"/>
       <line x1="95" y1="105" x2="135" y2="105" stroke="#7b1fa2" stroke-width="3"/>
       <circle cx="55" cy="105" r="5" fill="#7b1fa2"/><circle cx="135" cy="105" r="5" fill="#7b1fa2"/>
-      <text x="60" y="40" font-size="11" fill="#0d47a1" font-weight="700">braccia larghe → ω piccola</text>
+      <text x="60" y="40" font-size="11" fill="#0d47a1" font-weight="700">arms out → small ω</text>
       <path d="M 128 145 A 50 50 0 0 0 142 110" fill="none" stroke="#1565c0" stroke-width="2.2"/>
       <polygon points="142,110 134,117 130,108" fill="#1565c0"/>
       <line x1="300" y1="35" x2="300" y2="150" stroke="#7b1fa2" stroke-width="4"/>
       <circle cx="300" cy="35" r="4" fill="#1a1a2e"/>
-      <text x="307" y="35" font-size="11" fill="#6b7280">perno</text>
+      <text x="307" y="35" font-size="11" fill="#6b7280">pivot</text>
       <circle cx="250" cy="150" r="8" fill="#e53935"/>
       <line x1="232" y1="150" x2="285" y2="150" stroke="#e53935" stroke-width="2.6"/>
       <polygon points="285,150 273,145 273,155" fill="#e53935"/>
       <text x="232" y="173" font-size="11" fill="#e53935" font-weight="700">m, v</text>
       <text x="312" y="150" font-size="11" fill="#7b1fa2" font-weight="700">M, L</text>
     </svg>
-    <p class="dcap">A sinistra: piattaforma/ballerina (I·ω costante). A destra: asta-pendolo colpita all'estremo.</p>
+    <p class="dcap">Left: platform/dancer (I·ω constant). Right: rod-pendulum struck at the end.</p>
   </div>
 
-  <p class="sec-label">Simulazioni</p>
+  <p class="sec-label">Simulations</p>
   <div class="card sim-block">
-    <h3>🌀 Conservazione di L in azione</h3>
-    <p class="lead">Scegli lo scenario. Nella piattaforma, avvicina/allontana le masse e osserva ω cambiare mentre L resta costante. Nell'asta, lancia il corpo e segui le due fasi: ω fissato dall'urto, poi α dovuta alla gravità nella salita.</p>
+    <h3>🌀 Conservation of L in action</h3>
+    <p class="lead">Choose the scenario. On the platform, pull the masses in/out and watch ω change while L stays constant. On the rod, launch the body and follow the two phases: ω set by the collision, then α due to gravity during the rise.</p>
     <div class="sim-layout">
       <div class="sim-pane">
         <svg class="sim" id="svgAn" viewBox="0 0 360 300" preserveAspectRatio="xMidYMid meet"></svg>
         <div class="legend">
           <span style="color:var(--vOm)"><i style="background:var(--vOm)"></i>ω</span>
-          <span style="color:var(--vL)"><i style="background:var(--vL)"></i>L (costante)</span>
+          <span style="color:var(--vL)"><i style="background:var(--vL)"></i>L (constant)</span>
           <span style="color:var(--vAl)"><i style="background:var(--vAl)"></i>α</span>
         </div>
         <div class="sim-foot">
-          <button class="play-btn" id="anPlay">⏸️ Pausa</button>
-          <button class="play-btn soft" id="anLaunch" style="display:none">🎯 Lancia il corpo</button>
+          <button class="play-btn" id="anPlay">⏸️ Pause</button>
+          <button class="play-btn soft" id="anLaunch" style="display:none">🎯 Launch the body</button>
         </div>
       </div>
       <div class="ctrl-pane">
         <div class="preset-row"><span class="nm">scenario</span>
           <select id="anScn">
-            <option value="plat">Piattaforma / ballerina</option>
-            <option value="rod">Asta-pendolo colpita</option>
+            <option value="plat">Platform / dancer</option>
+            <option value="rod">Struck rod-pendulum</option>
           </select>
         </div>
         <div id="anCtrlPlat">
           <div class="ctrl">
-            <label><span class="nm">braccia / raggio ρ</span><input type="range" id="anRho" min="0.1" max="1" step="0.01" value="0.8"><span class="v" id="anRhov">0,80 m</span></label>
-            <label><span class="nm">massa nelle mani</span><input type="range" id="anMh" min="0" max="8" step="0.5" value="3"><span class="v" id="anMhv">3,0 kg</span></label>
-            <label><span class="nm">inerzia corpo I₀</span><input type="range" id="anIp" min="1" max="8" step="0.5" value="3"><span class="v" id="anIpv">3,0 kg·m²</span></label>
-            <label><span class="nm">ω di partenza</span><input type="range" id="anW0" min="0.5" max="6" step="0.1" value="2"><span class="v" id="anW0v">2,0 rad/s</span></label>
+            <label><span class="nm">arms / radius ρ</span><input type="range" id="anRho" min="0.1" max="1" step="0.01" value="0.8"><span class="v" id="anRhov">0.80 m</span></label>
+            <label><span class="nm">mass in hands</span><input type="range" id="anMh" min="0" max="8" step="0.5" value="3"><span class="v" id="anMhv">3.0 kg</span></label>
+            <label><span class="nm">body inertia I₀</span><input type="range" id="anIp" min="1" max="8" step="0.5" value="3"><span class="v" id="anIpv">3.0 kg·m²</span></label>
+            <label><span class="nm">starting ω</span><input type="range" id="anW0" min="0.5" max="6" step="0.1" value="2"><span class="v" id="anW0v">2.0 rad/s</span></label>
           </div>
           <div class="read">
-            <div class="it"><span class="l">inerzia I</span><span class="v" id="anI">—</span> kg·m²</div>
-            <div class="it"><span class="l">ω attuale</span><span class="v" id="anOm">—</span> rad/s</div>
+            <div class="it"><span class="l">inertia I</span><span class="v" id="anI">—</span> kg·m²</div>
+            <div class="it"><span class="l">current ω</span><span class="v" id="anOm">—</span> rad/s</div>
             <div class="it"><span class="l">L = I·ω</span><span class="v" id="anL">—</span> kg·m²/s</div>
             <div class="it"><span class="l">E<sub>c</sub> = ½I·ω²</span><span class="v" id="anKE">—</span> J</div>
           </div>
-          <div class="eqs ok" id="anStat">L costante: braccia dentro → ω su</div>
+          <div class="eqs ok" id="anStat">L constant: arms in → ω up</div>
         </div>
         <div id="anCtrlRod" style="display:none">
           <div class="ctrl">
-            <label><span class="nm">massa asta M</span><input type="range" id="anMrod" min="0.5" max="5" step="0.1" value="2"><span class="v" id="anMrodv">2,0 kg</span></label>
-            <label><span class="nm">lunghezza L</span><input type="range" id="anLrod" min="0.5" max="1.5" step="0.05" value="1"><span class="v" id="anLrodv">1,00 m</span></label>
-            <label><span class="nm">massa corpo m</span><input type="range" id="anm" min="0.05" max="1" step="0.05" value="0.3"><span class="v" id="anmv">0,30 kg</span></label>
-            <label><span class="nm">velocità v</span><input type="range" id="anv" min="2" max="20" step="0.5" value="10"><span class="v" id="anvv">10,0 m/s</span></label>
+            <label><span class="nm">rod mass M</span><input type="range" id="anMrod" min="0.5" max="5" step="0.1" value="2"><span class="v" id="anMrodv">2.0 kg</span></label>
+            <label><span class="nm">length L</span><input type="range" id="anLrod" min="0.5" max="1.5" step="0.05" value="1"><span class="v" id="anLrodv">1.00 m</span></label>
+            <label><span class="nm">body mass m</span><input type="range" id="anm" min="0.05" max="1" step="0.05" value="0.3"><span class="v" id="anmv">0.30 kg</span></label>
+            <label><span class="nm">velocity v</span><input type="range" id="anv" min="2" max="20" step="0.5" value="10"><span class="v" id="anvv">10.0 m/s</span></label>
           </div>
           <div class="read">
-            <div class="it"><span class="l">ω dopo l'urto</span><span class="v" id="anOm0">—</span> rad/s</div>
-            <div class="it"><span class="l">φ attuale</span><span class="v" id="anPhi">—</span> °</div>
-            <div class="it"><span class="l">α attuale</span><span class="v" id="anAlf">—</span> rad/s²</div>
-            <div class="it"><span class="l">φ massimo</span><span class="v" id="anPhiMax">—</span> °</div>
+            <div class="it"><span class="l">ω after collision</span><span class="v" id="anOm0">—</span> rad/s</div>
+            <div class="it"><span class="l">current φ</span><span class="v" id="anPhi">—</span> °</div>
+            <div class="it"><span class="l">current α</span><span class="v" id="anAlf">—</span> rad/s²</div>
+            <div class="it"><span class="l">maximum φ</span><span class="v" id="anPhiMax">—</span> °</div>
           </div>
-          <div class="eqs ok" id="anStat2">① urto fissa ω · ② gravità dà α</div>
+          <div class="eqs ok" id="anStat2">① collision sets ω · ② gravity gives α</div>
         </div>
       </div>
     </div>
   </div>
 
-  <p class="sec-label">Prova tu</p>
+  <p class="sec-label">Try it</p>
   <div class="card prova-block" id="prova-angolare"></div>
 
   <div id="qz-angolare" class="quiz-block"></div>
 </section>
 
 <!-- ============ 6 · ROTOTRASLAZIONE ============ -->
-<section class="scene" id="rototraslazione" data-title="6 · Rototraslazione (rotolamento)">
-  <p class="sec-label step" data-n="6">Rototraslazione: traslazione + rotazione insieme</p>
+<section class="scene" id="rototraslazione" data-title="6 · Rolling (roto-translation)">
+  <p class="sec-label step" data-n="6">Roto-translation: translation + rotation together</p>
 
-  <p class="sec-label">Teoria</p>
+  <p class="sec-label">Theory</p>
   <div class="card">
-    <h2>🎳 Quando un corpo trasla e ruota nello stesso istante</h2>
-    <p>Una ruota che avanza, una palla che rotola: il corpo <strong>trasla</strong> (il suo centro di massa si sposta) e contemporaneamente <strong>ruota</strong> attorno al centro di massa. La velocità di un punto qualsiasi è la somma:</p>
-    <div class="formula">$$\vec v_\text{punto} = \vec v_\text{cm} + \vec v_\text{rotazione}$$</div>
-    <h3>Rotolamento puro (senza strisciare)</h3>
-    <p>Se il corpo rotola <em>senza strisciare</em>, il punto a contatto col suolo in quell'istante è <strong>fermo</strong>. Da qui i due legami fondamentali fra grandezze lineari e angolari:</p>
+    <h2>🎳 When a body translates and rotates at the same instant</h2>
+    <p>A wheel rolling forward, a ball rolling: the body <strong>translates</strong> (its center of mass moves) and at the same time <strong>rotates</strong> about the center of mass. The velocity of any point is the sum:</p>
+    <div class="formula">$$\vec v_\text{point} = \vec v_\text{cm} + \vec v_\text{rot}$$</div>
+    <h3>Pure rolling (without slipping)</h3>
+    <p>If the body rolls <em>without slipping</em>, the point in contact with the ground at that instant is <strong>at rest</strong>. From this come the two fundamental links between linear and angular quantities:</p>
     <div class="formula">$$v_\text{cm} = \omega\,R \qquad\qquad a_\text{cm} = \alpha\,R$$</div>
-    <p class="where"><b>dove:</b> $v_\text{cm}$ = velocità del centro di massa (m/s) &nbsp;·&nbsp; $a_\text{cm}$ = sua accelerazione (m/s²) &nbsp;·&nbsp; $\omega$ = velocità angolare (rad/s) &nbsp;·&nbsp; $R$ = raggio (m).</p>
-    <p>Conseguenza sui punti notevoli: il <strong>contatto</strong> ha velocità $0$, il <strong>centro</strong> ha velocità $v_\text{cm}$, la <strong>sommità</strong> ha velocità doppia $2\,v_\text{cm}$. È come se in ogni istante il corpo ruotasse attorno al punto di contatto (asse istantaneo di rotazione).</p>
-    <h3>Energia cinetica: due contributi</h3>
-    <p>L'energia cinetica è la somma di quella di traslazione e di quella di rotazione:</p>
+    <p class="where"><b>where:</b> $v_\text{cm}$ = velocity of the center of mass (m/s) &nbsp;·&nbsp; $a_\text{cm}$ = its acceleration (m/s²) &nbsp;·&nbsp; $\omega$ = angular velocity (rad/s) &nbsp;·&nbsp; $R$ = radius (m).</p>
+    <p>Consequence for the notable points: the <strong>contact point</strong> has velocity $0$, the <strong>center</strong> has velocity $v_\text{cm}$, the <strong>top</strong> has double velocity $2\,v_\text{cm}$. It is as if, at every instant, the body were rotating about the contact point (instantaneous axis of rotation).</p>
+    <h3>Kinetic energy: two contributions</h3>
+    <p>The kinetic energy is the sum of the translational and the rotational ones:</p>
     <div class="formula">$$E_c = \tfrac{1}{2}\,m\,v_\text{cm}^{2} + \tfrac{1}{2}\,I_\text{cm}\,\omega^{2}$$</div>
-    <p>Scrivendo $I_\text{cm} = c\,m\,R^{2}$ (con $c$ che dipende solo dalla forma) e usando $v = \omega R$:</p>
-    <div class="formula">$$E_c = \tfrac{1}{2}\,m\,v_\text{cm}^{2}\,(1 + c) \qquad c=\begin{cases}1 & \text{anello}\\[2pt] \tfrac{1}{2} & \text{cilindro}\\[2pt] \tfrac{2}{5} & \text{sfera}\end{cases}$$</div>
-    <h3>Rotolamento lungo un piano inclinato</h3>
-    <p>Un corpo che rotola senza strisciare giù da un piano di angolo $\theta$ ha accelerazione del centro di massa:</p>
+    <p>Writing $I_\text{cm} = c\,m\,R^{2}$ (with $c$ depending only on the shape) and using $v = \omega R$:</p>
+    <div class="formula">$$E_c = \tfrac{1}{2}\,m\,v_\text{cm}^{2}\,(1 + c) \qquad c=\begin{cases}1 & \text{ring}\\[2pt] \tfrac{1}{2} & \text{cylinder}\\[2pt] \tfrac{2}{5} & \text{sphere}\end{cases}$$</div>
+    <h3>Rolling down an inclined plane</h3>
+    <p>A body that rolls without slipping down a plane of angle $\theta$ has a center-of-mass acceleration:</p>
     <div class="formula">$$a_\text{cm} = \frac{g\sin\theta}{1 + c}$$</div>
-    <p>Sorpresa: <strong>non dipende né dalla massa né dal raggio</strong>, ma solo dalla forma (cioè da $c$)! Quindi in una «gara» giù dal piano arriva prima il corpo con $c$ più piccolo:</p>
+    <p>Surprise: it <strong>depends neither on the mass nor on the radius</strong>, but only on the shape (that is, on $c$)! So in a «race» down the plane the body with the smallest $c$ arrives first:</p>
     <table class="cmp">
-      <thead><tr><th>Corpo</th><th>$I_\text{cm}$</th><th>$c$</th><th>$a_\text{cm}$ sul piano</th></tr></thead>
+      <thead><tr><th>Body</th><th>$I_\text{cm}$</th><th>$c$</th><th>$a_\text{cm}$ on the plane</th></tr></thead>
       <tbody>
-        <tr><td>blocco che scivola (no attrito)</td><td class="rot">—</td><td>$0$</td><td class="rot">$g\sin\theta$ (il più veloce)</td></tr>
-        <tr><td>sfera piena</td><td class="rot">$\tfrac{2}{5}mR^{2}$</td><td>$0{,}40$</td><td class="rot">$\tfrac{5}{7}\,g\sin\theta$</td></tr>
-        <tr><td>cilindro / disco</td><td class="rot">$\tfrac{1}{2}mR^{2}$</td><td>$0{,}50$</td><td class="rot">$\tfrac{2}{3}\,g\sin\theta$</td></tr>
-        <tr><td>anello / cilindro cavo</td><td class="rot">$mR^{2}$</td><td>$1{,}00$</td><td class="rot">$\tfrac{1}{2}\,g\sin\theta$ (il più lento)</td></tr>
+        <tr><td>sliding block (no friction)</td><td class="rot">—</td><td>$0$</td><td class="rot">$g\sin\theta$ (the fastest)</td></tr>
+        <tr><td>solid sphere</td><td class="rot">$\tfrac{2}{5}mR^{2}$</td><td>$0.40$</td><td class="rot">$\tfrac{5}{7}\,g\sin\theta$</td></tr>
+        <tr><td>cylinder / disk</td><td class="rot">$\tfrac{1}{2}mR^{2}$</td><td>$0.50$</td><td class="rot">$\tfrac{2}{3}\,g\sin\theta$</td></tr>
+        <tr><td>ring / hollow cylinder</td><td class="rot">$mR^{2}$</td><td>$1.00$</td><td class="rot">$\tfrac{1}{2}\,g\sin\theta$ (the slowest)</td></tr>
       </tbody>
     </table>
-    <p>Con la conservazione dell'energia (partendo da un dislivello $h$) si trova anche la velocità in fondo:</p>
+    <p>With energy conservation (starting from a height drop $h$) we also find the velocity at the bottom:</p>
     <div class="formula">$$m\,g\,h = \tfrac{1}{2}\,m\,v^{2}\,(1+c) \quad\Rightarrow\quad v = \sqrt{\frac{2\,g\,h}{1+c}}$$</div>
-    <div class="tip">🔧 <strong>Il ruolo dell'attrito.</strong> È l'attrito <em>statico</em> a fornire il momento che fa rotolare il corpo. Poiché il punto di contatto è fermo, questo attrito <strong>non compie lavoro</strong>: l'energia meccanica si conserva. Serve però abbastanza attrito: se $\mu < \dfrac{c}{1+c}\tan\theta$ il corpo comincia a strisciare.</div>
-    <svg class="diagram" viewBox="0 0 420 210" role="img" aria-label="Velocità dei punti di una ruota che rotola">
+    <div class="tip">🔧 <strong>The role of friction.</strong> It is the <em>static</em> friction that supplies the torque making the body roll. Since the contact point is at rest, this friction <strong>does no work</strong>: the mechanical energy is conserved. But enough friction is needed: if $\mu < \dfrac{c}{1+c}\tan\theta$ the body starts to slip.</div>
+    <svg class="diagram" viewBox="0 0 420 210" role="img" aria-label="Velocities of the points of a rolling wheel">
       <line x1="20" y1="170" x2="400" y2="170" stroke="#5b6470" stroke-width="2"/>
       <g>
         <circle cx="150" cy="120" r="50" fill="#eef3fb" stroke="#9aa3b2" stroke-width="1.6"/>
@@ -840,60 +840,60 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
         <text x="206" y="124" font-size="12" fill="#1565c0" font-weight="700">v</text>
         <!-- contatto 0 -->
         <circle cx="150" cy="170" r="5" fill="#e53935"/>
-        <text x="158" y="188" font-size="12" fill="#e53935" font-weight="700">v = 0 (contatto)</text>
+        <text x="158" y="188" font-size="12" fill="#e53935" font-weight="700">v = 0 (contact)</text>
         <!-- omega -->
         <path d="M 110 110 A 42 42 0 0 1 128 86" fill="none" stroke="#7b1fa2" stroke-width="2.4"/><polygon points="128,86 116,89 122,96" fill="#7b1fa2"/>
         <text x="96" y="104" font-size="12" fill="#7b1fa2" font-weight="700">ω</text>
       </g>
       <text x="300" y="150" font-size="13" fill="#0d47a1" font-weight="700">v = ω·R</text>
-      <text x="300" y="172" font-size="11" fill="#6b7280">contatto 0 · centro v · cima 2v</text>
+      <text x="300" y="172" font-size="11" fill="#6b7280">contact 0 · center v · top 2v</text>
     </svg>
-    <p class="dcap">Diagramma: in un rotolamento puro il contatto è fermo, il centro va a v, la sommità a 2·v.</p>
+    <p class="dcap">Diagram: in pure rolling the contact point is at rest, the center goes at v, the top at 2·v.</p>
   </div>
 
-  <p class="sec-label">Simulazioni</p>
+  <p class="sec-label">Simulations</p>
   <div class="card sim-block">
-    <h3>🏁 La gara: chi rotola più in fretta?</h3>
-    <p class="lead">Un corpo che rotola (forma scegliibile) e un blocco che scivola senza attrito partono insieme dalla cima. Osserva: il blocco vince sempre (tutta l'energia va in traslazione), e fra i corpi che rotolano vince la sfera. Cambia massa e raggio: l'accelerazione non cambia! Sul corpo che rotola sono mostrate le velocità di contatto (0), centro (v) e sommità (2v).</p>
+    <h3>🏁 The race: who rolls fastest?</h3>
+    <p class="lead">A rolling body (selectable shape) and a frictionless sliding block start together from the top. Watch: the block always wins (all the energy goes into translation), and among the rolling bodies the sphere wins. Change the mass and radius: the acceleration does not change! On the rolling body the velocities of the contact point (0), center (v) and top (2v) are shown.</p>
     <div class="sim-layout">
       <div class="sim-pane">
         <svg class="sim" id="svgRt" viewBox="0 0 360 300" preserveAspectRatio="xMidYMid meet"></svg>
         <div class="legend">
-          <span style="color:var(--vV)"><i style="background:var(--vV)"></i>v centro</span>
-          <span style="color:var(--vV)"><i style="background:#00897b"></i>2v sommità</span>
-          <span style="color:var(--vA)"><i style="background:var(--vA)"></i>contatto = 0</span>
+          <span style="color:var(--vV)"><i style="background:var(--vV)"></i>v center</span>
+          <span style="color:var(--vV)"><i style="background:#00897b"></i>2v top</span>
+          <span style="color:var(--vA)"><i style="background:var(--vA)"></i>contact = 0</span>
         </div>
         <div class="sim-foot">
-          <button class="play-btn" id="rtPlay">⏸️ Pausa</button>
-          <button class="play-btn soft" id="rtReset">↺ Riparti</button>
+          <button class="play-btn" id="rtPlay">⏸️ Pause</button>
+          <button class="play-btn soft" id="rtReset">↺ Restart</button>
         </div>
       </div>
       <div class="ctrl-pane">
-        <div class="preset-row"><span class="nm">forma che rotola</span>
+        <div class="preset-row"><span class="nm">rolling shape</span>
           <select id="rtShape">
-            <option value="0.4">Sfera piena (c = 0,40)</option>
-            <option value="0.5" selected>Cilindro / disco (c = 0,50)</option>
-            <option value="1">Anello / cilindro cavo (c = 1)</option>
+            <option value="0.4">Solid sphere (c = 0.40)</option>
+            <option value="0.5" selected>Cylinder / disk (c = 0.50)</option>
+            <option value="1">Ring / hollow cylinder (c = 1)</option>
           </select>
         </div>
         <div class="ctrl">
-          <label><span class="nm">angolo θ</span><input type="range" id="rtTh" min="5" max="40" step="1" value="25"><span class="v" id="rtThv">25°</span></label>
-          <label><span class="nm">raggio R</span><input type="range" id="rtR" min="0.1" max="0.5" step="0.05" value="0.30"><span class="v" id="rtRv">0,30 m</span></label>
+          <label><span class="nm">angle θ</span><input type="range" id="rtTh" min="5" max="40" step="1" value="25"><span class="v" id="rtThv">25°</span></label>
+          <label><span class="nm">radius R</span><input type="range" id="rtR" min="0.1" max="0.5" step="0.05" value="0.30"><span class="v" id="rtRv">0.30 m</span></label>
         </div>
         <div class="read">
-          <div class="it"><span class="l">forma c</span><span class="v" id="rtC">—</span></div>
-          <div class="it"><span class="l">a rotola</span><span class="v" id="rtA">—</span> m/s²</div>
-          <div class="it"><span class="l">a scivola</span><span class="v" id="rtAsl">—</span> m/s²</div>
-          <div class="it"><span class="l">v centro</span><span class="v" id="rtV">—</span> m/s</div>
+          <div class="it"><span class="l">shape c</span><span class="v" id="rtC">—</span></div>
+          <div class="it"><span class="l">a roll</span><span class="v" id="rtA">—</span> m/s²</div>
+          <div class="it"><span class="l">a slide</span><span class="v" id="rtAsl">—</span> m/s²</div>
+          <div class="it"><span class="l">v center</span><span class="v" id="rtV">—</span> m/s</div>
           <div class="it"><span class="l">ω = v/R</span><span class="v" id="rtOm">—</span> rad/s</div>
-          <div class="it"><span class="l">v sommità</span><span class="v" id="rtVtop">—</span> m/s</div>
+          <div class="it"><span class="l">v top</span><span class="v" id="rtVtop">—</span> m/s</div>
         </div>
         <div class="eqs ok" id="rtBadge">E<sub>rot</sub>/E<sub>tot</sub> = c/(1+c)</div>
       </div>
     </div>
   </div>
 
-  <p class="sec-label">Prova tu</p>
+  <p class="sec-label">Try it</p>
   <div class="card prova-block" id="prova-rototraslazione"></div>
 
   <div id="qz-rototraslazione" class="quiz-block"></div>
@@ -907,11 +907,11 @@ const G = 9.81;
 const DEG = Math.PI/180;
 const COL = {om:'#1565c0',al:'#f57c00',M:'#c62828',L:'#7b1fa2',v:'#00897b',a:'#e53935',F:'#e53935',T:'#1565c0',Tb:'#7b1fa2',th:'#00897b',body:'#ffd54f',bodyS:'#8d6e00'};
 
-/* ===== Formattazione numeri (stile italiano) ===== */
-function nf(x,d){ if(!isFinite(x)) return '—'; d=(d===undefined?2:d); return (+x).toFixed(d).replace('.',','); }
+/* ===== Number formatting ===== */
+function nf(x,d){ if(!isFinite(x)) return '—'; d=(d===undefined?2:d); return (+x).toFixed(d); }
 function p3(x){ if(!isFinite(x)) return '—'; const a=Math.abs(x);
-  if(a!==0&&(a<0.001||a>=1e5)) return x.toExponential(2).replace('.',',');
-  return Number(x.toPrecision(3)).toString().replace('.',','); }
+  if(a!==0&&(a<0.001||a>=1e5)) return x.toExponential(2);
+  return Number(x.toPrecision(3)).toString(); }
 function clamp(v,lo,hi){ return Math.max(lo,Math.min(hi,v)); }
 function parseNum(s){ if(s===null||s===undefined) return NaN; return parseFloat(String(s).replace(',','.').replace(/\s/g,'')); }
 
@@ -923,8 +923,8 @@ function typeset(el){
       ignoredTags:['script','noscript','style','textarea','pre','code','option','input']}); }catch(e){}
   }
 }
-/* numero formattato per l'uso DENTRO una formula KaTeX (virgola → {,}) */
-function knum(x,d){ return nf(x,d).replace(',','{,}'); }
+/* number formatted for use INSIDE a KaTeX formula */
+function knum(x,d){ return nf(x,d); }
 
 /* ===== Helper: freccia SVG ===== */
 function arrow(x1,y1,x2,y2,color,label,w){
@@ -997,7 +997,7 @@ function loop(now){
 function togglePlay(name,btn){
   const a=animators[name]; if(!a) return;
   a.playing=!a.playing;
-  btn.textContent=a.playing?'⏸️ Pausa':'▶️ Avvia';
+  btn.textContent=a.playing?'⏸️ Pause':'▶️ Start';
   btn.classList.toggle('paused',!a.playing);
 }
 
@@ -1047,7 +1047,7 @@ function ckDraw(){
   setText('ckAt',nf(at,2)); setText('ckAc',nf(ac,2));
   setText('ckT',isFinite(T)?nf(T,2):'∞'); setText('ckF',nf(f,2));
   const b=document.getElementById('ckBadge');
-  b.textContent = al===0 ? 'moto uniforme: ω costante, θ = ω·t' : 'unif. accelerato: ω = ω₀ + α·t';
+  b.textContent = al===0 ? 'uniform motion: ω constant, θ = ω·t' : 'uniformly accelerated: ω = ω₀ + α·t';
 }
 
 /* ============ 2 · DINAMICA ============ */
@@ -1198,8 +1198,8 @@ function plDraw(){
   setText('plA',nf(p.amag,2)); setText('plT1',nf(p.T1,1)); setText('plT2',nf(p.T2,1));
   setText('plAlf',nf(p.alf,1));
   const badge=document.getElementById('plStat');
-  if(p.moving){ badge.className='eqs ok'; badge.innerHTML=`✓ in moto · T₂ − T₁ = ½M<sub>p</sub>·a = ${nf(0.5*p.Mp*p.amag,1)} N`; }
-  else { badge.className='eqs lim'; badge.textContent='fermo: l’attrito statico trattiene il sistema (a = 0)'; }
+  if(p.moving){ badge.className='eqs ok'; badge.innerHTML=`✓ moving · T₂ − T₁ = ½M<sub>p</sub>·a = ${nf(0.5*p.Mp*p.amag,1)} N`; }
+  else { badge.className='eqs lim'; badge.textContent='at rest: static friction holds the system (a = 0)'; }
 }
 
 /* ============ 4 · IMPULSO ANGOLARE ============ */
@@ -1235,7 +1235,7 @@ function imDraw(){
     const Msign=Math.sign(M||1);
     s+=arcPath(cx,cy,R-26,Msign>0?-0.7:0.7,Msign>0?0.7:-0.7,COL.M,3)+
        `<text x="${cx}" y="${cy-R+34}" text-anchor="middle" font-size="12" fill="${COL.M}" font-weight="700">M</text>`;
-    s+=`<text x="${cx}" y="${cy+R+24}" text-anchor="middle" font-size="12" fill="${COL.M}" font-weight="700">applico M… ${nf(Math.max(0,Dt-imState.tApp),1)} s</text>`;
+    s+=`<text x="${cx}" y="${cy+R+24}" text-anchor="middle" font-size="12" fill="${COL.M}" font-weight="700">applying M… ${nf(Math.max(0,Dt-imState.tApp),1)} s</text>`;
   }
   document.getElementById('svgIm').innerHTML=s;
   setText('imI',nf(I,3)); setText('imOm',nf(imState.omega,2)); setText('imL',nf(I*imState.omega,2));
@@ -1297,7 +1297,7 @@ function anDraw(){
     setText('anI',nf(p.I,2)); setText('anOm',nf(p.om,2)); setText('anL',nf(p.L0,2)); setText('anKE',nf(p.KE,1));
     const st=document.getElementById('anStat');
     st.className='eqs ok';
-    st.innerHTML=`L = ${nf(p.L0,2)} costante · ω/ω₀ = ${nf(p.om/p.w0,2)}×`;
+    st.innerHTML=`L = ${nf(p.L0,2)} constant · ω/ω₀ = ${nf(p.om/p.w0,2)}×`;
   } else {
     const p=anRodPhys(), px=180, py=55, Lpix=120+(p.L-0.5)*80;
     const phi=anState.phase==='idle'?0:anState.phi;
@@ -1320,7 +1320,7 @@ function anDraw(){
     } else {
       s+=`<circle cx="${ex.toFixed(1)}" cy="${ey.toFixed(1)}" r="${(6+p.m*8).toFixed(1)}" fill="#e53935"/>`;
     }
-    s+=`<text x="${px+8}" y="${py-6}" font-size="11" fill="#6b7280">perno</text>`;
+    s+=`<text x="${px+8}" y="${py-6}" font-size="11" fill="#6b7280">pivot</text>`;
     document.getElementById('svgAn').innerHTML=s;
     const alNow=anState.phase==='swing'?-p.k*Math.sin(anState.phi):0;
     setText('anOm0',nf(p.om0,2));
@@ -1372,7 +1372,7 @@ function rtDraw(){
   const sc={x:Tp.x+fS*Lline*u.x, y:Tp.y+fS*Lline*u.y};
   const bcx=sc.x+n.x*12, bcy=sc.y+n.y*12;
   s+=`<g transform="rotate(${(p.th/DEG).toFixed(1)} ${bcx.toFixed(1)} ${bcy.toFixed(1)})"><rect x="${(bcx-12).toFixed(1)}" y="${(bcy-10).toFixed(1)}" width="24" height="20" rx="2.5" fill="#cfd9ec" stroke="#5b6470" stroke-width="1.3"/></g>`;
-  s+=`<text x="${bcx.toFixed(1)}" y="${(bcy-16).toFixed(1)}" text-anchor="middle" font-size="9.5" fill="#5b6470" font-weight="700">scivola</text>`;
+  s+=`<text x="${bcx.toFixed(1)}" y="${(bcy-16).toFixed(1)}" text-anchor="middle" font-size="9.5" fill="#5b6470" font-weight="700">slides</text>`;
   // corpo che rotola
   const rc={x:Tp.x+fR*Lline*u.x, y:Tp.y+fR*Lline*u.y};
   const ccx=rc.x+n.x*Rpix, ccy=rc.y+n.y*Rpix;
@@ -1391,7 +1391,7 @@ function rtDraw(){
   setText('rtV',nf(p.v,2)); setText('rtOm',nf(p.om,2)); setText('rtVtop',nf(p.vtop,2));
   const b=document.getElementById('rtBadge');
   b.className='eqs ok';
-  b.innerHTML=`il blocco vince · a<sub>rotola</sub> = g·sinθ/(1+c) = ${nf(p.aRoll,2)} m/s²`;
+  b.innerHTML=`the block wins · a<sub>roll</sub> = g·sinθ/(1+c) = ${nf(p.aRoll,2)} m/s²`;
 }
 
 /* ============ PROVA TU — esercizi guidati ============ */
@@ -1400,90 +1400,90 @@ function rpick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
 function rstep(a,b,s){ const n=Math.round((b-a)/s); return +(a+s*rint(0,n)).toFixed(4); }
 
 const PROVA={
-  cinematica:{ title:'🎯 Ruota in moto uniformemente accelerato', gen(){
+  cinematica:{ title:'🎯 Wheel in uniformly accelerated motion', gen(){
     const w0=rstep(0,3,0.5), al=rstep(1,3,0.5), t=rint(2,6), r=rstep(0.2,0.5,0.05);
     const wf=w0+al*t, th=w0*t+0.5*al*t*t, giri=th/(2*Math.PI), v=r*wf;
     return { unit:'rad', ans:th, tol:Math.max(0.2,0.02*th),
-      statement:`Una ruota ruota attorno al suo asse partendo con velocità angolare $\\omega_0 = ${knum(w0,1)}$ rad/s e accelera uniformemente con $\\alpha = ${knum(al,1)}$ rad/s². Un punto del bordo dista $r = ${knum(r,2)}$ m dall'asse.<br><b>Domanda:</b> di quale angolo $\\theta$ (in radianti) ruota la ruota in $t = ${t}$ s?`,
-      hints:[ 'È un moto rotatorio uniformemente accelerato: vale $\\theta = \\omega_0\\,t + \\tfrac12\\,\\alpha\\,t^2$ (stessa forma di $s = v_0\\,t + \\tfrac12\\,a\\,t^2$).',
-              'Sostituisci $\\omega_0$, $\\alpha$ e $t$. Calcola separatamente $\\omega_0\\,t$ e $\\tfrac12\\,\\alpha\\,t^2$, poi somma.',
+      statement:`A wheel rotates about its axis starting with angular velocity $\\omega_0 = ${knum(w0,1)}$ rad/s and speeds up uniformly with $\\alpha = ${knum(al,1)}$ rad/s². A point on the rim is $r = ${knum(r,2)}$ m from the axis.<br><b>Question:</b> through what angle $\\theta$ (in radians) does the wheel turn in $t = ${t}$ s?`,
+      hints:[ 'This is uniformly accelerated rotation: $\\theta = \\omega_0\\,t + \\tfrac12\\,\\alpha\\,t^2$ (same form as $s = v_0\\,t + \\tfrac12\\,a\\,t^2$).',
+              'Substitute $\\omega_0$, $\\alpha$ and $t$. Compute $\\omega_0\\,t$ and $\\tfrac12\\,\\alpha\\,t^2$ separately, then add.',
               `$\\tfrac12\\,\\alpha\\,t^2 = \\tfrac12\\cdot ${knum(al,1)}\\cdot ${t}^2 = ${knum(0.5*al*t*t,2)}$ rad.` ],
       steps:[ {t:'Formula', d:'$\\theta = \\omega_0\\,t + \\tfrac12\\,\\alpha\\,t^2$'},
-              {t:'Sostituzione', d:`$\\theta = ${knum(w0,1)}\\cdot ${t} + \\tfrac12\\cdot ${knum(al,1)}\\cdot ${t}^2$`},
-              {t:'Calcolo', d:`$\\theta = ${knum(w0*t,2)} + ${knum(0.5*al*t*t,2)} = ${knum(th,2)}$ rad`},
-              {t:'In giri', d:`$n = \\dfrac{\\theta}{2\\pi} = ${knum(giri,2)}$ giri`},
-              {t:'Extra', d:`velocità finale $\\omega = \\omega_0+\\alpha t = ${knum(wf,2)}$ rad/s; velocità del punto $v = r\\,\\omega = ${knum(v,2)}$ m/s`} ] }; }
+              {t:'Substitution', d:`$\\theta = ${knum(w0,1)}\\cdot ${t} + \\tfrac12\\cdot ${knum(al,1)}\\cdot ${t}^2$`},
+              {t:'Calculation', d:`$\\theta = ${knum(w0*t,2)} + ${knum(0.5*al*t*t,2)} = ${knum(th,2)}$ rad`},
+              {t:'In revolutions', d:`$n = \\dfrac{\\theta}{2\\pi} = ${knum(giri,2)}$ rev`},
+              {t:'Extra', d:`final angular velocity $\\omega = \\omega_0+\\alpha t = ${knum(wf,2)}$ rad/s; speed of the point $v = r\\,\\omega = ${knum(v,2)}$ m/s`} ] }; }
   },
-  dinamica:{ title:'⚙️ Momento, inerzia e accelerazione di un disco', gen(){
+  dinamica:{ title:'⚙️ Torque, inertia and angular acceleration of a disk', gen(){
     const F=rint(4,16), R=rstep(0.2,0.5,0.05), M=rstep(1,4,0.5), t=rint(2,5);
     const I=0.5*M*R*R, Mt=F*R, al=Mt/I, wf=al*t, L=I*wf;
     return { unit:'rad/s²', ans:al, tol:Math.max(0.3,0.02*al),
-      statement:`Un disco pieno omogeneo (massa $M = ${knum(M,1)}$ kg, raggio $R = ${knum(R,2)}$ m) è libero di ruotare attorno al suo asse. Gli si applica al bordo, tangenzialmente, una forza $F = ${F}$ N.<br><b>Domanda:</b> quale accelerazione angolare $\\alpha$ acquista?`,
-      hints:[ 'Per un disco pieno $I = \\tfrac12 M R^2$. Il momento di una forza tangenziale al bordo è $M = F\\,R$.',
-              'Applica la 2ª legge della rotazione: $\\alpha = M/I$ (analoga ad $a = F/m$).',
+      statement:`A uniform solid disk (mass $M = ${knum(M,1)}$ kg, radius $R = ${knum(R,2)}$ m) is free to rotate about its axis. A force $F = ${F}$ N is applied tangentially at the rim.<br><b>Question:</b> what angular acceleration $\\alpha$ does it acquire?`,
+      hints:[ 'For a solid disk $I = \\tfrac12 M R^2$. The torque of a force tangent to the rim is $M = F\\,R$.',
+              'Apply the rotational 2nd law: $\\alpha = M/I$ (analogous to $a = F/m$).',
               `$I = \\tfrac12\\cdot ${knum(M,1)}\\cdot ${knum(R,2)}^2 = ${knum(I,3)}$ kg·m².` ],
-      steps:[ {t:'Inerzia', d:`$I = \\tfrac12 M R^2 = \\tfrac12\\cdot ${knum(M,1)}\\cdot ${knum(R,2)}^2 = ${knum(I,3)}$ kg·m²`},
-              {t:'Momento', d:`$M = F\\,R = ${F}\\cdot ${knum(R,2)} = ${knum(Mt,2)}$ N·m`},
-              {t:'2ª legge', d:`$\\alpha = \\dfrac{M}{I} = \\dfrac{${knum(Mt,2)}}{${knum(I,3)}} = ${knum(al,2)}$ rad/s²`},
-              {t:'Dopo t', d:`in $t = ${t}$ s: $\\omega = \\alpha t = ${knum(wf,2)}$ rad/s, con $L = I\\,\\omega = ${knum(L,2)}$ kg·m²/s`} ] }; }
+      steps:[ {t:'Moment of inertia', d:`$I = \\tfrac12 M R^2 = \\tfrac12\\cdot ${knum(M,1)}\\cdot ${knum(R,2)}^2 = ${knum(I,3)}$ kg·m²`},
+              {t:'Torque', d:`$M = F\\,R = ${F}\\cdot ${knum(R,2)} = ${knum(Mt,2)}$ N·m`},
+              {t:'2nd law', d:`$\\alpha = \\dfrac{M}{I} = \\dfrac{${knum(Mt,2)}}{${knum(I,3)}} = ${knum(al,2)}$ rad/s²`},
+              {t:'After t', d:`at $t = ${t}$ s: $\\omega = \\alpha t = ${knum(wf,2)}$ rad/s, with $L = I\\,\\omega = ${knum(L,2)}$ kg·m²/s`} ] }; }
   },
-  carrucola:{ title:'⛰️ Sistema con carrucola-disco', gen(){
+  carrucola:{ title:'⛰️ System with a disk-pulley', gen(){
     const m1=rstep(1,4,0.5), th1=rint(20,40), mu=rstep(0,0.2,0.05), Mp=rstep(1,4,0.5);
     const m2=rstep(5,9,0.5), R=0.2;
     const d1=m1*G*Math.sin(th1*DEG), f=mu*m1*G*Math.cos(th1*DEG), denom=m1+m2+0.5*Mp;
     const a=(m2*G-d1-f)/denom;
     return { unit:'m/s²', ans:a, tol:Math.max(0.1,0.02*Math.abs(a)),
-      statement:`Una massa $m_1 = ${knum(m1,1)}$ kg sta su un piano inclinato di $\\theta_1 = ${th1}^\\circ$ (attrito $\\mu = ${knum(mu,2)}$) ed è collegata da un filo, che passa su una <b>carrucola-disco</b> (massa $M_p = ${knum(Mp,1)}$ kg), a una massa $m_2 = ${knum(m2,1)}$ kg appesa nel vuoto.<br><b>Domanda:</b> con quale accelerazione $a$ si muove il sistema? ($g = 9{,}81$ m/s²)`,
-      hints:[ 'La carrucola è un disco: aggiunge $\\tfrac12 M_p$ all’inerzia del sistema (denominatore $m_1+m_2+\\tfrac12 M_p$).',
-              'Spinta = peso di $m_2$; resistenze = $m_1 g\\sin\\theta_1$ (componente lungo il piano) $+\\;\\mu\\,m_1 g\\cos\\theta_1$ (attrito).',
-              `Denominatore $= ${knum(m1,1)}+${knum(m2,1)}+\\tfrac12\\cdot ${knum(Mp,1)} = ${knum(denom,2)}$ kg.` ],
-      steps:[ {t:'Spinta', d:`$m_2\\,g = ${knum(m2,1)}\\cdot 9{,}81 = ${knum(m2*G,1)}$ N`},
-              {t:'Resistenze', d:`$m_1 g\\sin\\theta_1 = ${knum(d1,1)}$ N; attrito $\\mu\\,m_1 g\\cos\\theta_1 = ${knum(f,1)}$ N`},
-              {t:'Inerzia totale', d:`$m_1+m_2+\\tfrac12 M_p = ${knum(denom,2)}$ kg`},
-              {t:'Accelerazione', d:`$a = \\dfrac{${knum(m2*G,1)} - ${knum(d1,1)} - ${knum(f,1)}}{${knum(denom,2)}} = ${knum(a,2)}$ m/s²`} ] }; }
+      statement:`A mass $m_1 = ${knum(m1,1)}$ kg sits on an inclined plane at $\\theta_1 = ${th1}^\\circ$ (friction $\\mu = ${knum(mu,2)}$) and is connected by a string, running over a <b>disk-pulley</b> (mass $M_p = ${knum(Mp,1)}$ kg), to a mass $m_2 = ${knum(m2,1)}$ kg hanging freely.<br><b>Question:</b> with what acceleration $a$ does the system move? ($g = 9.81$ m/s²)`,
+      hints:[ 'The pulley is a disk: it adds $\\tfrac12 M_p$ to the system inertia (denominator $m_1+m_2+\\tfrac12 M_p$).',
+              'Driving force = weight of $m_2$; resistances = $m_1 g\\sin\\theta_1$ (component along the plane) $+\\;\\mu\\,m_1 g\\cos\\theta_1$ (friction).',
+              `Denominator $= ${knum(m1,1)}+${knum(m2,1)}+\\tfrac12\\cdot ${knum(Mp,1)} = ${knum(denom,2)}$ kg.` ],
+      steps:[ {t:'Driving force', d:`$m_2\\,g = ${knum(m2,1)}\\cdot 9.81 = ${knum(m2*G,1)}$ N`},
+              {t:'Resistances', d:`$m_1 g\\sin\\theta_1 = ${knum(d1,1)}$ N; friction $\\mu\\,m_1 g\\cos\\theta_1 = ${knum(f,1)}$ N`},
+              {t:'Total inertia', d:`$m_1+m_2+\\tfrac12 M_p = ${knum(denom,2)}$ kg`},
+              {t:'Acceleration', d:`$a = \\dfrac{${knum(m2*G,1)} - ${knum(d1,1)} - ${knum(f,1)}}{${knum(denom,2)}} = ${knum(a,2)}$ m/s²`} ] }; }
   },
-  impulso:{ title:'⏱️ Frenare un volano', gen(){
+  impulso:{ title:'⏱️ Braking a flywheel', gen(){
     const M=rstep(1,5,0.5), R=rstep(0.3,0.6,0.05), w0=rint(8,20), Mb=rstep(1,4,0.5);
     const I=0.5*M*R*R, L=I*w0, dt=L/Mb;
     return { unit:'s', ans:dt, tol:Math.max(0.1,0.02*dt),
-      statement:`Un volano (disco pieno, massa $M = ${knum(M,1)}$ kg, raggio $R = ${knum(R,2)}$ m) ruota a $\\omega_0 = ${w0}$ rad/s. Un freno applica un momento costante $M_f = ${knum(Mb,1)}$ N·m opposto alla rotazione.<br><b>Domanda:</b> dopo quanto tempo $\\Delta t$ il volano si ferma?`,
-      hints:[ 'Usa il teorema dell’impulso angolare: $M\\,\\Delta t = \\Delta L$. Per fermarsi $\\Delta L = L_0 = I\\,\\omega_0$.',
-              'Quindi $\\Delta t = \\dfrac{I\\,\\omega_0}{M_f}$ (analogo a $\\Delta t = m v_0/F$ per fermare un corpo).',
+      statement:`A flywheel (solid disk, mass $M = ${knum(M,1)}$ kg, radius $R = ${knum(R,2)}$ m) spins at $\\omega_0 = ${w0}$ rad/s. A brake applies a constant torque $M_f = ${knum(Mb,1)}$ N·m opposing the rotation.<br><b>Question:</b> after what time $\\Delta t$ does the flywheel stop?`,
+      hints:[ 'Use the angular impulse theorem: $M\\,\\Delta t = \\Delta L$. To stop, $\\Delta L = L_0 = I\\,\\omega_0$.',
+              'So $\\Delta t = \\dfrac{I\\,\\omega_0}{M_f}$ (analogous to $\\Delta t = m v_0/F$ for stopping a body).',
               `$I = \\tfrac12\\cdot ${knum(M,1)}\\cdot ${knum(R,2)}^2 = ${knum(I,3)}$ kg·m².` ],
-      steps:[ {t:'Inerzia', d:`$I = \\tfrac12 M R^2 = ${knum(I,3)}$ kg·m²`},
-              {t:'Momento angolare', d:`$L_0 = I\\,\\omega_0 = ${knum(I,3)}\\cdot ${w0} = ${knum(L,2)}$ kg·m²/s`},
-              {t:'Impulso angolare', d:`$M_f\\,\\Delta t = L_0 \\;\\Rightarrow\\; \\Delta t = \\dfrac{L_0}{M_f} = \\dfrac{${knum(L,2)}}{${knum(Mb,1)}} = ${knum(dt,2)}$ s`} ] }; }
+      steps:[ {t:'Moment of inertia', d:`$I = \\tfrac12 M R^2 = ${knum(I,3)}$ kg·m²`},
+              {t:'Angular momentum', d:`$L_0 = I\\,\\omega_0 = ${knum(I,3)}\\cdot ${w0} = ${knum(L,2)}$ kg·m²/s`},
+              {t:'Angular impulse', d:`$M_f\\,\\Delta t = L_0 \\;\\Rightarrow\\; \\Delta t = \\dfrac{L_0}{M_f} = \\dfrac{${knum(L,2)}}{${knum(Mb,1)}} = ${knum(dt,2)}$ s`} ] }; }
   },
-  angolare:{ title:'🎯 Asta-pendolo colpita all’estremo', gen(){
+  angolare:{ title:'🎯 Rod-pendulum struck at the end', gen(){
     const M=rstep(1,4,0.5), L=rstep(0.6,1.4,0.1), m=rstep(0.1,0.6,0.05), v=rint(6,16);
     const Itot=(1/3)*M*L*L+m*L*L, om0=m*v*L/Itot;
     const Ep=(M*G*L/2+m*G*L), al90=Ep/Itot;
     const cphi=1-0.5*Itot*om0*om0/Ep, full=cphi<=-1, phimax=full?180:Math.acos(clamp(cphi,-1,1))/DEG;
     return { unit:'rad/s', ans:om0, tol:Math.max(0.2,0.02*om0),
-      statement:`Un'asta rigida (massa $M = ${knum(M,1)}$ kg, lunghezza $L = ${knum(L,2)}$ m), imperniata a un estremo e ferma in verticale, è colpita all'estremo libero da un corpo ($m = ${knum(m,2)}$ kg, $v = ${v}$ m/s $\\perp$ all'asta) che vi resta conficcato.<br><b>Domanda:</b> quale velocità angolare $\\omega$ ha l'asta subito dopo l'urto?`,
-      hints:[ 'Durante l’urto si conserva il momento angolare rispetto al perno: $L_\\text{prima} = L_\\text{dopo}$.',
-              '$L_\\text{prima} = m\\,v\\,L$ (corpo all’estremo); $L_\\text{dopo} = I_\\text{tot}\\,\\omega$, con $I_\\text{tot} = \\tfrac13 M L^2 + m L^2$.',
+      statement:`A rigid rod (mass $M = ${knum(M,1)}$ kg, length $L = ${knum(L,2)}$ m), pivoted at one end and at rest in a vertical position, is struck at its free end by a body ($m = ${knum(m,2)}$ kg, $v = ${v}$ m/s $\\perp$ to the rod) that embeds in it.<br><b>Question:</b> what angular velocity $\\omega$ does the rod have right after the impact?`,
+      hints:[ 'During the impact, angular momentum about the pivot is conserved: $L_\\text{before} = L_\\text{after}$.',
+              '$L_\\text{before} = m\\,v\\,L$ (body at the end); $L_\\text{after} = I_\\text{tot}\\,\\omega$, with $I_\\text{tot} = \\tfrac13 M L^2 + m L^2$.',
               `$I_\\text{tot} = \\tfrac13\\cdot ${knum(M,1)}\\cdot ${knum(L,2)}^2 + ${knum(m,2)}\\cdot ${knum(L,2)}^2 = ${knum(Itot,3)}$ kg·m².` ],
-      steps:[ {t:'Inerzia totale', d:`$I_\\text{tot} = \\tfrac13 M L^2 + m L^2 = ${knum((1/3)*M*L*L,3)} + ${knum(m*L*L,3)} = ${knum(Itot,3)}$ kg·m²`},
-              {t:'Conservazione di L', d:`$m\\,v\\,L = I_\\text{tot}\\,\\omega \\;\\Rightarrow\\; \\omega = \\dfrac{m\\,v\\,L}{I_\\text{tot}}$`},
-              {t:'Risultato (① urto)', d:`$\\omega = \\dfrac{${knum(m,2)}\\cdot ${v}\\cdot ${knum(L,2)}}{${knum(Itot,3)}} = ${knum(om0,2)}$ rad/s`},
-              {t:'② Gravità → α', d:`a $\\varphi = 90^\\circ$ l’accelerazione angolare è $\\alpha = \\dfrac{g\\,(M L/2+m L)}{I_\\text{tot}} = ${knum(al90,2)}$ rad/s² (è 0 all’istante dell’urto, $\\varphi\\approx 0$)`},
-              {t:'Salita massima', d:`l’asta sale fino a $\\varphi \\approx ${full?'180^\\circ\\ \\text{(fa il giro)}':knum(phimax,0)+'^\\circ'}$`} ] }; }
+      steps:[ {t:'Total inertia', d:`$I_\\text{tot} = \\tfrac13 M L^2 + m L^2 = ${knum((1/3)*M*L*L,3)} + ${knum(m*L*L,3)} = ${knum(Itot,3)}$ kg·m²`},
+              {t:'Conservation of L', d:`$m\\,v\\,L = I_\\text{tot}\\,\\omega \\;\\Rightarrow\\; \\omega = \\dfrac{m\\,v\\,L}{I_\\text{tot}}$`},
+              {t:'Result (① impact)', d:`$\\omega = \\dfrac{${knum(m,2)}\\cdot ${v}\\cdot ${knum(L,2)}}{${knum(Itot,3)}} = ${knum(om0,2)}$ rad/s`},
+              {t:'② Gravity → α', d:`at $\\varphi = 90^\\circ$ the angular acceleration is $\\alpha = \\dfrac{g\\,(M L/2+m L)}{I_\\text{tot}} = ${knum(al90,2)}$ rad/s² (it is 0 at the instant of impact, $\\varphi\\approx 0$)`},
+              {t:'Max swing', d:`the rod rises up to $\\varphi \\approx ${full?'180^\\circ\\ \\text{(full loop)}':knum(phimax,0)+'^\\circ'}$`} ] }; }
   },
-  rototraslazione:{ title:'🎳 Corpo che rotola giù da un piano inclinato', gen(){
-    const shapes=[['una sfera piena',0.4,'\\tfrac25'],['un cilindro pieno',0.5,'\\tfrac12'],['un anello',1,'1']];
+  rototraslazione:{ title:'🎳 Body rolling down an inclined plane', gen(){
+    const shapes=[['a solid sphere',0.4,'\\tfrac25'],['a solid cylinder',0.5,'\\tfrac12'],['a ring',1,'1']];
     const sh=rpick(shapes), c=sh[1], th=rint(15,35), h=rstep(0.5,2,0.5);
     const a=G*Math.sin(th*DEG)/(1+c), v=Math.sqrt(2*G*h/(1+c));
     return { unit:'m/s²', ans:a, tol:Math.max(0.1,0.02*a),
-      statement:`${sh[0].charAt(0).toUpperCase()+sh[0].slice(1)} (massa $m$, raggio $R$) rotola <b>senza strisciare</b> giù da un piano inclinato di $\\theta = ${th}^\\circ$. Per questa forma $I_\\text{cm} = ${sh[2]}\\,m R^2$, cioè $c = ${knum(c,2)}$.<br><b>Domanda:</b> quanto vale l'accelerazione del centro di massa $a_\\text{cm}$? ($g = 9{,}81$ m/s²)`,
-      hints:[ 'Per il rotolamento puro su un piano vale $a_\\text{cm} = \\dfrac{g\\sin\\theta}{1 + c}$, dove $c = I_\\text{cm}/(m R^2)$.',
-              'Nota: massa e raggio non compaiono! Conta solo la forma ($c$) e l’angolo $\\theta$.',
-              `$g\\sin\\theta = 9{,}81\\cdot\\sin ${th}^\\circ = ${knum(G*Math.sin(th*DEG),2)}$ m/s²; ora dividi per $(1 + ${knum(c,2)})$.` ],
+      statement:`${sh[0].charAt(0).toUpperCase()+sh[0].slice(1)} (mass $m$, radius $R$) rolls <b>without slipping</b> down an inclined plane at $\\theta = ${th}^\\circ$. For this shape $I_\\text{cm} = ${sh[2]}\\,m R^2$, i.e. $c = ${knum(c,2)}$.<br><b>Question:</b> what is the acceleration of the center of mass $a_\\text{cm}$? ($g = 9.81$ m/s²)`,
+      hints:[ 'For pure rolling on a plane, $a_\\text{cm} = \\dfrac{g\\sin\\theta}{1 + c}$, where $c = I_\\text{cm}/(m R^2)$.',
+              'Note: mass and radius do not appear! Only the shape ($c$) and the angle $\\theta$ matter.',
+              `$g\\sin\\theta = 9.81\\cdot\\sin ${th}^\\circ = ${knum(G*Math.sin(th*DEG),2)}$ m/s²; now divide by $(1 + ${knum(c,2)})$.` ],
       steps:[ {t:'Formula', d:'$a_\\text{cm} = \\dfrac{g\\sin\\theta}{1 + c}$'},
-              {t:'Componente lungo il piano', d:`$g\\sin\\theta = 9{,}81\\cdot\\sin ${th}^\\circ = ${knum(G*Math.sin(th*DEG),2)}$ m/s²`},
-              {t:'Divido per (1+c)', d:`$a_\\text{cm} = \\dfrac{${knum(G*Math.sin(th*DEG),2)}}{1 + ${knum(c,2)}} = ${knum(a,2)}$ m/s²`},
-              {t:'Indipendenza', d:`il risultato non dipende da $m$ né da $R$: cambia solo con la forma ($c$) e con $\\theta$`},
-              {t:'Extra (energia)', d:`partendo da un dislivello $h = ${knum(h,1)}$ m, in fondo $v = \\sqrt{\\dfrac{2 g h}{1+c}} = ${knum(v,2)}$ m/s`} ] }; }
+              {t:'Component along the plane', d:`$g\\sin\\theta = 9.81\\cdot\\sin ${th}^\\circ = ${knum(G*Math.sin(th*DEG),2)}$ m/s²`},
+              {t:'Divide by (1+c)', d:`$a_\\text{cm} = \\dfrac{${knum(G*Math.sin(th*DEG),2)}}{1 + ${knum(c,2)}} = ${knum(a,2)}$ m/s²`},
+              {t:'Independence', d:`the result does not depend on $m$ or $R$: it changes only with the shape ($c$) and with $\\theta$`},
+              {t:'Extra (energy)', d:`starting from a height drop $h = ${knum(h,1)}$ m, at the bottom $v = \\sqrt{\\dfrac{2 g h}{1+c}} = ${knum(v,2)}$ m/s`} ] }; }
   }
 };
 const pState={};
@@ -1494,26 +1494,26 @@ function provaCheck(sec){
   const st=pState[sec], el=document.getElementById('pv-'+sec+'-in');
   st.last=el.value;
   const x=parseNum(el.value);
-  if(!isFinite(x)){ st.fb={ok:false,msg:'Inserisci un valore numerico.'}; renderProva(sec); return; }
+  if(!isFinite(x)){ st.fb={ok:false,msg:'Enter a numeric value.'}; renderProva(sec); return; }
   const ok=Math.abs(x-st.ex.ans)<=st.ex.tol;
-  st.fb= ok ? {ok:true,msg:`✓ Esatto! La risposta è ${nf(st.ex.ans,2)} ${st.ex.unit}.`}
-            : {ok:false,msg:`✗ Non ci siamo. Riprova, usa i suggerimenti o apri la soluzione. (Il valore atteso è ${nf(st.ex.ans,2)} ${st.ex.unit}.)`};
+  st.fb= ok ? {ok:true,msg:`✓ Correct! The answer is ${nf(st.ex.ans,2)} ${st.ex.unit}.`}
+            : {ok:false,msg:`✗ Not quite. Try again, use the hints, or open the solution. (Expected value: ${nf(st.ex.ans,2)} ${st.ex.unit}.)`};
   renderProva(sec);
 }
 function renderProva(sec){
   const st=pState[sec], ex=st.ex, el=document.getElementById('prova-'+sec);
-  let h=`<h2>✍️ Prova tu</h2><p style="font-weight:600;color:var(--primary-d);margin:.1rem 0 .5rem">${PROVA[sec].title}</p>`;
+  let h=`<h2>✍️ Try it</h2><p style="font-weight:600;color:var(--primary-d);margin:.1rem 0 .5rem">${PROVA[sec].title}</p>`;
   h+=`<p>${ex.statement}</p>`;
-  h+=`<div class="num-row"><span style="font-size:.9em;color:var(--muted)">La tua risposta:</span>`+
-     `<input type="text" inputmode="decimal" id="pv-${sec}-in" value="${st.last||''}" placeholder="numero">`+
+  h+=`<div class="num-row"><span style="font-size:.9em;color:var(--muted)">Your answer:</span>`+
+     `<input type="text" inputmode="decimal" id="pv-${sec}-in" value="${st.last||''}" placeholder="number">`+
      `<span class="unit">${ex.unit}</span>`+
-     `<button class="btn-check" onclick="provaCheck('${sec}')">Verifica</button></div>`;
+     `<button class="btn-check" onclick="provaCheck('${sec}')">Check</button></div>`;
   if(st.fb) h+=`<div class="fb ${st.fb.ok?'ok':'no'}">${st.fb.msg}</div>`;
-  for(let i=0;i<st.hints;i++) h+=`<div class="hint-box"><b>💡 Suggerimento ${i+1}:</b> ${ex.hints[i]}</div>`;
+  for(let i=0;i<st.hints;i++) h+=`<div class="hint-box"><b>💡 Hint ${i+1}:</b> ${ex.hints[i]}</div>`;
   h+=`<div class="prova-btns">`;
-  if(st.hints<ex.hints.length) h+=`<button class="btn-soft" onclick="provaHint('${sec}')">💡 Mostra suggerimento</button>`;
-  h+=`<button class="btn-soft" onclick="provaSol('${sec}')">${st.sol?'🙈 Nascondi soluzione':'📖 Soluzione passo-passo'}</button>`;
-  h+=`<button class="btn-soft" onclick="provaNew('${sec}')">🎲 Nuovo esercizio</button></div>`;
+  if(st.hints<ex.hints.length) h+=`<button class="btn-soft" onclick="provaHint('${sec}')">💡 Show hint</button>`;
+  h+=`<button class="btn-soft" onclick="provaSol('${sec}')">${st.sol?'🙈 Hide solution':'📖 Step-by-step solution'}</button>`;
+  h+=`<button class="btn-soft" onclick="provaNew('${sec}')">🎲 New exercise</button></div>`;
   if(st.sol){
     h+=`<div class="sol-wrap">`;
     ex.steps.forEach((s,i)=>{ h+=`<div class="sol-step"><span class="n">${i+1}</span><span class="c"><b>${s.t}.</b> ${s.d}</span></div>`; });
@@ -1527,98 +1527,98 @@ function renderProva(sec){
 const QUIZ={
  cinematica:{
   teoria:[
-   {q:'La velocità angolare $\\omega$ è definita come:',opts:['$\\Delta\\theta \\cdot \\Delta t$','$\\Delta\\theta / \\Delta t$','$\\Delta t / \\Delta\\theta$','$\\theta \\cdot t$'],ans:1,exp:'$\\omega = \\Delta\\theta/\\Delta t$: di quanto cambia l’angolo nell’unità di tempo (analoga a $v = \\Delta s/\\Delta t$).'},
-   {q:'Nel parallelismo traslazione–rotazione, l’analogo della velocità $v$ è:',opts:['l’angolo $\\theta$','la velocità angolare $\\omega$','l’accelerazione angolare $\\alpha$','il momento d’inerzia $I$'],ans:1,exp:'$\\theta\\leftrightarrow s$, $\\omega\\leftrightarrow v$, $\\alpha\\leftrightarrow a$. La velocità angolare $\\omega$ è l’analogo della velocità lineare $v$.'},
-   {q:'Per un punto a distanza $r$ dall’asse, la velocità lineare (tangenziale) vale:',opts:['$v = r/\\omega$','$v = \\omega/r$','$v = r\\,\\omega$','$v = r\\,\\alpha$'],ans:2,exp:'$v = r\\,\\omega$: tutti i punti hanno la stessa $\\omega$, ma $v$ cresce con la distanza $r$ dall’asse.'},
-   {q:'Un punto che ruota con $\\omega$ costante ha accelerazione centripeta:',opts:['nulla','$a_c = \\omega^2 r$','$a_c = \\alpha\\,r$','$a_c = \\omega/r$'],ans:1,exp:'Anche con $\\omega$ costante la direzione della velocità cambia: $a_c = \\omega^2 r = v^2/r$, diretta verso l’asse.'},
-   {q:'Se $\\alpha$ è costante, la velocità angolare nel tempo vale:',opts:['$\\omega = \\omega_0$','$\\omega = \\omega_0 + \\alpha t$','$\\omega = \\omega_0 + \\tfrac12\\alpha t^2$','$\\omega = \\omega_0\\,t$'],ans:1,exp:'Moto uniformemente accelerato: $\\omega = \\omega_0 + \\alpha t$, identico a $v = v_0 + a t$.'}
+   {q:'The angular velocity $\\omega$ is defined as:',opts:['$\\Delta\\theta \\cdot \\Delta t$','$\\Delta\\theta / \\Delta t$','$\\Delta t / \\Delta\\theta$','$\\theta \\cdot t$'],ans:1,exp:'$\\omega = \\Delta\\theta/\\Delta t$: how much the angle changes per unit time (analogous to $v = \\Delta s/\\Delta t$).'},
+   {q:'In the translation–rotation parallel, the analogue of velocity $v$ is:',opts:['the angle $\\theta$','the angular velocity $\\omega$','the angular acceleration $\\alpha$','the moment of inertia $I$'],ans:1,exp:'$\\theta\\leftrightarrow s$, $\\omega\\leftrightarrow v$, $\\alpha\\leftrightarrow a$. Angular velocity $\\omega$ is the analogue of linear velocity $v$.'},
+   {q:'For a point at distance $r$ from the axis, the linear (tangential) speed is:',opts:['$v = r/\\omega$','$v = \\omega/r$','$v = r\\,\\omega$','$v = r\\,\\alpha$'],ans:2,exp:'$v = r\\,\\omega$: every point has the same $\\omega$, but $v$ grows with the distance $r$ from the axis.'},
+   {q:'A point rotating with constant $\\omega$ has centripetal acceleration:',opts:['zero','$a_c = \\omega^2 r$','$a_c = \\alpha\\,r$','$a_c = \\omega/r$'],ans:1,exp:'Even with constant $\\omega$ the direction of the velocity changes: $a_c = \\omega^2 r = v^2/r$, pointing toward the axis.'},
+   {q:'If $\\alpha$ is constant, the angular velocity over time is:',opts:['$\\omega = \\omega_0$','$\\omega = \\omega_0 + \\alpha t$','$\\omega = \\omega_0 + \\tfrac12\\alpha t^2$','$\\omega = \\omega_0\\,t$'],ans:1,exp:'Uniformly accelerated motion: $\\omega = \\omega_0 + \\alpha t$, identical to $v = v_0 + a t$.'}
   ],
   calcolo:[
-   {q:'$\\omega_0 = 2$ rad/s, $\\alpha = 3$ rad/s². Quanto vale $\\omega$ dopo $t = 4$ s?',num:true,ans:14,tol:0.2,unit:'rad/s',exp:'$\\omega = \\omega_0 + \\alpha t = 2 + 3\\cdot 4 = 14$ rad/s.'},
-   {q:'Un punto dista $r = 0{,}5$ m dall’asse e la ruota gira a $\\omega = 10$ rad/s. Velocità del punto?',num:true,ans:5,tol:0.1,unit:'m/s',exp:'$v = r\\,\\omega = 0{,}5\\cdot 10 = 5$ m/s.'},
-   {q:'Un angolo $\\theta = 12{,}56$ rad corrisponde a circa quanti giri?',opts:['1 giro','2 giri','4 giri','6 giri'],ans:1,exp:'$n = \\theta/(2\\pi) = 12{,}56/6{,}28 \\approx 2$ giri.'},
-   {q:'Partendo da fermo ($\\omega_0 = 0$) con $\\alpha = 2$ rad/s², di quale angolo ruota in $t = 3$ s?',num:true,ans:9,tol:0.2,unit:'rad',exp:'$\\theta = \\tfrac12\\alpha t^2 = \\tfrac12\\cdot 2\\cdot 9 = 9$ rad.'},
-   {q:'Un punto a $r = 0{,}25$ m ruota a $\\omega = 4$ rad/s. Accelerazione centripeta?',opts:['1 m/s²','2 m/s²','4 m/s²','8 m/s²'],ans:2,exp:'$a_c = \\omega^2 r = 16\\cdot 0{,}25 = 4$ m/s².'}
+   {q:'$\\omega_0 = 2$ rad/s, $\\alpha = 3$ rad/s². What is $\\omega$ after $t = 4$ s?',num:true,ans:14,tol:0.2,unit:'rad/s',exp:'$\\omega = \\omega_0 + \\alpha t = 2 + 3\\cdot 4 = 14$ rad/s.'},
+   {q:'A point is $r = 0.5$ m from the axis and the wheel spins at $\\omega = 10$ rad/s. Speed of the point?',num:true,ans:5,tol:0.1,unit:'m/s',exp:'$v = r\\,\\omega = 0.5\\cdot 10 = 5$ m/s.'},
+   {q:'An angle $\\theta = 12.56$ rad corresponds to about how many revolutions?',opts:['1 rev','2 rev','4 rev','6 rev'],ans:1,exp:'$n = \\theta/(2\\pi) = 12.56/6.28 \\approx 2$ rev.'},
+   {q:'Starting from rest ($\\omega_0 = 0$) with $\\alpha = 2$ rad/s², through what angle does it turn in $t = 3$ s?',num:true,ans:9,tol:0.2,unit:'rad',exp:'$\\theta = \\tfrac12\\alpha t^2 = \\tfrac12\\cdot 2\\cdot 9 = 9$ rad.'},
+   {q:'A point at $r = 0.25$ m rotates at $\\omega = 4$ rad/s. Centripetal acceleration?',opts:['1 m/s²','2 m/s²','4 m/s²','8 m/s²'],ans:2,exp:'$a_c = \\omega^2 r = 16\\cdot 0.25 = 4$ m/s².'}
   ]
  },
  dinamica:{
   teoria:[
-   {q:'L’equazione $M = I\\,\\alpha$ è l’analogo rotazionale di:',opts:['$p = m\\,v$','$F = m\\,a$','$E = \\tfrac12 m v^2$','$v = a\\,t$'],ans:1,exp:'$M\\leftrightarrow F$, $I\\leftrightarrow m$, $\\alpha\\leftrightarrow a$: $M = I\\,\\alpha$ è la «seconda legge» della rotazione.'},
-   {q:'Il momento d’inerzia di un disco pieno attorno al suo asse è:',opts:['$m R^2$','$\\tfrac12 m R^2$','$\\tfrac25 m R^2$','$\\tfrac13 m R^2$'],ans:1,exp:'Disco/cilindro pieno: $I = \\tfrac12 m R^2$. (Anello: $m R^2$; sfera: $\\tfrac25 m R^2$.)'},
-   {q:'Il momento angolare $L$ di un corpo che ruota vale:',opts:['$I/\\omega$','$I\\,\\omega$','$\\tfrac12 I\\omega^2$','$I\\,\\alpha$'],ans:1,exp:'$L = I\\,\\omega$, analogo di $p = m\\,v$.'},
-   {q:'Il momento di una forza è massimo quando la forza è:',opts:['diretta verso l’asse','perpendicolare al raggio','parallela al raggio','molto piccola'],ans:1,exp:'$M = r\\,F\\sin\\varphi$: massimo per $\\varphi = 90^\\circ$ (forza perpendicolare al raggio); nullo se diretta verso l’asse.'},
-   {q:'A parità di massa, avvicinando la massa all’asse il momento d’inerzia:',opts:['aumenta','diminuisce','resta uguale','si annulla'],ans:1,exp:'$I = \\sum m r^2$: meno distanza $r$ ⇒ $I$ più piccolo. La massa lontana «conta» di più.'}
+   {q:'The equation $M = I\\,\\alpha$ is the rotational analogue of:',opts:['$p = m\\,v$','$F = m\\,a$','$E = \\tfrac12 m v^2$','$v = a\\,t$'],ans:1,exp:'$M\\leftrightarrow F$, $I\\leftrightarrow m$, $\\alpha\\leftrightarrow a$: $M = I\\,\\alpha$ is the «second law» of rotation.'},
+   {q:'The moment of inertia of a solid disk about its axis is:',opts:['$m R^2$','$\\tfrac12 m R^2$','$\\tfrac25 m R^2$','$\\tfrac13 m R^2$'],ans:1,exp:'Solid disk/cylinder: $I = \\tfrac12 m R^2$. (Ring: $m R^2$; sphere: $\\tfrac25 m R^2$.)'},
+   {q:'The angular momentum $L$ of a rotating body is:',opts:['$I/\\omega$','$I\\,\\omega$','$\\tfrac12 I\\omega^2$','$I\\,\\alpha$'],ans:1,exp:'$L = I\\,\\omega$, analogue of $p = m\\,v$.'},
+   {q:'The torque of a force is greatest when the force is:',opts:['directed toward the axis','perpendicular to the radius','parallel to the radius','very small'],ans:1,exp:'$M = r\\,F\\sin\\varphi$: maximum at $\\varphi = 90^\\circ$ (force perpendicular to the radius); zero if directed toward the axis.'},
+   {q:'For a given mass, moving the mass closer to the axis makes the moment of inertia:',opts:['increase','decrease','stay the same','vanish'],ans:1,exp:'$I = \\sum m r^2$: smaller distance $r$ ⇒ smaller $I$. Mass far away «counts» more.'}
   ],
   calcolo:[
-   {q:'Momento d’inerzia di un disco pieno di $M = 2$ kg e $R = 0{,}5$ m?',num:true,ans:0.25,tol:0.01,unit:'kg·m²',exp:'$I = \\tfrac12 M R^2 = \\tfrac12\\cdot 2\\cdot 0{,}25 = 0{,}25$ kg·m².'},
-   {q:'Un momento $M = 4$ N·m agisce su un corpo con $I = 0{,}25$ kg·m². Accelerazione angolare?',num:true,ans:16,tol:0.3,unit:'rad/s²',exp:'$\\alpha = M/I = 4/0{,}25 = 16$ rad/s².'},
-   {q:'Una forza $F = 10$ N applicata tangenzialmente al bordo ($R = 0{,}3$ m). Momento?',opts:['$0{,}3$ N·m','$3$ N·m','$30$ N·m','$10$ N·m'],ans:1,exp:'$M = F\\,R = 10\\cdot 0{,}3 = 3$ N·m.'},
-   {q:'Un corpo con $I = 0{,}5$ kg·m² ruota a $\\omega = 8$ rad/s. Momento angolare $L$?',num:true,ans:4,tol:0.1,unit:'kg·m²/s',exp:'$L = I\\,\\omega = 0{,}5\\cdot 8 = 4$ kg·m²/s.'},
-   {q:'Massa puntiforme $m = 2$ kg a distanza $r = 3$ m dall’asse. Momento d’inerzia?',opts:['$6$ kg·m²','$9$ kg·m²','$18$ kg·m²','$36$ kg·m²'],ans:2,exp:'$I = m r^2 = 2\\cdot 9 = 18$ kg·m².'}
+   {q:'Moment of inertia of a solid disk with $M = 2$ kg and $R = 0.5$ m?',num:true,ans:0.25,tol:0.01,unit:'kg·m²',exp:'$I = \\tfrac12 M R^2 = \\tfrac12\\cdot 2\\cdot 0.25 = 0.25$ kg·m².'},
+   {q:'A torque $M = 4$ N·m acts on a body with $I = 0.25$ kg·m². Angular acceleration?',num:true,ans:16,tol:0.3,unit:'rad/s²',exp:'$\\alpha = M/I = 4/0.25 = 16$ rad/s².'},
+   {q:'A force $F = 10$ N applied tangentially at the rim ($R = 0.3$ m). Torque?',opts:['$0.3$ N·m','$3$ N·m','$30$ N·m','$10$ N·m'],ans:1,exp:'$M = F\\,R = 10\\cdot 0.3 = 3$ N·m.'},
+   {q:'A body with $I = 0.5$ kg·m² rotates at $\\omega = 8$ rad/s. Angular momentum $L$?',num:true,ans:4,tol:0.1,unit:'kg·m²/s',exp:'$L = I\\,\\omega = 0.5\\cdot 8 = 4$ kg·m²/s.'},
+   {q:'A point mass $m = 2$ kg at distance $r = 3$ m from the axis. Moment of inertia?',opts:['$6$ kg·m²','$9$ kg·m²','$18$ kg·m²','$36$ kg·m²'],ans:2,exp:'$I = m r^2 = 2\\cdot 9 = 18$ kg·m².'}
   ]
  },
  carrucola:{
   teoria:[
-   {q:'Con una carrucola dotata di massa, le tensioni ai due capi del filo:',opts:['sono uguali','sono diverse ($T_2 \\ne T_1$)','sono nulle','valgono entrambe il peso'],ans:1,exp:'Serve un momento per accelerare il disco: $T_2 - T_1 = \\tfrac12 M_p\\,a \\ne 0$.'},
-   {q:'Una carrucola-disco di massa $M_p$ aggiunge all’inerzia del sistema un termine:',opts:['$M_p$','$\\tfrac12 M_p$','$\\tfrac14 M_p$','$2 M_p$'],ans:1,exp:'Per un disco $I = \\tfrac12 M_p R^2$, che a denominatore dà il termine $\\tfrac12 M_p$.'},
-   {q:'Se la carrucola ha massa trascurabile (ideale), allora:',opts:['il sistema non si muove','$T_1 = T_2$','$a = g$ sempre','$T_2 - T_1 = M_p\\,a$'],ans:1,exp:'Con $M_p = 0$ il termine $\\tfrac12 M_p$ sparisce e le due tensioni diventano uguali.'},
-   {q:'Che cosa fa ruotare la carrucola?',opts:['il peso totale','la differenza di tensione $T_2 - T_1$','l’attrito dell’asse','nulla, gira da sola'],ans:1,exp:'È proprio lo squilibrio $T_2 - T_1$ a fornire il momento che la mette in rotazione.'},
-   {q:'Il sistema resta fermo ($a = 0$) se:',opts:['$m_2 > m_1$','la spinta non supera l’attrito statico massimo','$\\mu = 0$','$M_p = 0$'],ans:1,exp:'Se la spinta è $\\le$ dell’attrito statico massimo, il sistema non parte.'}
+   {q:'With a pulley that has mass, the tensions at the two ends of the string:',opts:['are equal','are different ($T_2 \\ne T_1$)','are zero','both equal the weight'],ans:1,exp:'A torque is needed to accelerate the disk: $T_2 - T_1 = \\tfrac12 M_p\\,a \\ne 0$.'},
+   {q:'A disk-pulley of mass $M_p$ adds to the system inertia a term:',opts:['$M_p$','$\\tfrac12 M_p$','$\\tfrac14 M_p$','$2 M_p$'],ans:1,exp:'For a disk $I = \\tfrac12 M_p R^2$, which at the denominator gives the term $\\tfrac12 M_p$.'},
+   {q:'If the pulley has negligible mass (ideal), then:',opts:['the system does not move','$T_1 = T_2$','$a = g$ always','$T_2 - T_1 = M_p\\,a$'],ans:1,exp:'With $M_p = 0$ the term $\\tfrac12 M_p$ disappears and the two tensions become equal.'},
+   {q:'What makes the pulley rotate?',opts:['the total weight','the tension difference $T_2 - T_1$','the friction of the axle','nothing, it spins on its own'],ans:1,exp:'It is precisely the imbalance $T_2 - T_1$ that provides the torque setting it in rotation.'},
+   {q:'The system stays at rest ($a = 0$) if:',opts:['$m_2 > m_1$','the driving force does not exceed the maximum static friction','$\\mu = 0$','$M_p = 0$'],ans:1,exp:'If the driving force is $\\le$ the maximum static friction, the system does not start.'}
   ],
   calcolo:[
-   {q:'$m_1 = 2$ kg su un tavolo liscio (orizzontale, $\\mu = 0$), $m_2 = 3$ kg appesa, carrucola-disco $M_p = 2$ kg. Accelerazione? ($g = 9{,}81$)',num:true,ans:4.905,tol:0.2,unit:'m/s²',exp:'$a = \\dfrac{m_2 g}{m_1+m_2+\\tfrac12 M_p} = \\dfrac{29{,}43}{6} = 4{,}9$ m/s².'},
-   {q:'Se $M_p = 2$ kg e $a = 4$ m/s², quanto vale $T_2 - T_1$?',opts:['$2$ N','$4$ N','$8$ N','$0$ N'],ans:1,exp:'$T_2 - T_1 = \\tfrac12 M_p\\,a = \\tfrac12\\cdot 2\\cdot 4 = 4$ N.'},
-   {q:'$m_1 = 2$ kg su piano a $30^\\circ$ (liscio), $m_2 = 4$ kg appesa, carrucola $M_p = 2$ kg. Accelerazione? ($g = 9{,}81$)',num:true,ans:4.204,tol:0.2,unit:'m/s²',exp:'$a = \\dfrac{m_2 g - m_1 g\\sin 30^\\circ}{m_1+m_2+\\tfrac12 M_p} = \\dfrac{39{,}24 - 9{,}81}{7} = 4{,}2$ m/s².'},
-   {q:'Aumentando la massa della carrucola (resto invariato), l’accelerazione del sistema:',opts:['aumenta','diminuisce','resta uguale','si annulla'],ans:1,exp:'$M_p$ compare a denominatore ($+\\tfrac12 M_p$): più massa ⇒ $a$ più piccola.'},
-   {q:'Se $a = 4$ m/s² e la carrucola ha $R = 0{,}2$ m, qual è la sua accelerazione angolare $\\alpha$?',num:true,ans:20,tol:0.5,unit:'rad/s²',exp:'$\\alpha = a/R = 4/0{,}2 = 20$ rad/s².'}
+   {q:'$m_1 = 2$ kg on a frictionless horizontal table ($\\mu = 0$), $m_2 = 3$ kg hanging, disk-pulley $M_p = 2$ kg. Acceleration? ($g = 9.81$)',num:true,ans:4.905,tol:0.2,unit:'m/s²',exp:'$a = \\dfrac{m_2 g}{m_1+m_2+\\tfrac12 M_p} = \\dfrac{29.43}{6} = 4.9$ m/s².'},
+   {q:'If $M_p = 2$ kg and $a = 4$ m/s², what is $T_2 - T_1$?',opts:['$2$ N','$4$ N','$8$ N','$0$ N'],ans:1,exp:'$T_2 - T_1 = \\tfrac12 M_p\\,a = \\tfrac12\\cdot 2\\cdot 4 = 4$ N.'},
+   {q:'$m_1 = 2$ kg on a plane at $30^\\circ$ (frictionless), $m_2 = 4$ kg hanging, pulley $M_p = 2$ kg. Acceleration? ($g = 9.81$)',num:true,ans:4.204,tol:0.2,unit:'m/s²',exp:'$a = \\dfrac{m_2 g - m_1 g\\sin 30^\\circ}{m_1+m_2+\\tfrac12 M_p} = \\dfrac{39.24 - 9.81}{7} = 4.2$ m/s².'},
+   {q:'Increasing the pulley mass (everything else fixed), the system acceleration:',opts:['increases','decreases','stays the same','vanishes'],ans:1,exp:'$M_p$ appears at the denominator ($+\\tfrac12 M_p$): more mass ⇒ smaller $a$.'},
+   {q:'If $a = 4$ m/s² and the pulley has $R = 0.2$ m, what is its angular acceleration $\\alpha$?',num:true,ans:20,tol:0.5,unit:'rad/s²',exp:'$\\alpha = a/R = 4/0.2 = 20$ rad/s².'}
   ]
  },
  impulso:{
   teoria:[
-   {q:'Il teorema dell’impulso angolare afferma che:',opts:['$M = I\\,\\alpha$','$M\\,\\Delta t = \\Delta L$','$L = I\\,\\omega$','$M = \\Delta L\\cdot\\Delta t$'],ans:1,exp:'$M\\,\\Delta t = \\Delta L$: l’impulso angolare è uguale alla variazione di momento angolare.'},
-   {q:'La quantità $M\\,\\Delta t$ è l’analogo rotazionale di:',opts:['$m\\,v$','$F\\,\\Delta t$ (impulso)','$\\tfrac12 m v^2$','$F/m$'],ans:1,exp:'$F\\,\\Delta t = \\Delta p \\;\\leftrightarrow\\; M\\,\\Delta t = \\Delta L$.'},
-   {q:'Per fermare un volano in un tempo $\\Delta t$ più lungo serve un momento frenante:',opts:['maggiore','minore','uguale','nullo'],ans:1,exp:'$M = \\Delta L/\\Delta t$: a parità di $\\Delta L$, più lungo è $\\Delta t$, minore è il momento (come l’airbag).'},
-   {q:'Un momento opposto al verso di rotazione fa sì che il momento angolare:',opts:['aumenti','diminuisca','resti costante','raddoppi'],ans:1,exp:'$\\Delta L = M\\,\\Delta t$ con $M$ opposto ⇒ $L$ diminuisce (il corpo rallenta, può fermarsi e invertire).'},
-   {q:'Se il momento è perpendicolare al momento angolare $\\vec L$, esso cambia:',opts:['il modulo di $\\vec L$','la direzione di $\\vec L$ (precessione)','nulla','il momento d’inerzia'],ans:1,exp:'Momento $\\perp \\vec L$: ruota la direzione di $\\vec L$ senza cambiarne il modulo → precessione (trottola, giroscopio).'}
+   {q:'The angular impulse theorem states that:',opts:['$M = I\\,\\alpha$','$M\\,\\Delta t = \\Delta L$','$L = I\\,\\omega$','$M = \\Delta L\\cdot\\Delta t$'],ans:1,exp:'$M\\,\\Delta t = \\Delta L$: the angular impulse equals the change in angular momentum.'},
+   {q:'The quantity $M\\,\\Delta t$ is the rotational analogue of:',opts:['$m\\,v$','$F\\,\\Delta t$ (impulse)','$\\tfrac12 m v^2$','$F/m$'],ans:1,exp:'$F\\,\\Delta t = \\Delta p \\;\\leftrightarrow\\; M\\,\\Delta t = \\Delta L$.'},
+   {q:'To stop a flywheel over a longer time $\\Delta t$, the braking torque needed is:',opts:['larger','smaller','the same','zero'],ans:1,exp:'$M = \\Delta L/\\Delta t$: for a given $\\Delta L$, the longer $\\Delta t$, the smaller the torque (like an airbag).'},
+   {q:'A torque opposing the rotation makes the angular momentum:',opts:['increase','decrease','stay constant','double'],ans:1,exp:'$\\Delta L = M\\,\\Delta t$ with $M$ opposing ⇒ $L$ decreases (the body slows, can stop and reverse).'},
+   {q:'If the torque is perpendicular to the angular momentum $\\vec L$, it changes:',opts:['the magnitude of $\\vec L$','the direction of $\\vec L$ (precession)','nothing','the moment of inertia'],ans:1,exp:'Torque $\\perp \\vec L$: it rotates the direction of $\\vec L$ without changing its magnitude → precession (spinning top, gyroscope).'}
   ],
   calcolo:[
-   {q:'Un momento $M = 2$ N·m agisce per $\\Delta t = 3$ s. Variazione di momento angolare $\\Delta L$?',num:true,ans:6,tol:0.1,unit:'kg·m²/s',exp:'$\\Delta L = M\\,\\Delta t = 2\\cdot 3 = 6$ kg·m²/s.'},
-   {q:'Volano con $I = 0{,}5$ kg·m² a $\\omega_0 = 10$ rad/s. Un freno $M = 2{,}5$ N·m. Tempo per fermarlo?',num:true,ans:2,tol:0.1,unit:'s',exp:'$\\Delta t = I\\,\\omega_0/M = (0{,}5\\cdot 10)/2{,}5 = 2$ s.'},
-   {q:'$I = 0{,}5$ kg·m², $\\omega_0 = 4$ rad/s, momento $M = 1$ N·m applicato per $\\Delta t = 2$ s. $\\omega$ finale?',opts:['$4$ rad/s','$6$ rad/s','$8$ rad/s','$12$ rad/s'],ans:2,exp:'$\\omega_f = \\omega_0 + (M/I)\\,\\Delta t = 4 + (1/0{,}5)\\cdot 2 = 8$ rad/s.'},
-   {q:'Quale impulso angolare serve per aumentare di $\\Delta\\omega = 5$ rad/s un corpo con $I = 0{,}4$ kg·m²?',num:true,ans:2,tol:0.05,unit:'kg·m²/s',exp:'$M\\,\\Delta t = \\Delta L = I\\,\\Delta\\omega = 0{,}4\\cdot 5 = 2$ kg·m²/s.'},
-   {q:'Raddoppiando $\\Delta t$ a parità di $M$, l’impulso angolare $M\\,\\Delta t$:',opts:['si dimezza','raddoppia','resta uguale','si annulla'],ans:1,exp:'$M\\,\\Delta t$ è proporzionale a $\\Delta t$: raddoppia.'}
+   {q:'A torque $M = 2$ N·m acts for $\\Delta t = 3$ s. Change in angular momentum $\\Delta L$?',num:true,ans:6,tol:0.1,unit:'kg·m²/s',exp:'$\\Delta L = M\\,\\Delta t = 2\\cdot 3 = 6$ kg·m²/s.'},
+   {q:'Flywheel with $I = 0.5$ kg·m² at $\\omega_0 = 10$ rad/s. A brake $M = 2.5$ N·m. Time to stop it?',num:true,ans:2,tol:0.1,unit:'s',exp:'$\\Delta t = I\\,\\omega_0/M = (0.5\\cdot 10)/2.5 = 2$ s.'},
+   {q:'$I = 0.5$ kg·m², $\\omega_0 = 4$ rad/s, torque $M = 1$ N·m applied for $\\Delta t = 2$ s. Final $\\omega$?',opts:['$4$ rad/s','$6$ rad/s','$8$ rad/s','$12$ rad/s'],ans:2,exp:'$\\omega_f = \\omega_0 + (M/I)\\,\\Delta t = 4 + (1/0.5)\\cdot 2 = 8$ rad/s.'},
+   {q:'What angular impulse is needed to increase by $\\Delta\\omega = 5$ rad/s a body with $I = 0.4$ kg·m²?',num:true,ans:2,tol:0.05,unit:'kg·m²/s',exp:'$M\\,\\Delta t = \\Delta L = I\\,\\Delta\\omega = 0.4\\cdot 5 = 2$ kg·m²/s.'},
+   {q:'Doubling $\\Delta t$ for a given $M$, the angular impulse $M\\,\\Delta t$:',opts:['halves','doubles','stays the same','vanishes'],ans:1,exp:'$M\\,\\Delta t$ is proportional to $\\Delta t$: it doubles.'}
   ]
  },
  angolare:{
   teoria:[
-   {q:'Il momento angolare di un sistema si conserva quando:',opts:['$I$ è molto grande','il momento esterno totale è nullo','$\\omega$ è costante','c’è attrito'],ans:1,exp:'Se $M_\\text{est} = 0$ allora $\\Delta L = 0$: $L = I\\,\\omega$ resta costante.'},
-   {q:'Una pattinatrice che chiude le braccia (asse senza attrito):',opts:['rallenta','accelera la rotazione','si ferma','non cambia velocità'],ans:1,exp:'Chiudendo le braccia $I$ diminuisce; poiché $L = I\\,\\omega$ è costante, $\\omega$ aumenta.'},
-   {q:'Una persona su una piattaforma rotante che si avvicina al centro fa:',opts:['diminuire $\\omega$','aumentare $\\omega$','fermare la piattaforma','aumentare $L$'],ans:1,exp:'Avvicinarsi al centro riduce $I$ ⇒ $\\omega$ aumenta ($L$ costante).'},
-   {q:'Quando la ballerina chiude le braccia ($L$ costante), la sua energia cinetica di rotazione:',opts:['diminuisce','resta uguale','aumenta','si annulla'],ans:2,exp:'$E_c = \\tfrac12 I\\omega^2 = \\tfrac12 L\\omega$: a $L$ costante, se $\\omega$ cresce $E_c$ aumenta. La fornisce il lavoro muscolare.'},
-   {q:'Nell’urto di un corpo contro l’asta imperniata, si conserva:',opts:['l’energia cinetica','il momento angolare rispetto al perno','la quantità di moto lineare','la velocità del corpo'],ans:1,exp:'L’urto è impulsivo: si conserva il momento angolare rispetto al perno (le forze del perno hanno braccio nullo). L’energia cinetica no (urto anelastico).'}
+   {q:'The angular momentum of a system is conserved when:',opts:['$I$ is very large','the total external torque is zero','$\\omega$ is constant','there is friction'],ans:1,exp:'If $M_\\text{ext} = 0$ then $\\Delta L = 0$: $L = I\\,\\omega$ stays constant.'},
+   {q:'A skater who pulls in their arms (frictionless axis):',opts:['slows down','speeds up the rotation','stops','does not change speed'],ans:1,exp:'Pulling in the arms decreases $I$; since $L = I\\,\\omega$ is constant, $\\omega$ increases.'},
+   {q:'A person on a rotating platform who moves toward the center causes:',opts:['$\\omega$ to decrease','$\\omega$ to increase','the platform to stop','$L$ to increase'],ans:1,exp:'Moving toward the center reduces $I$ ⇒ $\\omega$ increases ($L$ constant).'},
+   {q:'When the dancer pulls in their arms ($L$ constant), their rotational kinetic energy:',opts:['decreases','stays the same','increases','vanishes'],ans:2,exp:'$E_c = \\tfrac12 I\\omega^2 = \\tfrac12 L\\omega$: at constant $L$, if $\\omega$ grows $E_c$ increases. It is supplied by muscular work.'},
+   {q:'In the collision of a body against the pivoted rod, what is conserved is:',opts:['the kinetic energy','the angular momentum about the pivot','the linear momentum','the speed of the body'],ans:1,exp:'The impact is impulsive: angular momentum about the pivot is conserved (the pivot forces have zero lever arm). Kinetic energy is not (inelastic collision).'}
   ],
   calcolo:[
-   {q:'Sistema con $I_1 = 4$ kg·m² e $\\omega_1 = 2$ rad/s. Si chiude fino a $I_2 = 2$ kg·m². Nuova $\\omega_2$?',num:true,ans:4,tol:0.1,unit:'rad/s',exp:'$I_1\\omega_1 = I_2\\omega_2 \\Rightarrow \\omega_2 = 4\\cdot 2/2 = 4$ rad/s.'},
-   {q:'Asta ($M = 2$ kg, $L = 1$ m) imperniata all’estremo, colpita all’estremo da $m = 0{,}2$ kg a $v = 10$ m/s. $\\omega$ subito dopo l’urto?',num:true,ans:2.31,tol:0.15,unit:'rad/s',exp:'$I_\\text{tot} = \\tfrac13\\cdot 2\\cdot 1 + 0{,}2\\cdot 1 = 0{,}867$ kg·m²; $\\omega = m v L/I_\\text{tot} = 2/0{,}867 \\approx 2{,}31$ rad/s.'},
-   {q:'Se il momento d’inerzia si dimezza e $L$ si conserva, la velocità angolare $\\omega$:',opts:['si dimezza','raddoppia','resta uguale','quadruplica'],ans:1,exp:'$L = I\\,\\omega$ costante: se $I \\to I/2$ allora $\\omega \\to 2\\omega$.'},
-   {q:'Una persona ha $I = 5$ kg·m² e ruota a $\\omega_0 = 1{,}2$ rad/s; tirando i pesi scende a $I = 2$ kg·m². Nuova $\\omega$?',num:true,ans:3,tol:0.1,unit:'rad/s',exp:'$\\omega = I_0\\omega_0/I = (5\\cdot 1{,}2)/2 = 3$ rad/s.'},
-   {q:'Per l’asta colpita, l’accelerazione angolare nell’istante esatto dell’urto (asta verticale, $\\varphi = 0$) è:',opts:['massima','zero','pari a $g/L$','infinita'],ans:1,exp:'$\\alpha = -g(M L/2+m L)\\sin\\varphi / I_\\text{tot}$: con $\\varphi = 0$ si ha $\\sin 0 = 0 \\Rightarrow \\alpha = 0$. Cresce man mano che l’asta sale.'}
+   {q:'System with $I_1 = 4$ kg·m² and $\\omega_1 = 2$ rad/s. It closes down to $I_2 = 2$ kg·m². New $\\omega_2$?',num:true,ans:4,tol:0.1,unit:'rad/s',exp:'$I_1\\omega_1 = I_2\\omega_2 \\Rightarrow \\omega_2 = 4\\cdot 2/2 = 4$ rad/s.'},
+   {q:'Rod ($M = 2$ kg, $L = 1$ m) pivoted at the end, struck at the end by $m = 0.2$ kg at $v = 10$ m/s. $\\omega$ right after the impact?',num:true,ans:2.31,tol:0.15,unit:'rad/s',exp:'$I_\\text{tot} = \\tfrac13\\cdot 2\\cdot 1 + 0.2\\cdot 1 = 0.867$ kg·m²; $\\omega = m v L/I_\\text{tot} = 2/0.867 \\approx 2.31$ rad/s.'},
+   {q:'If the moment of inertia halves and $L$ is conserved, the angular velocity $\\omega$:',opts:['halves','doubles','stays the same','quadruples'],ans:1,exp:'$L = I\\,\\omega$ constant: if $I \\to I/2$ then $\\omega \\to 2\\omega$.'},
+   {q:'A person has $I = 5$ kg·m² and rotates at $\\omega_0 = 1.2$ rad/s; pulling the weights in drops it to $I = 2$ kg·m². New $\\omega$?',num:true,ans:3,tol:0.1,unit:'rad/s',exp:'$\\omega = I_0\\omega_0/I = (5\\cdot 1.2)/2 = 3$ rad/s.'},
+   {q:'For the struck rod, the angular acceleration at the exact instant of impact (rod vertical, $\\varphi = 0$) is:',opts:['maximum','zero','equal to $g/L$','infinite'],ans:1,exp:'$\\alpha = -g(M L/2+m L)\\sin\\varphi / I_\\text{tot}$: with $\\varphi = 0$, $\\sin 0 = 0 \\Rightarrow \\alpha = 0$. It grows as the rod rises.'}
   ]
  },
  rototraslazione:{
   teoria:[
-   {q:'Nel rotolamento puro (senza strisciare), il legame fra velocità del centro e velocità angolare è:',opts:['$v = \\omega/R$','$v = \\omega R$','$v = R/\\omega$','$v = \\omega R^2$'],ans:1,exp:'Rotolamento puro: $v_\\text{cm} = \\omega R$ (e analogamente $a_\\text{cm} = \\alpha R$).'},
-   {q:'In un corpo che rotola senza strisciare, il punto a contatto col suolo ha velocità:',opts:['uguale al centro','doppia del centro','nulla','massima'],ans:2,exp:'Il contatto è istantaneamente fermo: è l’asse istantaneo di rotazione. Il centro va a $v$, la sommità a $2v$.'},
-   {q:'Sfera, cilindro e anello rotolano giù dallo stesso piano. Chi arriva primo?',opts:['l’anello','il cilindro','la sfera','arrivano insieme'],ans:2,exp:'$a = g\\sin\\theta/(1+c)$: vince il $c$ più piccolo. Sfera ($c=0{,}4$) > cilindro ($0{,}5$) > anello ($1$).'},
-   {q:'L’accelerazione di un corpo che rotola giù da un piano dipende da:',opts:['massa e raggio','solo dalla forma ($c$) e da $\\theta$','solo dalla massa','solo dal raggio'],ans:1,exp:'$a = g\\sin\\theta/(1+c)$: $m$ e $R$ si semplificano, conta solo la forma e l’inclinazione.'},
-   {q:'L’energia cinetica di un corpo che rotola è:',opts:['solo $\\tfrac12 m v^2$','solo $\\tfrac12 I\\omega^2$','$\\tfrac12 m v^2 + \\tfrac12 I\\omega^2$','$m g h$'],ans:2,exp:'È la somma di traslazione ($\\tfrac12 m v^2$) e rotazione ($\\tfrac12 I\\omega^2$).'}
+   {q:'In pure rolling (without slipping), the relation between the center velocity and the angular velocity is:',opts:['$v = \\omega/R$','$v = \\omega R$','$v = R/\\omega$','$v = \\omega R^2$'],ans:1,exp:'Pure rolling: $v_\\text{cm} = \\omega R$ (and analogously $a_\\text{cm} = \\alpha R$).'},
+   {q:'In a body rolling without slipping, the contact point with the ground has velocity:',opts:['equal to the center','twice the center','zero','maximum'],ans:2,exp:'The contact point is instantaneously at rest: it is the instantaneous axis of rotation. The center moves at $v$, the top at $2v$.'},
+   {q:'A sphere, cylinder, and ring roll down the same incline. Which arrives first?',opts:['the ring','the cylinder','the sphere','they arrive together'],ans:2,exp:'$a = g\\sin\\theta/(1+c)$: the smallest $c$ wins. Sphere ($c=0.4$) > cylinder ($0.5$) > ring ($1$).'},
+   {q:'The acceleration of a body rolling down an incline depends on:',opts:['mass and radius','only on shape ($c$) and $\\theta$','only on mass','only on radius'],ans:1,exp:'$a = g\\sin\\theta/(1+c)$: $m$ and $R$ cancel out, only shape and slope matter.'},
+   {q:'The kinetic energy of a rolling body is:',opts:['only $\\tfrac12 m v^2$','only $\\tfrac12 I\\omega^2$','$\\tfrac12 m v^2 + \\tfrac12 I\\omega^2$','$m g h$'],ans:2,exp:'It is the sum of translation ($\\tfrac12 m v^2$) and rotation ($\\tfrac12 I\\omega^2$).'}
   ],
   calcolo:[
-   {q:'Un cilindro ($c = 0{,}5$) rotola senza strisciare su un piano a $\\theta = 30^\\circ$. Accelerazione del centro? ($g = 9{,}81$)',num:true,ans:3.27,tol:0.15,unit:'m/s²',exp:'$a = g\\sin 30^\\circ/(1+0{,}5) = 4{,}905/1{,}5 = 3{,}27$ m/s².'},
-   {q:'Una ruota rotola senza strisciare: $\\omega = 20$ rad/s, $R = 0{,}30$ m. Velocità del centro?',num:true,ans:6,tol:0.1,unit:'m/s',exp:'$v = \\omega R = 20\\cdot 0{,}30 = 6$ m/s.'},
-   {q:'Se il centro di una ruota va a $v = 4$ m/s, la sua sommità (rotolamento puro) va a:',opts:['$2$ m/s','$4$ m/s','$8$ m/s','$0$ m/s'],ans:2,exp:'$v_\\text{sommità} = 2 v_\\text{cm} = 8$ m/s; il contatto invece è fermo.'},
-   {q:'Una sfera ($c = 0{,}4$) parte da ferma e rotola giù per un dislivello $h = 2$ m. Velocità in fondo? ($g = 9{,}81$)',num:true,ans:5.29,tol:0.15,unit:'m/s',exp:'$v = \\sqrt{2gh/(1+c)} = \\sqrt{2\\cdot 9{,}81\\cdot 2/1{,}4} = \\sqrt{28{,}0} \\approx 5{,}29$ m/s.'},
-   {q:'Un anello ($c = 1$) rotola su un piano a $\\theta = 20^\\circ$. Accelerazione del centro? ($g = 9{,}81$)',num:true,ans:1.68,tol:0.1,unit:'m/s²',exp:'$a = g\\sin 20^\\circ/(1+1) = 3{,}355/2 = 1{,}68$ m/s².'}
+   {q:'A cylinder ($c = 0.5$) rolls without slipping on a plane at $\\theta = 30^\\circ$. Acceleration of the center? ($g = 9.81$)',num:true,ans:3.27,tol:0.15,unit:'m/s²',exp:'$a = g\\sin 30^\\circ/(1+0.5) = 4.905/1.5 = 3.27$ m/s².'},
+   {q:'A wheel rolls without slipping: $\\omega = 20$ rad/s, $R = 0.30$ m. Speed of the center?',num:true,ans:6,tol:0.1,unit:'m/s',exp:'$v = \\omega R = 20\\cdot 0.30 = 6$ m/s.'},
+   {q:'If the center of a wheel moves at $v = 4$ m/s, its top (pure rolling) moves at:',opts:['$2$ m/s','$4$ m/s','$8$ m/s','$0$ m/s'],ans:2,exp:'$v_\\text{top} = 2 v_\\text{cm} = 8$ m/s; the contact point is instead at rest.'},
+   {q:'A sphere ($c = 0.4$) starts from rest and rolls down a height $h = 2$ m. Speed at the bottom? ($g = 9.81$)',num:true,ans:5.29,tol:0.15,unit:'m/s',exp:'$v = \\sqrt{2gh/(1+c)} = \\sqrt{2\\cdot 9.81\\cdot 2/1.4} = \\sqrt{28.0} \\approx 5.29$ m/s.'},
+   {q:'A ring ($c = 1$) rolls on a plane at $\\theta = 20^\\circ$. Acceleration of the center? ($g = 9.81$)',num:true,ans:1.68,tol:0.1,unit:'m/s²',exp:'$a = g\\sin 20^\\circ/(1+1) = 3.355/2 = 1.68$ m/s².'}
   ]
  }
 };
@@ -1638,32 +1638,32 @@ function renderQuiz(sec){
   const el=document.getElementById('qz-'+sec); if(!el) return;
   const t=qTab[sec];
   const seg=`<div class="quiz-seg">
-    <button class="${t==='teoria'?'active':''}" onclick="setQTab('${sec}','teoria')">🧠 Quiz teorici</button>
-    <button class="${t==='calcolo'?'active':''}" onclick="setQTab('${sec}','calcolo')">🔢 Quiz di calcolo</button>
+    <button class="${t==='teoria'?'active':''}" onclick="setQTab('${sec}','teoria')">🧠 Theory quiz</button>
+    <button class="${t==='calcolo'?'active':''}" onclick="setQTab('${sec}','calcolo')">🔢 Numerical quiz</button>
   </div>`;
   el.innerHTML=`<div class="card"><h2>🧩 Quiz</h2>${seg}${quizBody(sec,t)}</div>`;
   typeset(el);
 }
 function quizBody(sec,t){
   const key=qKey(sec,t), st=qState[key], qs=QUIZ[sec][t]||[], total=qs.length;
-  if(!total) return '<p class="lead">Quiz in preparazione…</p>';
+  if(!total) return '<p class="lead">Quiz coming soon…</p>';
   const answered=st.answers.filter(a=>a!==null).length;
   if(st.done){
     const score=scoreOf(sec,t), r=score/total, mi=r<=0.3?0:r<=0.5?1:r<=0.8?2:r<=0.94?3:4;
     const icons=['😕','🙂','😊','🎉','🏆'];
-    const msgs=['Da rivedere — rileggi la teoria e riprova.','Sufficiente — qualche lacuna da colmare.','Buono — ci sei quasi!','Ottimo risultato!','Perfetto — nessun errore!'];
+    const msgs=['Needs work — review the theory and try again.','Passable — a few gaps to fill.','Good — almost there!','Great result!','Perfect — no mistakes!'];
     return `<div class="quiz-done"><span class="quiz-score-big">${icons[mi]} ${score}/${total}</span>
       <p class="quiz-msg">${msgs[mi]}</p>
-      <div class="quiz-nav"><button class="quiz-prev" onclick="reviewQuiz('${sec}','${t}')">↩️ Rivedi</button>
-      <button class="quiz-restart" onclick="restartQuiz('${sec}','${t}')">🔄 Ricomincia</button></div></div>`;
+      <div class="quiz-nav"><button class="quiz-prev" onclick="reviewQuiz('${sec}','${t}')">↩️ Review</button>
+      <button class="quiz-restart" onclick="restartQuiz('${sec}','${t}')">🔄 Restart</button></div></div>`;
   }
   const q=qs[st.idx], entry=st.answers[st.idx], isAns=entry!==null, pct=answered/total*100;
   let body;
   if(q.num){
     const fbVal = isAns? entry.val : (st.draft!==undefined?st.draft:'');
-    body=`<div class="num-row"><input type="text" inputmode="decimal" id="qnum-${sec}-${t}" value="${isAns?nf(entry.val,3):''}" placeholder="risposta numerica" ${isAns?'disabled':''}>`+
+    body=`<div class="num-row"><input type="text" inputmode="decimal" id="qnum-${sec}-${t}" value="${isAns?nf(entry.val,3):''}" placeholder="numeric answer" ${isAns?'disabled':''}>`+
       `<span class="unit">${q.unit||''}</span>`+
-      (isAns?'':`<button class="btn-check" onclick="answerNum('${sec}','${t}')">Verifica</button>`)+`</div>`;
+      (isAns?'':`<button class="btn-check" onclick="answerNum('${sec}','${t}')">Check</button>`)+`</div>`;
   } else {
     body=`<div class="quiz-opts">`+q.opts.map((o,i)=>{
       let cls='quiz-btn';
@@ -1672,14 +1672,14 @@ function quizBody(sec,t){
     }).join('')+`</div>`;
   }
   let exp='';
-  if(isAns) exp=`<div class="quiz-exp ${entry.correct?'ok':'no'}"><strong>${entry.correct?'✓ Corretto!':'✗ Sbagliato.'}</strong> ${q.exp}</div>`;
+  if(isAns) exp=`<div class="quiz-exp ${entry.correct?'ok':'no'}"><strong>${entry.correct?'✓ Correct!':'✗ Wrong.'}</strong> ${q.exp}</div>`;
   const lastQ=st.idx+1>=total;
-  return `<div class="quiz-hd"><span style="color:var(--muted)">Domanda ${st.idx+1} / ${total}</span>
-      <span style="font-weight:700;color:var(--primary-d)">Risposte: ${answered}/${total}</span></div>
+  return `<div class="quiz-hd"><span style="color:var(--muted)">Question ${st.idx+1} / ${total}</span>
+      <span style="font-weight:700;color:var(--primary-d)">Answers: ${answered}/${total}</span></div>
     <div class="quiz-bar-wrap"><div class="quiz-bar-fill" style="width:${pct}%"></div></div>
     <p class="quiz-q">${q.q}</p>${body}${exp}
-    <div class="quiz-nav"><button class="quiz-prev" ${st.idx===0?'disabled':''} onclick="prevQuiz('${sec}','${t}')">← Precedente</button>
-    <button class="quiz-next" ${isAns?'':'disabled'} onclick="nextQuiz('${sec}','${t}')">${lastQ?'Vedi risultato →':'Successiva →'}</button></div>`;
+    <div class="quiz-nav"><button class="quiz-prev" ${st.idx===0?'disabled':''} onclick="prevQuiz('${sec}','${t}')">← Previous</button>
+    <button class="quiz-next" ${isAns?'':'disabled'} onclick="nextQuiz('${sec}','${t}')">${lastQ?'See result →':'Next →'}</button></div>`;
 }
 function answerMC(sec,t,chosen){
   const st=qState[qKey(sec,t)]; if(st.answers[st.idx]!==null) return;
