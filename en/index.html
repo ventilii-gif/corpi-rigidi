@@ -211,6 +211,7 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
 .quiz-btn.correct{background:#d4edd6!important;border-color:#388e3c!important;
   color:#1b5e20;font-weight:600}
 .quiz-btn.wrong{background:#fbd8d8!important;border-color:#c62828!important;color:#b71c1c}
+.quiz-btn.sel{background:var(--primary-l)!important;border-color:var(--primary)!important;color:var(--primary-d);font-weight:600}
 .quiz-exp{padding:.52rem .85rem;border-radius:8px;font-size:.85em;
   line-height:1.5;margin:.45rem 0}
 .quiz-exp.ok{background:#eaf6ec;border-left:3px solid #388e3c;color:#1b5e20}
@@ -234,10 +235,62 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
   .ctrl label .nm{min-width:5.4em}
 }
 
+/* ===== Sotto-schede (teoria/simulazione/esercizi/quiz) ===== */
+.subnav{display:flex;gap:.35rem;flex-wrap:wrap;margin:.2rem 0 1.1rem;
+  background:var(--surface);border:1px solid var(--border);border-radius:10px;
+  padding:.32rem;box-shadow:0 1px 2px rgba(20,30,60,.04)}
+.subnav button{flex:1 1 auto;min-width:6.4em;background:transparent;border:0;border-radius:8px;
+  padding:.52rem .6rem;font-size:.86em;color:var(--muted);cursor:pointer;font-family:inherit;
+  font-weight:600;min-height:40px;transition:background .15s,color .15s}
+.subnav button:hover:not(.active){background:var(--surface2);color:var(--text)}
+.subnav button.active{background:var(--primary);color:#fff}
+.subpane[hidden]{display:none}
+@media(max-width:560px){.subnav button{font-size:.79em;min-width:0;padding:.5rem .3rem}}
+
+/* ===== Esercizi graduati: selettori livello / esercizio ===== */
+.ex-pick{display:flex;gap:.4rem;margin:.1rem 0 .75rem}
+.ex-pick button{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:8px;
+  padding:.42rem;font-size:.82em;color:var(--muted);cursor:pointer;font-family:inherit;font-weight:600;
+  transition:background .15s,color .15s,border-color .15s}
+.ex-pick button.active{background:var(--primary-d);border-color:var(--primary-d);color:#fff}
+.ex-pick button:not(.active):hover{background:var(--primary-l);color:var(--text)}
+.lvl-tag{display:inline-block;font-size:.7em;font-weight:700;text-transform:uppercase;letter-spacing:.05em;
+  padding:.14rem .55rem;border-radius:999px;margin-left:.5rem;vertical-align:middle}
+.lvl-tag.b{background:#e3f2ea;color:#1b5e20}
+.lvl-tag.i{background:#fff3e0;color:#bf6100}
+.lvl-tag.a{background:#fdeaea;color:#b71c1c}
+
+/* ===== Nota storica (home) ===== */
+.hist-note{background:linear-gradient(180deg,#fbf7ef,#fdfbf7);border:1px solid #ecdfc4;
+  border-left:4px solid #b58a3c;border-radius:var(--radius);padding:1.1rem 1.2rem;margin-bottom:1.1rem;
+  box-shadow:0 1px 2px rgba(20,30,60,.04)}
+.hist-note h2{color:#7a5a1e;font-size:1.12em;font-weight:700;margin:0 0 .5rem}
+.hist-note p{font-size:.92em;line-height:1.66;margin:.35rem 0;color:#3f3320}
+.hist-note .figs{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.7rem}
+.hist-note .fig{background:#fff;border:1px solid #ecdfc4;border-radius:8px;padding:.4rem .7rem;
+  font-size:.82em;color:#7a5a1e;line-height:1.4}
+.hist-note .fig b{color:#5c4315;display:block}
+
+/* ===== Test finale riepilogativo ===== */
+.final-intro{text-align:center;padding:.4rem 0 .2rem}
+.final-meta{font-size:.85em;color:var(--muted);margin:.2rem 0 .9rem}
+.final-review{margin-top:.9rem;border-top:1px dashed var(--border);padding-top:.6rem}
+.final-review h3{font-size:.95em;color:var(--primary-d);margin:.2rem 0 .5rem}
+.ri{border:1px solid var(--border);border-radius:8px;padding:.55rem .8rem;margin:.42rem 0;font-size:.86em}
+.ri.ok{border-left:3px solid #388e3c;background:#f5faf6}
+.ri.no{border-left:3px solid #c62828;background:#fdf6f6}
+.ri .qq{font-weight:600;margin-bottom:.25rem;line-height:1.4}
+.ri .aa{color:var(--muted);font-size:.95em;line-height:1.45}
+.ri .aa .tuo{font-weight:600}
+.ri.ok .aa .tuo{color:#1b5e20}
+.ri.no .aa .tuo{color:#b71c1c}
+
 /* ===== PRINT MODE ===== */
 .print-only{display:none}
 @media print{
-  nav.main,.btn-print,.sim-block,.prova-block,.quiz-block,.home-grid{display:none!important}
+  nav.main,.btn-print,.sim-block,.prova-block,.quiz-block,.home-grid,.subnav{display:none!important}
+  .subpane{display:none!important}
+  .subpane[data-pane="teoria"]{display:block!important}
   header{position:static;border-bottom:2px solid #000;padding:.4rem 0}
   header h1{font-size:1.3rem}
   html,body{background:#fff;font-size:11pt}
@@ -273,6 +326,7 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
   <button data-tab="impulso">⏱️ Torque &amp; time</button>
   <button data-tab="angolare">💫 Angular momentum</button>
   <button data-tab="rototraslazione">🎳 Rolling</button>
+  <button data-tab="finale">📝 Final test</button>
 </nav>
 <main>
 
@@ -305,13 +359,31 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
     <button class="home-card" data-go="angolare"><span class="ico">💫</span><strong>5 · Angular momentum</strong><span>Platform, dancer, struck rod</span></button>
     <button class="home-card" data-go="rototraslazione"><span class="ico">🎳</span><strong>6 · Rolling</strong><span>Pure rolling, v = ω·R, energy</span></button>
   </div>
+
+  <div class="hist-note">
+    <h2>🏛️ A note on history · how the mechanics of rotation was born</h2>
+    <p>The idea that the effect of a force also depends on its <b>lever arm</b> — that is, the <b>torque</b> — is very old: already <b>Archimedes</b> (3rd century BC) formulated the law of the lever, tied to the famous line «give me a place to stand and I will move the world».</p>
+    <p>In the 17th century <b>Galileo Galilei</b> and above all <b>Christiaan Huygens</b>, studying the <b>compound pendulum</b>, realized that to set an extended body rotating what matters is not only the mass, but <b>how it is distributed about the axis</b>: this is the first sketch of the concept of <b>moment of inertia</b>.</p>
+    <p>With Newton's <i>Principia</i> (1687) dynamics got its general laws. It was <b>Leonhard Euler</b>, however, in the 18th century, who wrote the <b>full equations of rigid-body rotation</b> and gave the moment of inertia $I$ the name and role it still has today: <b>the rotational analogue of mass</b>. The formulas $M = I\,\alpha$ and $L = I\,\omega$ you will use in this app are, in the end, his legacy.</p>
+    <div class="figs">
+      <div class="fig"><b>Archimedes</b>~250 BC · lever and torque</div>
+      <div class="fig"><b>Huygens</b>1673 · compound pendulum</div>
+      <div class="fig"><b>Newton</b>1687 · laws of dynamics</div>
+      <div class="fig"><b>Euler</b>1765 · rigid-body dynamics</div>
+    </div>
+  </div>
 </section>
 
 <!-- ============ 1 · CINEMATICA ============ -->
 <section class="scene" id="cinematica" data-title="1 · Rotational kinematics">
   <p class="sec-label step" data-n="1">Rotational kinematics</p>
-
-  <p class="sec-label">Theory</p>
+  <div class="subnav">
+    <button data-sub="teoria" class="active">📖 Theory</button>
+    <button data-sub="sim">🔬 Simulation</button>
+    <button data-sub="eser">✍️ Exercises</button>
+    <button data-sub="quiz">🧩 Quiz</button>
+  </div>
+  <div class="subpane" data-pane="teoria">
   <div class="card">
     <h2>🎯 The angular quantities</h2>
     <p>To describe rotation we measure angles in <strong>radians</strong> (rad): one full revolution equals $2\pi$ rad $\approx 6.28$ rad.</p>
@@ -359,7 +431,8 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
     <p class="dcap">Diagram: angle θ, tangential velocity v, centripetal acceleration a꜀ and the direction of ω.</p>
   </div>
 
-  <p class="sec-label">Simulations</p>
+  </div>
+  <div class="subpane" data-pane="sim" hidden>
   <div class="card sim-block">
     <h3>🎡 Spinning disk</h3>
     <p class="lead">Set the initial angular velocity ω₀ and the angular acceleration α: watch θ grow and, on a point P on the rim, the tangential velocity (green), the centripetal acceleration (red) and the tangential acceleration (orange). Change r to see that ω is the same for everyone, but v = r·ω is not.</p>
@@ -397,17 +470,25 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
     </div>
   </div>
 
-  <p class="sec-label">Try it</p>
+  </div>
+  <div class="subpane" data-pane="eser" hidden>
   <div class="card prova-block" id="prova-cinematica"></div>
-
+  </div>
+  <div class="subpane" data-pane="quiz" hidden>
   <div id="qz-cinematica" class="quiz-block"></div>
+  </div>
 </section>
 
 <!-- ============ 2 · DINAMICA ============ -->
 <section class="scene" id="dinamica" data-title="2 · Rotational dynamics">
   <p class="sec-label step" data-n="2">Rotational dynamics</p>
-
-  <p class="sec-label">Theory</p>
+  <div class="subnav">
+    <button data-sub="teoria" class="active">📖 Theory</button>
+    <button data-sub="sim">🔬 Simulation</button>
+    <button data-sub="eser">✍️ Exercises</button>
+    <button data-sub="quiz">🧩 Quiz</button>
+  </div>
+  <div class="subpane" data-pane="teoria">
   <div class="card">
     <h2>⚙️ What makes a body rotate</h2>
     <h3>The torque $M$ of a force</h3>
@@ -466,7 +547,8 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
     <p class="dcap">Diagram: a force F applied at distance r generates a torque M that accelerates the rotation (α).</p>
   </div>
 
-  <p class="sec-label">Simulations</p>
+  </div>
+  <div class="subpane" data-pane="sim" hidden>
   <div class="card sim-block">
     <h3>🔧 A force that sets a disk spinning</h3>
     <p class="lead">You apply a force F at distance r from the axis, at angle φ. Watch the lever arm, the torque M = r·F·sin φ and the acceleration α = M/I of the disk (I = ½·m·R²). The angular momentum L = I·ω grows over time.</p>
@@ -504,17 +586,25 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
     </div>
   </div>
 
-  <p class="sec-label">Try it</p>
+  </div>
+  <div class="subpane" data-pane="eser" hidden>
   <div class="card prova-block" id="prova-dinamica"></div>
-
+  </div>
+  <div class="subpane" data-pane="quiz" hidden>
   <div id="qz-dinamica" class="quiz-block"></div>
+  </div>
 </section>
 
 <!-- ============ 3 · CARRUCOLA ============ -->
 <section class="scene" id="carrucola" data-title="3 · Inclined planes and pulley">
   <p class="sec-label step" data-n="3">Inclined planes connected by a pulley</p>
-
-  <p class="sec-label">Theory</p>
+  <div class="subnav">
+    <button data-sub="teoria" class="active">📖 Theory</button>
+    <button data-sub="sim">🔬 Simulation</button>
+    <button data-sub="eser">✍️ Exercises</button>
+    <button data-sub="quiz">🧩 Quiz</button>
+  </div>
+  <div class="subpane" data-pane="teoria">
   <div class="card">
     <h2>⛰️ Bodies connected by a string over a rotating pulley</h2>
     <p>Two bodies are connected by an <strong>inextensible, massless string</strong> that runs over a <strong>pulley</strong>. If the pulley were ideal (massless) the tension would be the same at both ends. But a real pulley is a <strong>rotating disk</strong>: setting it spinning requires a torque, so the two tensions are <em>not equal</em>.</p>
@@ -550,7 +640,8 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
     <p class="dcap">Diagram: the difference T₂ − T₁ = ½M<sub>p</sub>·a makes the pulley-disk rotate.</p>
   </div>
 
-  <p class="sec-label">Simulations</p>
+  </div>
+  <div class="subpane" data-pane="sim" hidden>
   <div class="card sim-block">
     <h3>⛓️ System with a pulley-disk</h3>
     <p class="lead">Choose the scenario, adjust the masses, angles, friction and the pulley. Watch how the acceleration changes and how T₁ ≠ T₂ when the pulley has mass. Press start to see the bodies accelerate.</p>
@@ -594,17 +685,25 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
     </div>
   </div>
 
-  <p class="sec-label">Try it</p>
+  </div>
+  <div class="subpane" data-pane="eser" hidden>
   <div class="card prova-block" id="prova-carrucola"></div>
-
+  </div>
+  <div class="subpane" data-pane="quiz" hidden>
   <div id="qz-carrucola" class="quiz-block"></div>
+  </div>
 </section>
 
 <!-- ============ 4 · IMPULSO ANGOLARE ============ -->
 <section class="scene" id="impulso" data-title="4 · Torque and time (angular impulse)">
   <p class="sec-label step" data-n="4">Torque applied for a time interval</p>
-
-  <p class="sec-label">Theory</p>
+  <div class="subnav">
+    <button data-sub="teoria" class="active">📖 Theory</button>
+    <button data-sub="sim">🔬 Simulation</button>
+    <button data-sub="eser">✍️ Exercises</button>
+    <button data-sub="quiz">🧩 Quiz</button>
+  </div>
+  <div class="subpane" data-pane="teoria">
   <div class="card">
     <h2>⏱️ What happens if a torque acts for a time $\Delta t$</h2>
     <p>A rigid body is already rotating with angular velocity $\omega_0$. If we apply a torque $M$ to it for a time interval $\Delta t$, its angular momentum changes. This is the <strong>angular impulse theorem</strong>, an exact copy of the impulse theorem ($F\,\Delta t = \Delta p$):</p>
@@ -636,7 +735,8 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
     <p class="dcap">Diagram: a torque M applied for Δt changes the angular momentum by ΔL = M·Δt.</p>
   </div>
 
-  <p class="sec-label">Simulations</p>
+  </div>
+  <div class="subpane" data-pane="sim" hidden>
   <div class="card sim-block">
     <h3>🛞 Flywheel and angular impulse</h3>
     <p class="lead">The flywheel rotates at ω₀. Set the torque M (positive speeds up, negative brakes) and the duration Δt, then press «Apply M for Δt»: watch ω change by exactly Δω = (M/I)·Δt and then stay constant. Compare the prediction ω<sub>f</sub> with the measured value.</p>
@@ -673,17 +773,25 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
     </div>
   </div>
 
-  <p class="sec-label">Try it</p>
+  </div>
+  <div class="subpane" data-pane="eser" hidden>
   <div class="card prova-block" id="prova-impulso"></div>
-
+  </div>
+  <div class="subpane" data-pane="quiz" hidden>
   <div id="qz-impulso" class="quiz-block"></div>
+  </div>
 </section>
 
 <!-- ============ 5 · MOMENTO ANGOLARE ============ -->
 <section class="scene" id="angolare" data-title="5 · Angular momentum and applications">
   <p class="sec-label step" data-n="5">Conservation of angular momentum</p>
-
-  <p class="sec-label">Theory</p>
+  <div class="subnav">
+    <button data-sub="teoria" class="active">📖 Theory</button>
+    <button data-sub="sim">🔬 Simulation</button>
+    <button data-sub="eser">✍️ Exercises</button>
+    <button data-sub="quiz">🧩 Quiz</button>
+  </div>
+  <div class="subpane" data-pane="teoria">
   <div class="card">
     <h2>💫 When angular momentum is conserved</h2>
     <p>From the relation $M = \Delta L/\Delta t$ a very powerful principle follows immediately: if the <strong>total external torque is zero</strong>, the angular momentum <strong>is conserved</strong>.</p>
@@ -725,7 +833,8 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
     <p class="dcap">Left: platform/dancer (I·ω constant). Right: rod-pendulum struck at the end.</p>
   </div>
 
-  <p class="sec-label">Simulations</p>
+  </div>
+  <div class="subpane" data-pane="sim" hidden>
   <div class="card sim-block">
     <h3>🌀 Conservation of L in action</h3>
     <p class="lead">Choose the scenario. On the platform, pull the masses in/out and watch ω change while L stays constant. On the rod, launch the body and follow the two phases: ω set by the collision, then α due to gravity during the rise.</p>
@@ -783,17 +892,25 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
     </div>
   </div>
 
-  <p class="sec-label">Try it</p>
+  </div>
+  <div class="subpane" data-pane="eser" hidden>
   <div class="card prova-block" id="prova-angolare"></div>
-
+  </div>
+  <div class="subpane" data-pane="quiz" hidden>
   <div id="qz-angolare" class="quiz-block"></div>
+  </div>
 </section>
 
 <!-- ============ 6 · ROTOTRASLAZIONE ============ -->
 <section class="scene" id="rototraslazione" data-title="6 · Rolling (roto-translation)">
   <p class="sec-label step" data-n="6">Roto-translation: translation + rotation together</p>
-
-  <p class="sec-label">Theory</p>
+  <div class="subnav">
+    <button data-sub="teoria" class="active">📖 Theory</button>
+    <button data-sub="sim">🔬 Simulation</button>
+    <button data-sub="eser">✍️ Exercises</button>
+    <button data-sub="quiz">🧩 Quiz</button>
+  </div>
+  <div class="subpane" data-pane="teoria">
   <div class="card">
     <h2>🎳 When a body translates and rotates at the same instant</h2>
     <p>A wheel rolling forward, a ball rolling: the body <strong>translates</strong> (its center of mass moves) and at the same time <strong>rotates</strong> about the center of mass. The velocity of any point is the sum:</p>
@@ -851,7 +968,8 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
     <p class="dcap">Diagram: in pure rolling the contact point is at rest, the center goes at v, the top at 2·v.</p>
   </div>
 
-  <p class="sec-label">Simulations</p>
+  </div>
+  <div class="subpane" data-pane="sim" hidden>
   <div class="card sim-block">
     <h3>🏁 The race: who rolls fastest?</h3>
     <p class="lead">A rolling body (selectable shape) and a frictionless sliding block start together from the top. Watch: the block always wins (all the energy goes into translation), and among the rolling bodies the sphere wins. Change the mass and radius: the acceleration does not change! On the rolling body the velocities of the contact point (0), center (v) and top (2v) are shown.</p>
@@ -893,10 +1011,19 @@ svg.sim{width:100%;height:auto;background:#fbfcfe;border:1px solid var(--border)
     </div>
   </div>
 
-  <p class="sec-label">Try it</p>
+  </div>
+  <div class="subpane" data-pane="eser" hidden>
   <div class="card prova-block" id="prova-rototraslazione"></div>
-
+  </div>
+  <div class="subpane" data-pane="quiz" hidden>
   <div id="qz-rototraslazione" class="quiz-block"></div>
+  </div>
+</section>
+
+<!-- ============ FINAL TEST ============ -->
+<section class="scene" id="finale" data-title="Final summary test">
+  <p class="sec-label step" data-n="★">Final test · 20 questions across all topics</p>
+  <div class="card" id="final-block"></div>
 </section>
 
 </main>
@@ -967,11 +1094,30 @@ function showTab(name){
   navBtns.forEach(b=>b.classList.toggle('active', b.dataset.tab===name));
   scenes.forEach(s=>s.classList.toggle('active', s.id===name));
   activeScene=name;
+  const sc=document.getElementById(name);
+  if(sc){ const bar=sc.querySelector('.subnav');
+    if(bar){ bar.querySelectorAll('button').forEach((b,i)=>b.classList.toggle('active',i===0));
+      sc.querySelectorAll(':scope > .subpane').forEach(p=>{ p.hidden=(p.dataset.pane!=='teoria'); }); } }
   if(animators[name]) animators[name].draw();
   window.scrollTo({top:0,behavior:'smooth'});
 }
 navBtns.forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
 document.querySelectorAll('.home-card').forEach(c=>c.addEventListener('click',()=>showTab(c.dataset.go)));
+
+/* ===== Sub-tabs: Theory / Simulation / Exercises / Quiz ===== */
+document.querySelectorAll('.subnav').forEach(bar=>{
+  const sec=bar.closest('section.scene');
+  bar.querySelectorAll('button').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const pane=btn.dataset.sub;
+      bar.querySelectorAll('button').forEach(b=>b.classList.toggle('active',b===btn));
+      sec.querySelectorAll(':scope > .subpane').forEach(p=>{ p.hidden=(p.dataset.pane!==pane); });
+      if(pane==='sim' && animators[sec.id]) animators[sec.id].draw();
+      const y=bar.getBoundingClientRect().top+window.scrollY-72;
+      window.scrollTo({top:Math.max(0,y),behavior:'smooth'});
+    });
+  });
+});
 
 /* ===== Cursori ===== */
 function bindRange(id,valId,fmtFn){
@@ -1400,109 +1546,376 @@ function rpick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
 function rstep(a,b,s){ const n=Math.round((b-a)/s); return +(a+s*rint(0,n)).toFixed(4); }
 
 const PROVA={
-  cinematica:{ title:'🎯 Wheel in uniformly accelerated motion', gen(){
-    const w0=rstep(0,3,0.5), al=rstep(1,3,0.5), t=rint(2,6), r=rstep(0.2,0.5,0.05);
-    const wf=w0+al*t, th=w0*t+0.5*al*t*t, giri=th/(2*Math.PI), v=r*wf;
-    return { unit:'rad', ans:th, tol:Math.max(0.2,0.02*th),
-      statement:`A wheel rotates about its axis starting with angular velocity $\\omega_0 = ${knum(w0,1)}$ rad/s and speeds up uniformly with $\\alpha = ${knum(al,1)}$ rad/s². A point on the rim is $r = ${knum(r,2)}$ m from the axis.<br><b>Question:</b> through what angle $\\theta$ (in radians) does the wheel turn in $t = ${t}$ s?`,
-      hints:[ 'This is uniformly accelerated rotation: $\\theta = \\omega_0\\,t + \\tfrac12\\,\\alpha\\,t^2$ (same form as $s = v_0\\,t + \\tfrac12\\,a\\,t^2$).',
-              'Substitute $\\omega_0$, $\\alpha$ and $t$. Compute $\\omega_0\\,t$ and $\\tfrac12\\,\\alpha\\,t^2$ separately, then add.',
-              `$\\tfrac12\\,\\alpha\\,t^2 = \\tfrac12\\cdot ${knum(al,1)}\\cdot ${t}^2 = ${knum(0.5*al*t*t,2)}$ rad.` ],
-      steps:[ {t:'Formula', d:'$\\theta = \\omega_0\\,t + \\tfrac12\\,\\alpha\\,t^2$'},
-              {t:'Substitution', d:`$\\theta = ${knum(w0,1)}\\cdot ${t} + \\tfrac12\\cdot ${knum(al,1)}\\cdot ${t}^2$`},
-              {t:'Calculation', d:`$\\theta = ${knum(w0*t,2)} + ${knum(0.5*al*t*t,2)} = ${knum(th,2)}$ rad`},
-              {t:'In revolutions', d:`$n = \\dfrac{\\theta}{2\\pi} = ${knum(giri,2)}$ rev`},
-              {t:'Extra', d:`final angular velocity $\\omega = \\omega_0+\\alpha t = ${knum(wf,2)}$ rad/s; speed of the point $v = r\\,\\omega = ${knum(v,2)}$ m/s`} ] }; }
-  },
-  dinamica:{ title:'⚙️ Torque, inertia and angular acceleration of a disk', gen(){
-    const F=rint(4,16), R=rstep(0.2,0.5,0.05), M=rstep(1,4,0.5), t=rint(2,5);
-    const I=0.5*M*R*R, Mt=F*R, al=Mt/I, wf=al*t, L=I*wf;
-    return { unit:'rad/s²', ans:al, tol:Math.max(0.3,0.02*al),
-      statement:`A uniform solid disk (mass $M = ${knum(M,1)}$ kg, radius $R = ${knum(R,2)}$ m) is free to rotate about its axis. A force $F = ${F}$ N is applied tangentially at the rim.<br><b>Question:</b> what angular acceleration $\\alpha$ does it acquire?`,
-      hints:[ 'For a solid disk $I = \\tfrac12 M R^2$. The torque of a force tangent to the rim is $M = F\\,R$.',
-              'Apply the rotational 2nd law: $\\alpha = M/I$ (analogous to $a = F/m$).',
-              `$I = \\tfrac12\\cdot ${knum(M,1)}\\cdot ${knum(R,2)}^2 = ${knum(I,3)}$ kg·m².` ],
-      steps:[ {t:'Moment of inertia', d:`$I = \\tfrac12 M R^2 = \\tfrac12\\cdot ${knum(M,1)}\\cdot ${knum(R,2)}^2 = ${knum(I,3)}$ kg·m²`},
-              {t:'Torque', d:`$M = F\\,R = ${F}\\cdot ${knum(R,2)} = ${knum(Mt,2)}$ N·m`},
-              {t:'2nd law', d:`$\\alpha = \\dfrac{M}{I} = \\dfrac{${knum(Mt,2)}}{${knum(I,3)}} = ${knum(al,2)}$ rad/s²`},
-              {t:'After t', d:`at $t = ${t}$ s: $\\omega = \\alpha t = ${knum(wf,2)}$ rad/s, with $L = I\\,\\omega = ${knum(L,2)}$ kg·m²/s`} ] }; }
-  },
-  carrucola:{ title:'⛰️ System with a disk-pulley', gen(){
-    const m1=rstep(1,4,0.5), th1=rint(20,40), mu=rstep(0,0.2,0.05), Mp=rstep(1,4,0.5);
-    const m2=rstep(5,9,0.5), R=0.2;
-    const d1=m1*G*Math.sin(th1*DEG), f=mu*m1*G*Math.cos(th1*DEG), denom=m1+m2+0.5*Mp;
-    const a=(m2*G-d1-f)/denom;
-    return { unit:'m/s²', ans:a, tol:Math.max(0.1,0.02*Math.abs(a)),
-      statement:`A mass $m_1 = ${knum(m1,1)}$ kg sits on an inclined plane at $\\theta_1 = ${th1}^\\circ$ (friction $\\mu = ${knum(mu,2)}$) and is connected by a string, running over a <b>disk-pulley</b> (mass $M_p = ${knum(Mp,1)}$ kg), to a mass $m_2 = ${knum(m2,1)}$ kg hanging freely.<br><b>Question:</b> with what acceleration $a$ does the system move? ($g = 9.81$ m/s²)`,
-      hints:[ 'The pulley is a disk: it adds $\\tfrac12 M_p$ to the system inertia (denominator $m_1+m_2+\\tfrac12 M_p$).',
-              'Driving force = weight of $m_2$; resistances = $m_1 g\\sin\\theta_1$ (component along the plane) $+\\;\\mu\\,m_1 g\\cos\\theta_1$ (friction).',
-              `Denominator $= ${knum(m1,1)}+${knum(m2,1)}+\\tfrac12\\cdot ${knum(Mp,1)} = ${knum(denom,2)}$ kg.` ],
-      steps:[ {t:'Driving force', d:`$m_2\\,g = ${knum(m2,1)}\\cdot 9.81 = ${knum(m2*G,1)}$ N`},
-              {t:'Resistances', d:`$m_1 g\\sin\\theta_1 = ${knum(d1,1)}$ N; friction $\\mu\\,m_1 g\\cos\\theta_1 = ${knum(f,1)}$ N`},
-              {t:'Total inertia', d:`$m_1+m_2+\\tfrac12 M_p = ${knum(denom,2)}$ kg`},
-              {t:'Acceleration', d:`$a = \\dfrac{${knum(m2*G,1)} - ${knum(d1,1)} - ${knum(f,1)}}{${knum(denom,2)}} = ${knum(a,2)}$ m/s²`} ] }; }
-  },
-  impulso:{ title:'⏱️ Braking a flywheel', gen(){
-    const M=rstep(1,5,0.5), R=rstep(0.3,0.6,0.05), w0=rint(8,20), Mb=rstep(1,4,0.5);
-    const I=0.5*M*R*R, L=I*w0, dt=L/Mb;
-    return { unit:'s', ans:dt, tol:Math.max(0.1,0.02*dt),
-      statement:`A flywheel (solid disk, mass $M = ${knum(M,1)}$ kg, radius $R = ${knum(R,2)}$ m) spins at $\\omega_0 = ${w0}$ rad/s. A brake applies a constant torque $M_f = ${knum(Mb,1)}$ N·m opposing the rotation.<br><b>Question:</b> after what time $\\Delta t$ does the flywheel stop?`,
-      hints:[ 'Use the angular impulse theorem: $M\\,\\Delta t = \\Delta L$. To stop, $\\Delta L = L_0 = I\\,\\omega_0$.',
-              'So $\\Delta t = \\dfrac{I\\,\\omega_0}{M_f}$ (analogous to $\\Delta t = m v_0/F$ for stopping a body).',
-              `$I = \\tfrac12\\cdot ${knum(M,1)}\\cdot ${knum(R,2)}^2 = ${knum(I,3)}$ kg·m².` ],
-      steps:[ {t:'Moment of inertia', d:`$I = \\tfrac12 M R^2 = ${knum(I,3)}$ kg·m²`},
-              {t:'Angular momentum', d:`$L_0 = I\\,\\omega_0 = ${knum(I,3)}\\cdot ${w0} = ${knum(L,2)}$ kg·m²/s`},
-              {t:'Angular impulse', d:`$M_f\\,\\Delta t = L_0 \\;\\Rightarrow\\; \\Delta t = \\dfrac{L_0}{M_f} = \\dfrac{${knum(L,2)}}{${knum(Mb,1)}} = ${knum(dt,2)}$ s`} ] }; }
-  },
-  angolare:{ title:'🎯 Rod-pendulum struck at the end', gen(){
-    const M=rstep(1,4,0.5), L=rstep(0.6,1.4,0.1), m=rstep(0.1,0.6,0.05), v=rint(6,16);
-    const Itot=(1/3)*M*L*L+m*L*L, om0=m*v*L/Itot;
-    const Ep=(M*G*L/2+m*G*L), al90=Ep/Itot;
-    const cphi=1-0.5*Itot*om0*om0/Ep, full=cphi<=-1, phimax=full?180:Math.acos(clamp(cphi,-1,1))/DEG;
-    return { unit:'rad/s', ans:om0, tol:Math.max(0.2,0.02*om0),
-      statement:`A rigid rod (mass $M = ${knum(M,1)}$ kg, length $L = ${knum(L,2)}$ m), pivoted at one end and at rest in a vertical position, is struck at its free end by a body ($m = ${knum(m,2)}$ kg, $v = ${v}$ m/s $\\perp$ to the rod) that embeds in it.<br><b>Question:</b> what angular velocity $\\omega$ does the rod have right after the impact?`,
-      hints:[ 'During the impact, angular momentum about the pivot is conserved: $L_\\text{before} = L_\\text{after}$.',
-              '$L_\\text{before} = m\\,v\\,L$ (body at the end); $L_\\text{after} = I_\\text{tot}\\,\\omega$, with $I_\\text{tot} = \\tfrac13 M L^2 + m L^2$.',
-              `$I_\\text{tot} = \\tfrac13\\cdot ${knum(M,1)}\\cdot ${knum(L,2)}^2 + ${knum(m,2)}\\cdot ${knum(L,2)}^2 = ${knum(Itot,3)}$ kg·m².` ],
-      steps:[ {t:'Total inertia', d:`$I_\\text{tot} = \\tfrac13 M L^2 + m L^2 = ${knum((1/3)*M*L*L,3)} + ${knum(m*L*L,3)} = ${knum(Itot,3)}$ kg·m²`},
-              {t:'Conservation of L', d:`$m\\,v\\,L = I_\\text{tot}\\,\\omega \\;\\Rightarrow\\; \\omega = \\dfrac{m\\,v\\,L}{I_\\text{tot}}$`},
-              {t:'Result (① impact)', d:`$\\omega = \\dfrac{${knum(m,2)}\\cdot ${v}\\cdot ${knum(L,2)}}{${knum(Itot,3)}} = ${knum(om0,2)}$ rad/s`},
-              {t:'② Gravity → α', d:`at $\\varphi = 90^\\circ$ the angular acceleration is $\\alpha = \\dfrac{g\\,(M L/2+m L)}{I_\\text{tot}} = ${knum(al90,2)}$ rad/s² (it is 0 at the instant of impact, $\\varphi\\approx 0$)`},
-              {t:'Max swing', d:`the rod rises up to $\\varphi \\approx ${full?'180^\\circ\\ \\text{(full loop)}':knum(phimax,0)+'^\\circ'}$`} ] }; }
-  },
-  rototraslazione:{ title:'🎳 Body rolling down an inclined plane', gen(){
-    const shapes=[['a solid sphere',0.4,'\\tfrac25'],['a solid cylinder',0.5,'\\tfrac12'],['a ring',1,'1']];
-    const sh=rpick(shapes), c=sh[1], th=rint(15,35), h=rstep(0.5,2,0.5);
-    const a=G*Math.sin(th*DEG)/(1+c), v=Math.sqrt(2*G*h/(1+c));
-    return { unit:'m/s²', ans:a, tol:Math.max(0.1,0.02*a),
-      statement:`${sh[0].charAt(0).toUpperCase()+sh[0].slice(1)} (mass $m$, radius $R$) rolls <b>without slipping</b> down an inclined plane at $\\theta = ${th}^\\circ$. For this shape $I_\\text{cm} = ${sh[2]}\\,m R^2$, i.e. $c = ${knum(c,2)}$.<br><b>Question:</b> what is the acceleration of the center of mass $a_\\text{cm}$? ($g = 9.81$ m/s²)`,
-      hints:[ 'For pure rolling on a plane, $a_\\text{cm} = \\dfrac{g\\sin\\theta}{1 + c}$, where $c = I_\\text{cm}/(m R^2)$.',
-              'Note: mass and radius do not appear! Only the shape ($c$) and the angle $\\theta$ matter.',
-              `$g\\sin\\theta = 9.81\\cdot\\sin ${th}^\\circ = ${knum(G*Math.sin(th*DEG),2)}$ m/s²; now divide by $(1 + ${knum(c,2)})$.` ],
-      steps:[ {t:'Formula', d:'$a_\\text{cm} = \\dfrac{g\\sin\\theta}{1 + c}$'},
-              {t:'Component along the plane', d:`$g\\sin\\theta = 9.81\\cdot\\sin ${th}^\\circ = ${knum(G*Math.sin(th*DEG),2)}$ m/s²`},
-              {t:'Divide by (1+c)', d:`$a_\\text{cm} = \\dfrac{${knum(G*Math.sin(th*DEG),2)}}{1 + ${knum(c,2)}} = ${knum(a,2)}$ m/s²`},
-              {t:'Independence', d:`the result does not depend on $m$ or $R$: it changes only with the shape ($c$) and with $\\theta$`},
-              {t:'Extra (energy)', d:`starting from a height drop $h = ${knum(h,1)}$ m, at the bottom $v = \\sqrt{\\dfrac{2 g h}{1+c}} = ${knum(v,2)}$ m/s`} ] }; }
-  }
+  cinematica:{ title:'🎯 Rotational kinematics', levels:[
+    {name:'Basic', ex:[
+      ()=>{ const w0=rstep(0,4,0.5), al=rstep(1,3,0.5), t=rint(3,7), w=w0+al*t;
+        return { kind:'direct', unit:'rad/s', ans:w, tol:Math.max(0.1,0.02*w),
+          statement:`A wheel starts with angular velocity $\\omega_0 = ${knum(w0,1)}$ rad/s and accelerates uniformly at $\\alpha = ${knum(al,1)}$ rad/s².<br><b>Question:</b> what angular velocity $\\omega$ does it reach after $t = ${t}$ s?`,
+          hints:[ 'Uniformly accelerated motion: $\\omega = \\omega_0 + \\alpha\\,t$ (like $v = v_0 + a\\,t$).',
+                  `Substitute the data: $\\omega = ${knum(w0,1)} + ${knum(al,1)}\\cdot ${t}$.` ],
+          steps:[ {t:'Formula', d:'$\\omega = \\omega_0 + \\alpha\\,t$'},
+                  {t:'Substitution', d:`$\\omega = ${knum(w0,1)} + ${knum(al,1)}\\cdot ${t}$`},
+                  {t:'Result', d:`$\\omega = ${knum(w,2)}$ rad/s`} ] }; },
+      ()=>{ const w0=rstep(0,3,0.5), al=rstep(1,3,0.5), t=rint(3,6), w=w0+al*t;
+        return { kind:'inverse', unit:'rad/s²', ans:al, tol:Math.max(0.05,0.02*al),
+          statement:`A wheel goes from $\\omega_0 = ${knum(w0,1)}$ rad/s to $\\omega = ${knum(w,1)}$ rad/s in $t = ${t}$ s, with constant acceleration.<br><b>Question (inverse formula):</b> what is the angular acceleration $\\alpha$?`,
+          hints:[ 'Start from $\\omega = \\omega_0 + \\alpha\\,t$ and isolate $\\alpha$.',
+                  '$\\alpha = \\dfrac{\\omega - \\omega_0}{t}$.' ],
+          steps:[ {t:'Direct formula', d:'$\\omega = \\omega_0 + \\alpha\\,t$'},
+                  {t:'Invert for α', d:'$\\alpha = \\dfrac{\\omega - \\omega_0}{t}$'},
+                  {t:'Substitution', d:`$\\alpha = \\dfrac{${knum(w,1)} - ${knum(w0,1)}}{${t}}$`},
+                  {t:'Result', d:`$\\alpha = ${knum(al,2)}$ rad/s²`} ] }; }
+    ]},
+    {name:'Intermediate', ex:[
+      ()=>{ const w0=rstep(0,3,0.5), al=rstep(1,3,0.5), t=rint(3,6), th=w0*t+0.5*al*t*t, turns=th/(2*Math.PI);
+        return { kind:'direct', unit:'rad', ans:th, tol:Math.max(0.2,0.02*th),
+          statement:`A wheel with $\\omega_0 = ${knum(w0,1)}$ rad/s accelerates at $\\alpha = ${knum(al,1)}$ rad/s².<br><b>Question:</b> through what angle $\\theta$ does it turn in $t = ${t}$ s?`,
+          hints:[ 'It holds that $\\theta = \\omega_0\\,t + \\tfrac12\\,\\alpha\\,t^2$.',
+                  `The term $\\tfrac12\\,\\alpha\\,t^2 = \\tfrac12\\cdot ${knum(al,1)}\\cdot ${t}^2 = ${knum(0.5*al*t*t,2)}$ rad.` ],
+          steps:[ {t:'Formula', d:'$\\theta = \\omega_0\\,t + \\tfrac12\\,\\alpha\\,t^2$'},
+                  {t:'Substitution', d:`$\\theta = ${knum(w0,1)}\\cdot ${t} + \\tfrac12\\cdot ${knum(al,1)}\\cdot ${t}^2$`},
+                  {t:'Result', d:`$\\theta = ${knum(th,2)}$ rad $= ${knum(turns,2)}$ turns`} ] }; },
+      ()=>{ const al=rstep(1,3,0.5), t=rint(3,6), thR=+(0.5*al*t*t).toFixed(1), alAns=2*thR/(t*t);
+        return { kind:'inverse', unit:'rad/s²', ans:alAns, tol:Math.max(0.05,0.03*alAns),
+          statement:`Starting from rest ($\\omega_0 = 0$), a wheel turns through an angle $\\theta = ${knum(thR,1)}$ rad in $t = ${t}$ s with constant acceleration.<br><b>Question (inverse formula):</b> what is $\\alpha$?`,
+          hints:[ 'With $\\omega_0 = 0$ it reduces to $\\theta = \\tfrac12\\,\\alpha\\,t^2$.',
+                  'Isolate $\\alpha = \\dfrac{2\\theta}{t^2}$.' ],
+          steps:[ {t:'Formula', d:'$\\theta = \\tfrac12\\,\\alpha\\,t^2$ (since $\\omega_0=0$)'},
+                  {t:'Invert', d:'$\\alpha = \\dfrac{2\\theta}{t^2}$'},
+                  {t:'Substitution', d:`$\\alpha = \\dfrac{2\\cdot ${knum(thR,1)}}{${t}^2}$`},
+                  {t:'Result', d:`$\\alpha = ${knum(alAns,2)}$ rad/s²`} ] }; }
+    ]},
+    {name:'Advanced', ex:[
+      ()=>{ const w0=rstep(1,3,0.5), al=rstep(1,3,0.5), dth=rint(8,20), r=rstep(0.2,0.5,0.05), w=Math.sqrt(w0*w0+2*al*dth), v=r*w;
+        return { kind:'direct', unit:'m/s', ans:v, tol:Math.max(0.1,0.02*v),
+          statement:`A wheel starts with $\\omega_0 = ${knum(w0,1)}$ rad/s and accelerates at $\\alpha = ${knum(al,1)}$ rad/s² through an angle $\\Delta\\theta = ${dth}$ rad. A point on the rim is $r = ${knum(r,2)}$ m from the axis.<br><b>Question:</b> what linear velocity $v$ does that point have at the end?`,
+          hints:[ 'First the angular velocity: $\\omega^2 = \\omega_0^2 + 2\\,\\alpha\\,\\Delta\\theta$.',
+                  'Then the point velocity: $v = r\\,\\omega$.' ],
+          steps:[ {t:'Angular velocity', d:`$\\omega = \\sqrt{\\omega_0^2 + 2\\alpha\\Delta\\theta} = \\sqrt{${knum(w0*w0,2)} + ${knum(2*al*dth,2)}} = ${knum(w,2)}$ rad/s`},
+                  {t:'Linear velocity', d:`$v = r\\,\\omega = ${knum(r,2)}\\cdot ${knum(w,2)} = ${knum(v,2)}$ m/s`} ] }; },
+      ()=>{ const r=rstep(0.2,0.6,0.05), w=rstep(4,10,0.5), vR=+(r*w).toFixed(2), acR=+(w*w*r).toFixed(2), wAns=acR/vR;
+        return { kind:'inverse', unit:'rad/s', ans:wAns, tol:Math.max(0.1,0.03*wAns),
+          statement:`A point on a disk has tangential velocity $v = ${knum(vR,2)}$ m/s and centripetal acceleration $a_c = ${knum(acR,2)}$ m/s².<br><b>Question (inverse formula):</b> what angular velocity $\\omega$ does the disk have?`,
+          hints:[ 'Recall $v = \\omega\\,r$ and $a_c = \\omega^2 r$: dividing one by the other removes $r$.',
+                  '$\\dfrac{a_c}{v} = \\omega$.' ],
+          steps:[ {t:'Relations', d:'$v = \\omega\\,r,\\quad a_c = \\omega^2 r$'},
+                  {t:'Ratio', d:'$\\dfrac{a_c}{v} = \\dfrac{\\omega^2 r}{\\omega r} = \\omega$'},
+                  {t:'Substitution', d:`$\\omega = \\dfrac{${knum(acR,2)}}{${knum(vR,2)}}$`},
+                  {t:'Result', d:`$\\omega = ${knum(wAns,2)}$ rad/s`} ] }; }
+    ]}
+  ]},
+  dinamica:{ title:'⚙️ Rotational dynamics', levels:[
+    {name:'Basic', ex:[
+      ()=>{ const M=rstep(1,5,0.5), R=rstep(0.2,0.6,0.05), I=0.5*M*R*R;
+        return { kind:'direct', unit:'kg·m²', ans:I, tol:Math.max(0.005,0.02*I),
+          statement:`A uniform solid disk has mass $M = ${knum(M,1)}$ kg and radius $R = ${knum(R,2)}$ m.<br><b>Question:</b> what is its moment of inertia $I$ about the central axis?`,
+          hints:[ 'For a solid disk (or cylinder): $I = \\tfrac12 M R^2$.',
+                  `First compute $R^2 = ${knum(R*R,3)}$ m².` ],
+          steps:[ {t:'Formula', d:'$I = \\tfrac12 M R^2$'},
+                  {t:'Substitution', d:`$I = \\tfrac12\\cdot ${knum(M,1)}\\cdot ${knum(R,2)}^2$`},
+                  {t:'Result', d:`$I = ${knum(I,3)}$ kg·m²`} ] }; },
+      ()=>{ const M=rstep(1,4,0.5), Rt=rstep(0.2,0.5,0.05), I=+(0.5*M*Rt*Rt).toFixed(3), R=Math.sqrt(2*I/M);
+        return { kind:'inverse', unit:'m', ans:R, tol:Math.max(0.01,0.03*R),
+          statement:`A solid disk of mass $M = ${knum(M,1)}$ kg has moment of inertia $I = ${knum(I,3)}$ kg·m².<br><b>Question (inverse formula):</b> what is the radius $R$?`,
+          hints:[ 'Start from $I = \\tfrac12 M R^2$ and isolate $R$.',
+                  '$R = \\sqrt{\\dfrac{2 I}{M}}$.' ],
+          steps:[ {t:'Formula', d:'$I = \\tfrac12 M R^2$'},
+                  {t:'Invert', d:'$R = \\sqrt{\\dfrac{2 I}{M}}$'},
+                  {t:'Substitution', d:`$R = \\sqrt{\\dfrac{2\\cdot ${knum(I,3)}}{${knum(M,1)}}}$`},
+                  {t:'Result', d:`$R = ${knum(R,2)}$ m`} ] }; }
+    ]},
+    {name:'Intermediate', ex:[
+      ()=>{ const F=rint(4,16), R=rstep(0.2,0.5,0.05), M=rstep(1,4,0.5), I=0.5*M*R*R, Mt=F*R, al=Mt/I;
+        return { kind:'direct', unit:'rad/s²', ans:al, tol:Math.max(0.2,0.02*al),
+          statement:`A force $F = ${F}$ N is applied tangentially at the rim of a solid disk ($M = ${knum(M,1)}$ kg, $R = ${knum(R,2)}$ m).<br><b>Question:</b> what angular acceleration $\\alpha$ does it acquire?`,
+          hints:[ 'You need $I = \\tfrac12 M R^2$ and the torque $M = F\\,R$.',
+                  'Then the rotational second law: $\\alpha = M/I$.' ],
+          steps:[ {t:'Inertia', d:`$I = \\tfrac12 M R^2 = ${knum(I,3)}$ kg·m²`},
+                  {t:'Torque', d:`$M = F\\,R = ${F}\\cdot ${knum(R,2)} = ${knum(Mt,2)}$ N·m`},
+                  {t:'Second law', d:`$\\alpha = \\dfrac{M}{I} = \\dfrac{${knum(Mt,2)}}{${knum(I,3)}} = ${knum(al,2)}$ rad/s²`} ] }; },
+      ()=>{ const M=rstep(1,4,0.5), R=rstep(0.2,0.5,0.05), al=rint(6,20), I=0.5*M*R*R, F=I*al/R;
+        return { kind:'inverse', unit:'N', ans:F, tol:Math.max(0.2,0.02*F),
+          statement:`You want to give a solid disk ($M = ${knum(M,1)}$ kg, $R = ${knum(R,2)}$ m) an angular acceleration $\\alpha = ${al}$ rad/s² with a force applied tangentially at the rim.<br><b>Question (inverse formula):</b> what force $F$ is needed?`,
+          hints:[ 'From $M = I\\,\\alpha$ and $M = F\\,R$ you get $F = \\dfrac{I\\,\\alpha}{R}$.',
+                  `You need $I = \\tfrac12 M R^2 = ${knum(I,3)}$ kg·m².` ],
+          steps:[ {t:'Inertia', d:`$I = \\tfrac12 M R^2 = ${knum(I,3)}$ kg·m²`},
+                  {t:'Required torque', d:`$M = I\\,\\alpha = ${knum(I,3)}\\cdot ${al} = ${knum(I*al,2)}$ N·m`},
+                  {t:'Force (inverse)', d:`$F = \\dfrac{M}{R} = \\dfrac{${knum(I*al,2)}}{${knum(R,2)}} = ${knum(F,2)}$ N`} ] }; }
+    ]},
+    {name:'Advanced', ex:[
+      ()=>{ const F=rint(4,12), R=rstep(0.3,0.5,0.05), M=rstep(2,4,0.5), t=rint(2,4), I=0.5*M*R*R, al=F*R/I, w=al*t, L=I*w;
+        return { kind:'direct', unit:'kg·m²/s', ans:L, tol:Math.max(0.05,0.02*L),
+          statement:`A solid disk ($M = ${knum(M,1)}$ kg, $R = ${knum(R,2)}$ m) starts from rest; a force $F = ${F}$ N acts at the rim for $t = ${t}$ s.<br><b>Question:</b> what angular momentum $L$ does it have at the end?`,
+          hints:[ 'Long path: $\\alpha = FR/I$, then $\\omega = \\alpha t$, finally $L = I\\omega$.',
+                  'Shortcut: from rest $L = M\\,t = F R\\,t$ (angular impulse).' ],
+          steps:[ {t:'Inertia', d:`$I = \\tfrac12 M R^2 = ${knum(I,3)}$ kg·m²`},
+                  {t:'Acceleration', d:`$\\alpha = \\dfrac{F R}{I} = ${knum(al,2)}$ rad/s²`},
+                  {t:'Velocity', d:`$\\omega = \\alpha\\,t = ${knum(w,2)}$ rad/s`},
+                  {t:'Angular momentum', d:`$L = I\\omega = ${knum(L,2)}$ kg·m²/s (equal to $F R t = ${knum(F*R*t,2)}$)`} ] }; },
+      ()=>{ const M=rstep(1,4,0.5), R=rstep(0.2,0.5,0.05), w=rint(8,20), t=rint(2,5), I=0.5*M*R*R, Mt=I*w/t;
+        return { kind:'inverse', unit:'N·m', ans:Mt, tol:Math.max(0.05,0.02*Mt),
+          statement:`You want to bring a solid disk ($M = ${knum(M,1)}$ kg, $R = ${knum(R,2)}$ m) from rest to $\\omega = ${w}$ rad/s in $t = ${t}$ s with a constant torque.<br><b>Question (inverse formula):</b> what torque $M$ is required?`,
+          hints:[ 'Angular impulse from rest: $M\\,t = \\Delta L = I\\,\\omega$.',
+                  `So $M = \\dfrac{I\\,\\omega}{t}$, with $I = \\tfrac12 M_\\text{disk} R^2 = ${knum(I,3)}$ kg·m².` ],
+          steps:[ {t:'Inertia', d:`$I = \\tfrac12 M R^2 = ${knum(I,3)}$ kg·m²`},
+                  {t:'Angular impulse', d:'$M\\,t = I\\,\\omega \\;\\Rightarrow\\; M = \\dfrac{I\\,\\omega}{t}$'},
+                  {t:'Substitution', d:`$M = \\dfrac{${knum(I,3)}\\cdot ${w}}{${t}} = ${knum(Mt,2)}$ N·m`} ] }; }
+    ]}
+  ]},
+  carrucola:{ title:'⛰️ Inclined planes and a disk pulley', levels:[
+    {name:'Basic', ex:[
+      ()=>{ const m1=rstep(1,4,0.5), m2=rstep(2,6,0.5), Mp=rstep(1,4,0.5), den=m1+m2+0.5*Mp, a=m2*G/den;
+        return { kind:'direct', unit:'m/s²', ans:a, tol:Math.max(0.05,0.02*a),
+          statement:`On a frictionless horizontal table ($\\mu = 0$) sits $m_1 = ${knum(m1,1)}$ kg, connected by a string — over a disk pulley $M_p = ${knum(Mp,1)}$ kg — to $m_2 = ${knum(m2,1)}$ kg hanging freely.<br><b>Question:</b> with what acceleration $a$ does the system move? ($g = 9.81$)`,
+          hints:[ 'The driving force is $m_2 g$; the total inertia is $m_1+m_2+\\tfrac12 M_p$.',
+                  '$a = \\dfrac{m_2 g}{m_1+m_2+\\tfrac12 M_p}$.' ],
+          steps:[ {t:'Drive', d:`$m_2 g = ${knum(m2,1)}\\cdot 9.81 = ${knum(m2*G,1)}$ N`},
+                  {t:'Total inertia', d:`$m_1+m_2+\\tfrac12 M_p = ${knum(den,2)}$ kg`},
+                  {t:'Acceleration', d:`$a = \\dfrac{${knum(m2*G,1)}}{${knum(den,2)}} = ${knum(a,2)}$ m/s²`} ] }; },
+      ()=>{ const Mp=rstep(1,5,0.5), a=rstep(1,5,0.5), dT=0.5*Mp*a;
+        return { kind:'inverse', unit:'m/s²', ans:a, tol:Math.max(0.05,0.02*a),
+          statement:`While the system accelerates, the disk pulley of mass $M_p = ${knum(Mp,1)}$ kg shows a tension imbalance $T_2 - T_1 = ${knum(dT,2)}$ N at the two ends of the string.<br><b>Question (inverse formula):</b> with what acceleration $a$ does the system move?`,
+          hints:[ 'The link is $T_2 - T_1 = \\tfrac12 M_p\\,a$ (it comes from $(T_2-T_1)R = \\tfrac12 M_p R^2\\cdot a/R$).',
+                  'Isolate $a = \\dfrac{2\\,(T_2 - T_1)}{M_p}$.' ],
+          steps:[ {t:'Formula', d:'$T_2 - T_1 = \\tfrac12 M_p\\,a$'},
+                  {t:'Invert', d:'$a = \\dfrac{2\\,(T_2 - T_1)}{M_p}$'},
+                  {t:'Substitution', d:`$a = \\dfrac{2\\cdot ${knum(dT,2)}}{${knum(Mp,1)}} = ${knum(a,2)}$ m/s²`} ] }; }
+    ]},
+    {name:'Intermediate', ex:[
+      ()=>{ const m1=rstep(1,4,0.5), th=rint(20,40), m2=rstep(3,7,0.5), Mp=rstep(1,4,0.5), d1=m1*G*Math.sin(th*DEG), den=m1+m2+0.5*Mp, a=(m2*G-d1)/den;
+        return { kind:'direct', unit:'m/s²', ans:a, tol:Math.max(0.05,0.02*Math.abs(a)),
+          statement:`$m_1 = ${knum(m1,1)}$ kg on a frictionless incline of $\\theta = ${th}^\\circ$, connected by a disk pulley ($M_p = ${knum(Mp,1)}$ kg) to $m_2 = ${knum(m2,1)}$ kg hanging.<br><b>Question:</b> acceleration $a$ of the system? ($g = 9.81$)`,
+          hints:[ 'Net drive $= m_2 g - m_1 g\\sin\\theta$; inertia $= m_1+m_2+\\tfrac12 M_p$.',
+                  `The plane resistance is $m_1 g\\sin\\theta = ${knum(d1,1)}$ N.` ],
+          steps:[ {t:'Drive', d:`$m_2 g = ${knum(m2*G,1)}$ N`},
+                  {t:'Resistance (plane)', d:`$m_1 g\\sin\\theta = ${knum(m1,1)}\\cdot 9.81\\cdot\\sin ${th}^\\circ = ${knum(d1,1)}$ N`},
+                  {t:'Total inertia', d:`$m_1+m_2+\\tfrac12 M_p = ${knum(den,2)}$ kg`},
+                  {t:'Acceleration', d:`$a = \\dfrac{${knum(m2*G,1)} - ${knum(d1,1)}}{${knum(den,2)}} = ${knum(a,2)}$ m/s²`} ] }; },
+      ()=>{ const m2=rstep(3,7,0.5), Mp=rstep(1,4,0.5), m1t=rstep(1,4,0.5), a=+(m2*G/(m1t+m2+0.5*Mp)).toFixed(2), m1=m2*G/a-m2-0.5*Mp;
+        return { kind:'inverse', unit:'kg', ans:m1, tol:Math.max(0.1,0.05*m1),
+          statement:`On a frictionless horizontal table, $m_2 = ${knum(m2,1)}$ kg hanging and a disk pulley $M_p = ${knum(Mp,1)}$ kg produce an acceleration $a = ${knum(a,2)}$ m/s² in the system.<br><b>Question (inverse formula):</b> what is the mass $m_1$ on the table? ($g = 9.81$)`,
+          hints:[ 'From $a = \\dfrac{m_2 g}{m_1+m_2+\\tfrac12 M_p}$ first get the denominator.',
+                  '$m_1 = \\dfrac{m_2 g}{a} - m_2 - \\tfrac12 M_p$.' ],
+          steps:[ {t:'Direct formula', d:'$a = \\dfrac{m_2 g}{m_1+m_2+\\tfrac12 M_p}$'},
+                  {t:'Isolate the denominator', d:`$m_1+m_2+\\tfrac12 M_p = \\dfrac{m_2 g}{a} = ${knum(m2*G/a,2)}$ kg`},
+                  {t:'Get m₁', d:`$m_1 = ${knum(m2*G/a,2)} - ${knum(m2,1)} - ${knum(0.5*Mp,2)} = ${knum(m1,2)}$ kg`} ] }; }
+    ]},
+    {name:'Advanced', ex:[
+      ()=>{ const m1=rstep(1,4,0.5), th=rint(20,40), mu=rstep(0.05,0.25,0.05), Mp=rstep(1,4,0.5), m2=rstep(4,8,0.5), d1=m1*G*Math.sin(th*DEG), f=mu*m1*G*Math.cos(th*DEG), den=m1+m2+0.5*Mp, a=(m2*G-d1-f)/den;
+        return { kind:'direct', unit:'m/s²', ans:a, tol:Math.max(0.05,0.02*Math.abs(a)),
+          statement:`$m_1 = ${knum(m1,1)}$ kg on an incline of $\\theta = ${th}^\\circ$ with friction $\\mu = ${knum(mu,2)}$; disk pulley $M_p = ${knum(Mp,1)}$ kg; $m_2 = ${knum(m2,1)}$ kg hanging.<br><b>Question:</b> acceleration $a$ of the system? ($g = 9.81$)`,
+          hints:[ 'There are two resistances: $m_1 g\\sin\\theta$ (weight along the plane) and $\\mu\\,m_1 g\\cos\\theta$ (friction).',
+                  '$a = \\dfrac{m_2 g - m_1 g\\sin\\theta - \\mu m_1 g\\cos\\theta}{m_1+m_2+\\tfrac12 M_p}$.' ],
+          steps:[ {t:'Drive', d:`$m_2 g = ${knum(m2*G,1)}$ N`},
+                  {t:'Resistances', d:`$m_1 g\\sin\\theta = ${knum(d1,1)}$ N; friction $\\mu m_1 g\\cos\\theta = ${knum(f,1)}$ N`},
+                  {t:'Total inertia', d:`$m_1+m_2+\\tfrac12 M_p = ${knum(den,2)}$ kg`},
+                  {t:'Acceleration', d:`$a = \\dfrac{${knum(m2*G,1)} - ${knum(d1,1)} - ${knum(f,1)}}{${knum(den,2)}} = ${knum(a,2)}$ m/s²`} ] }; },
+      ()=>{ const m1=rstep(1,4,0.5), th=rint(20,35), Mp=rstep(1,4,0.5), a=rstep(1,3,0.5), d1=m1*G*Math.sin(th*DEG), m2=(a*(m1+0.5*Mp)+d1)/(G-a);
+        return { kind:'inverse', unit:'kg', ans:m2, tol:Math.max(0.1,0.04*m2),
+          statement:`$m_1 = ${knum(m1,1)}$ kg on a frictionless incline of $\\theta = ${th}^\\circ$, disk pulley $M_p = ${knum(Mp,1)}$ kg. You want the system to accelerate at $a = ${knum(a,1)}$ m/s².<br><b>Question (inverse formula):</b> what mass $m_2$ should be hung? ($g = 9.81$)`,
+          hints:[ 'Write $a\\,(m_1+m_2+\\tfrac12 M_p) = m_2 g - m_1 g\\sin\\theta$ and isolate $m_2$.',
+                  '$m_2 = \\dfrac{a(m_1+\\tfrac12 M_p) + m_1 g\\sin\\theta}{g - a}$.' ],
+          steps:[ {t:'Balance', d:'$a\\,(m_1+m_2+\\tfrac12 M_p) = m_2 g - m_1 g\\sin\\theta$'},
+                  {t:'Isolate m₂', d:'$m_2 = \\dfrac{a(m_1+\\tfrac12 M_p) + m_1 g\\sin\\theta}{g - a}$'},
+                  {t:'Substitution', d:`$m_2 = \\dfrac{${knum(a,1)}\\cdot ${knum(m1+0.5*Mp,2)} + ${knum(d1,1)}}{9.81 - ${knum(a,1)}} = ${knum(m2,2)}$ kg`} ] }; }
+    ]}
+  ]},
+  impulso:{ title:'⏱️ Angular impulse and torque over time', levels:[
+    {name:'Basic', ex:[
+      ()=>{ const Mt=rstep(1,5,0.5), dt=rint(2,6), dL=Mt*dt;
+        return { kind:'direct', unit:'kg·m²/s', ans:dL, tol:Math.max(0.05,0.02*dL),
+          statement:`A constant torque $M = ${knum(Mt,1)}$ N·m acts on a body for a time $\\Delta t = ${dt}$ s.<br><b>Question:</b> by how much does the angular momentum change, $\\Delta L$?`,
+          hints:[ 'Angular impulse theorem: $\\Delta L = M\\,\\Delta t$.',
+                  `Substitute: $\\Delta L = ${knum(Mt,1)}\\cdot ${dt}$.` ],
+          steps:[ {t:'Formula', d:'$\\Delta L = M\\,\\Delta t$'},
+                  {t:'Substitution', d:`$\\Delta L = ${knum(Mt,1)}\\cdot ${dt}$`},
+                  {t:'Result', d:`$\\Delta L = ${knum(dL,2)}$ kg·m²/s`} ] }; },
+      ()=>{ const Mt=rstep(1,5,0.5), dt=rint(2,6), dL=Mt*dt;
+        return { kind:'inverse', unit:'N·m', ans:Mt, tol:Math.max(0.05,0.02*Mt),
+          statement:`A constant torque applied for $\\Delta t = ${dt}$ s produces a change in angular momentum $\\Delta L = ${knum(dL,1)}$ kg·m²/s.<br><b>Question (inverse formula):</b> what is the torque $M$?`,
+          hints:[ 'From $\\Delta L = M\\,\\Delta t$ isolate $M$.',
+                  '$M = \\dfrac{\\Delta L}{\\Delta t}$.' ],
+          steps:[ {t:'Formula', d:'$\\Delta L = M\\,\\Delta t$'},
+                  {t:'Invert', d:'$M = \\dfrac{\\Delta L}{\\Delta t}$'},
+                  {t:'Substitution', d:`$M = \\dfrac{${knum(dL,1)}}{${dt}} = ${knum(Mt,2)}$ N·m`} ] }; }
+    ]},
+    {name:'Intermediate', ex:[
+      ()=>{ const M=rstep(1,5,0.5), R=rstep(0.3,0.6,0.05), w0=rint(8,20), Mb=rstep(1,4,0.5), I=0.5*M*R*R, dt=I*w0/Mb;
+        return { kind:'direct', unit:'s', ans:dt, tol:Math.max(0.05,0.02*dt),
+          statement:`A flywheel (solid disk, $M = ${knum(M,1)}$ kg, $R = ${knum(R,2)}$ m) spins at $\\omega_0 = ${w0}$ rad/s. A brake applies a constant opposing torque $M_f = ${knum(Mb,1)}$ N·m.<br><b>Question:</b> after what time $\\Delta t$ does it stop?`,
+          hints:[ 'To stop you need $M_f\\,\\Delta t = L_0 = I\\,\\omega_0$.',
+                  `With $I = \\tfrac12 M R^2 = ${knum(I,3)}$ kg·m².` ],
+          steps:[ {t:'Inertia', d:`$I = \\tfrac12 M R^2 = ${knum(I,3)}$ kg·m²`},
+                  {t:'Angular momentum', d:`$L_0 = I\\,\\omega_0 = ${knum(I*w0,2)}$ kg·m²/s`},
+                  {t:'Time', d:`$\\Delta t = \\dfrac{L_0}{M_f} = \\dfrac{${knum(I*w0,2)}}{${knum(Mb,1)}} = ${knum(dt,2)}$ s`} ] }; },
+      ()=>{ const M=rstep(1,5,0.5), R=rstep(0.3,0.6,0.05), w0=rint(8,18), dt=rint(2,6), I=0.5*M*R*R, Mb=I*w0/dt;
+        return { kind:'inverse', unit:'N·m', ans:Mb, tol:Math.max(0.05,0.02*Mb),
+          statement:`You want to stop a flywheel (solid disk, $M = ${knum(M,1)}$ kg, $R = ${knum(R,2)}$ m) spinning at $\\omega_0 = ${w0}$ rad/s in exactly $\\Delta t = ${dt}$ s.<br><b>Question (inverse formula):</b> what braking torque $M_f$ is needed?`,
+          hints:[ 'From $M_f\\,\\Delta t = I\\,\\omega_0$ isolate $M_f$.',
+                  `$M_f = \\dfrac{I\\,\\omega_0}{\\Delta t}$, with $I = ${knum(I,3)}$ kg·m².` ],
+          steps:[ {t:'Inertia', d:`$I = \\tfrac12 M R^2 = ${knum(I,3)}$ kg·m²`},
+                  {t:'Angular momentum', d:`$L_0 = I\\,\\omega_0 = ${knum(I*w0,2)}$ kg·m²/s`},
+                  {t:'Braking torque', d:`$M_f = \\dfrac{L_0}{\\Delta t} = \\dfrac{${knum(I*w0,2)}}{${dt}} = ${knum(Mb,2)}$ N·m`} ] }; }
+    ]},
+    {name:'Advanced', ex:[
+      ()=>{ const M=rstep(2,4,0.5), R=rstep(0.4,0.6,0.05), w0=rint(3,8), Mt=rstep(1,3,0.5), dt=rint(2,4), I=0.5*M*R*R, wf=w0+Mt/I*dt;
+        return { kind:'direct', unit:'rad/s', ans:wf, tol:Math.max(0.1,0.02*wf),
+          statement:`A solid disk ($M = ${knum(M,1)}$ kg, $R = ${knum(R,2)}$ m) spins at $\\omega_0 = ${w0}$ rad/s. A torque $M = ${knum(Mt,1)}$ N·m acts in the direction of motion for $\\Delta t = ${dt}$ s.<br><b>Question:</b> what final $\\omega$ does it reach?`,
+          hints:[ 'The change is $\\Delta\\omega = \\dfrac{\\Delta L}{I} = \\dfrac{M\\,\\Delta t}{I}$.',
+                  `Then $\\omega_f = \\omega_0 + \\Delta\\omega$, with $I = ${knum(I,3)}$ kg·m².` ],
+          steps:[ {t:'Inertia', d:`$I = \\tfrac12 M R^2 = ${knum(I,3)}$ kg·m²`},
+                  {t:'Impulse → Δω', d:`$\\Delta\\omega = \\dfrac{M\\Delta t}{I} = \\dfrac{${knum(Mt*dt,2)}}{${knum(I,3)}} = ${knum(Mt/I*dt,2)}$ rad/s`},
+                  {t:'Final', d:`$\\omega_f = ${w0} + ${knum(Mt/I*dt,2)} = ${knum(wf,2)}$ rad/s`} ] }; },
+      ()=>{ const M=rstep(1,4,0.5), R=rstep(0.3,0.6,0.05), w=rint(8,18), Mt=rstep(1,4,0.5), I=0.5*M*R*R, dt=I*w/Mt;
+        return { kind:'inverse', unit:'s', ans:dt, tol:Math.max(0.05,0.02*dt),
+          statement:`A solid disk ($M = ${knum(M,1)}$ kg, $R = ${knum(R,2)}$ m), at rest, is set spinning by a constant torque $M = ${knum(Mt,1)}$ N·m. You want to reach $\\omega = ${w}$ rad/s.<br><b>Question (inverse formula):</b> for how long $\\Delta t$ must the torque be applied?`,
+          hints:[ 'Angular impulse from rest: $M\\,\\Delta t = I\\,\\omega$.',
+                  `$\\Delta t = \\dfrac{I\\,\\omega}{M}$, with $I = ${knum(I,3)}$ kg·m².` ],
+          steps:[ {t:'Inertia', d:`$I = \\tfrac12 M R^2 = ${knum(I,3)}$ kg·m²`},
+                  {t:'Final angular momentum', d:`$L = I\\,\\omega = ${knum(I*w,2)}$ kg·m²/s`},
+                  {t:'Time', d:`$\\Delta t = \\dfrac{L}{M} = \\dfrac{${knum(I*w,2)}}{${knum(Mt,1)}} = ${knum(dt,2)}$ s`} ] }; }
+    ]}
+  ]},
+  angolare:{ title:'💫 Angular momentum: conservation and collisions', levels:[
+    {name:'Basic', ex:[
+      ()=>{ const I1=rstep(2,6,0.5), w1=rstep(1,4,0.5), I2=rstep(1,3,0.5), w2=I1*w1/I2;
+        return { kind:'direct', unit:'rad/s', ans:w2, tol:Math.max(0.1,0.02*w2),
+          statement:`An isolated system has moment of inertia $I_1 = ${knum(I1,1)}$ kg·m² and spins at $\\omega_1 = ${knum(w1,1)}$ rad/s. By redistributing the mass, the inertia becomes $I_2 = ${knum(I2,1)}$ kg·m².<br><b>Question:</b> what $\\omega_2$ does it take on?`,
+          hints:[ 'Angular momentum is conserved: $I_1\\omega_1 = I_2\\omega_2$.',
+                  '$\\omega_2 = \\dfrac{I_1\\omega_1}{I_2}$.' ],
+          steps:[ {t:'Conservation', d:'$I_1\\omega_1 = I_2\\omega_2$'},
+                  {t:'Get ω₂', d:`$\\omega_2 = \\dfrac{I_1\\omega_1}{I_2} = \\dfrac{${knum(I1,1)}\\cdot ${knum(w1,1)}}{${knum(I2,1)}}$`},
+                  {t:'Result', d:`$\\omega_2 = ${knum(w2,2)}$ rad/s`} ] }; },
+      ()=>{ const I1=rstep(2,6,0.5), w1=rstep(1,3,0.5), fac=rpick([1.5,2,2.5,3]), w2=w1*fac, I2=I1*w1/w2;
+        return { kind:'inverse', unit:'kg·m²', ans:I2, tol:Math.max(0.05,0.03*I2),
+          statement:`An isolated platform goes from $\\omega_1 = ${knum(w1,1)}$ rad/s to $\\omega_2 = ${knum(w2,1)}$ rad/s after the person pulls the weights toward the axis. Initially $I_1 = ${knum(I1,1)}$ kg·m².<br><b>Question (inverse formula):</b> what final moment of inertia $I_2$ was reached?`,
+          hints:[ 'From $I_1\\omega_1 = I_2\\omega_2$ isolate $I_2$.',
+                  '$I_2 = \\dfrac{I_1\\omega_1}{\\omega_2}$.' ],
+          steps:[ {t:'Conservation', d:'$I_1\\omega_1 = I_2\\omega_2$'},
+                  {t:'Get I₂', d:`$I_2 = \\dfrac{I_1\\omega_1}{\\omega_2} = \\dfrac{${knum(I1,1)}\\cdot ${knum(w1,1)}}{${knum(w2,1)}}$`},
+                  {t:'Result', d:`$I_2 = ${knum(I2,2)}$ kg·m²`} ] }; }
+    ]},
+    {name:'Intermediate', ex:[
+      ()=>{ const M=rstep(1,4,0.5), L=rstep(0.6,1.4,0.1), m=rstep(0.1,0.5,0.05), v=rint(6,16), Itot=(1/3)*M*L*L+m*L*L, w=m*v*L/Itot;
+        return { kind:'direct', unit:'rad/s', ans:w, tol:Math.max(0.1,0.02*w),
+          statement:`A rod ($M = ${knum(M,1)}$ kg, $L = ${knum(L,2)}$ m) pivoted at one end, at rest and vertical, is struck at the free end by $m = ${knum(m,2)}$ kg at $v = ${v}$ m/s ($\\perp$ to the rod), which embeds in it.<br><b>Question:</b> what $\\omega$ does the rod have right after the impact?`,
+          hints:[ 'In the impact the angular momentum about the pivot is conserved: $m v L = I_\\text{tot}\\,\\omega$.',
+                  `With $I_\\text{tot} = \\tfrac13 M L^2 + m L^2 = ${knum(Itot,3)}$ kg·m².` ],
+          steps:[ {t:'Total inertia', d:`$I_\\text{tot} = \\tfrac13 M L^2 + m L^2 = ${knum(Itot,3)}$ kg·m²`},
+                  {t:'Conservation of L', d:'$m v L = I_\\text{tot}\\,\\omega$'},
+                  {t:'Result', d:`$\\omega = \\dfrac{${knum(m,2)}\\cdot ${v}\\cdot ${knum(L,2)}}{${knum(Itot,3)}} = ${knum(w,2)}$ rad/s`} ] }; },
+      ()=>{ const M=rstep(1,4,0.5), L=rstep(0.6,1.2,0.1), m=rstep(0.15,0.5,0.05), w=rstep(1.5,4,0.5), Itot=(1/3)*M*L*L+m*L*L, v=w*Itot/(m*L);
+        return { kind:'inverse', unit:'m/s', ans:v, tol:Math.max(0.1,0.03*v),
+          statement:`A rod ($M = ${knum(M,1)}$ kg, $L = ${knum(L,2)}$ m) pivoted at one end is struck at the end by $m = ${knum(m,2)}$ kg that embeds in it. You want the rod to spin at $\\omega = ${knum(w,1)}$ rad/s right after the impact.<br><b>Question (inverse formula):</b> with what velocity $v$ must the body arrive?`,
+          hints:[ 'From $m v L = I_\\text{tot}\\,\\omega$ isolate $v$.',
+                  `$v = \\dfrac{I_\\text{tot}\\,\\omega}{m L}$, with $I_\\text{tot} = ${knum(Itot,3)}$ kg·m².` ],
+          steps:[ {t:'Total inertia', d:`$I_\\text{tot} = \\tfrac13 M L^2 + m L^2 = ${knum(Itot,3)}$ kg·m²`},
+                  {t:'Invert', d:'$v = \\dfrac{I_\\text{tot}\\,\\omega}{m L}$'},
+                  {t:'Substitution', d:`$v = \\dfrac{${knum(Itot,3)}\\cdot ${knum(w,1)}}{${knum(m,2)}\\cdot ${knum(L,2)}} = ${knum(v,2)}$ m/s`} ] }; }
+    ]},
+    {name:'Advanced', ex:[
+      ()=>{ const I1=rstep(3,6,0.5), w1=rstep(1,3,0.5), I2=rstep(1,2.5,0.5), w2=I1*w1/I2, Ec2=0.5*I2*w2*w2, Ec1=0.5*I1*w1*w1;
+        return { kind:'direct', unit:'J', ans:Ec2, tol:Math.max(0.2,0.03*Ec2),
+          statement:`A skater ($I_1 = ${knum(I1,1)}$ kg·m², $\\omega_1 = ${knum(w1,1)}$ rad/s) pulls in the arms, bringing the inertia to $I_2 = ${knum(I2,1)}$ kg·m² ($L$ constant).<br><b>Question:</b> what rotational kinetic energy $E_c$ does the skater have afterward?`,
+          hints:[ 'First $\\omega_2 = I_1\\omega_1/I_2$, then $E_c = \\tfrac12 I_2\\omega_2^2$.',
+                  `Here $\\omega_2 = ${knum(w2,2)}$ rad/s; note that $E_c$ increases (muscular work).` ],
+          steps:[ {t:'New ω', d:`$\\omega_2 = \\dfrac{I_1\\omega_1}{I_2} = ${knum(w2,2)}$ rad/s`},
+                  {t:'Energy after', d:`$E_c = \\tfrac12 I_2\\omega_2^2 = \\tfrac12\\cdot ${knum(I2,1)}\\cdot ${knum(w2,2)}^2 = ${knum(Ec2,2)}$ J`},
+                  {t:'Comparison', d:`before $E_{c,1} = \\tfrac12 I_1\\omega_1^2 = ${knum(Ec1,2)}$ J: the energy has grown`} ] }; },
+      ()=>{ const I1=rstep(3,6,0.5), w1=rstep(1,3,0.5), mult=rpick([2,2.5,3]), w2=w1*mult, I2=I1*w1/w2;
+        return { kind:'inverse', unit:'kg·m²', ans:I2, tol:Math.max(0.05,0.03*I2),
+          statement:`A person on an isolated platform spins at $\\omega_1 = ${knum(w1,1)}$ rad/s with $I_1 = ${knum(I1,1)}$ kg·m². They want to bring the rotation to $\\omega_2 = ${knum(w2,1)}$ rad/s by pulling the weights toward the axis.<br><b>Question (inverse formula):</b> what moment of inertia $I_2$ must they reach?`,
+          hints:[ 'From $I_1\\omega_1 = I_2\\omega_2$: $I_2 = \\dfrac{I_1\\omega_1}{\\omega_2}$.',
+                  `Since $\\omega_2$ is ${knum(mult,1)} times larger, $I_2$ will be ${knum(mult,1)} times smaller.` ],
+          steps:[ {t:'Conservation', d:'$I_1\\omega_1 = I_2\\omega_2$'},
+                  {t:'Get I₂', d:`$I_2 = \\dfrac{I_1\\omega_1}{\\omega_2} = \\dfrac{${knum(I1,1)}\\cdot ${knum(w1,1)}}{${knum(w2,1)}}$`},
+                  {t:'Result', d:`$I_2 = ${knum(I2,2)}$ kg·m²`} ] }; }
+    ]}
+  ]},
+  rototraslazione:{ title:'🎳 Pure rolling: kinematics and energy', levels:[
+    {name:'Basic', ex:[
+      ()=>{ const w=rstep(4,20,1), R=rstep(0.1,0.5,0.05), v=w*R;
+        return { kind:'direct', unit:'m/s', ans:v, tol:Math.max(0.05,0.02*v),
+          statement:`A wheel rolls without slipping: it spins at $\\omega = ${knum(w,0)}$ rad/s and has radius $R = ${knum(R,2)}$ m.<br><b>Question:</b> at what speed $v$ does its center advance?`,
+          hints:[ 'In pure rolling $v_\\text{cm} = \\omega R$.',
+                  `Substitute: $v = ${knum(w,0)}\\cdot ${knum(R,2)}$.` ],
+          steps:[ {t:'Formula', d:'$v_\\text{cm} = \\omega R$'},
+                  {t:'Substitution', d:`$v = ${knum(w,0)}\\cdot ${knum(R,2)}$`},
+                  {t:'Result', d:`$v = ${knum(v,2)}$ m/s`} ] }; },
+      ()=>{ const w=rstep(4,20,1), R=rstep(0.1,0.5,0.05), v=w*R;
+        return { kind:'inverse', unit:'rad/s', ans:w, tol:Math.max(0.1,0.02*w),
+          statement:`The center of a wheel (radius $R = ${knum(R,2)}$ m) advances at $v = ${knum(v,2)}$ m/s in pure rolling.<br><b>Question (inverse formula):</b> what angular velocity $\\omega$ does the wheel have?`,
+          hints:[ 'From $v = \\omega R$ isolate $\\omega$.',
+                  '$\\omega = \\dfrac{v}{R}$.' ],
+          steps:[ {t:'Formula', d:'$v = \\omega R$'},
+                  {t:'Invert', d:'$\\omega = \\dfrac{v}{R}$'},
+                  {t:'Substitution', d:`$\\omega = \\dfrac{${knum(v,2)}}{${knum(R,2)}} = ${knum(w,2)}$ rad/s`} ] }; }
+    ]},
+    {name:'Intermediate', ex:[
+      ()=>{ const shapes=[['a solid sphere',0.4,'\\tfrac25'],['a solid cylinder',0.5,'\\tfrac12'],['a ring',1,'1']], sh=rpick(shapes), c=sh[1], th=rint(15,35), a=G*Math.sin(th*DEG)/(1+c);
+        return { kind:'direct', unit:'m/s²', ans:a, tol:Math.max(0.05,0.02*a),
+          statement:`${sh[0].charAt(0).toUpperCase()+sh[0].slice(1)} rolls without slipping down an incline of $\\theta = ${th}^\\circ$. For this shape $I_\\text{cm} = ${sh[2]}\\,mR^2$, i.e. $c = ${knum(c,2)}$.<br><b>Question:</b> acceleration of the center $a_\\text{cm}$? ($g = 9.81$)`,
+          hints:[ 'It holds that $a_\\text{cm} = \\dfrac{g\\sin\\theta}{1+c}$: mass and radius do not matter.',
+                  `The numerator is $g\\sin\\theta = ${knum(G*Math.sin(th*DEG),2)}$ m/s².` ],
+          steps:[ {t:'Formula', d:'$a_\\text{cm} = \\dfrac{g\\sin\\theta}{1+c}$'},
+                  {t:'Numerator', d:`$g\\sin ${th}^\\circ = ${knum(G*Math.sin(th*DEG),2)}$ m/s²`},
+                  {t:'Result', d:`$a_\\text{cm} = \\dfrac{${knum(G*Math.sin(th*DEG),2)}}{1+${knum(c,2)}} = ${knum(a,2)}$ m/s²`} ] }; },
+      ()=>{ const shapes=[['a solid sphere',0.4],['a solid cylinder',0.5],['a ring',1]], sh=rpick(shapes), c=sh[1], th=rint(20,35), a=+(G*Math.sin(th*DEG)/(1+c)).toFixed(2), cAns=G*Math.sin(th*DEG)/a-1;
+        return { kind:'inverse', unit:'', ans:cAns, tol:0.08,
+          statement:`A body rolls without slipping down an incline of $\\theta = ${th}^\\circ$ and its center accelerates at $a_\\text{cm} = ${knum(a,2)}$ m/s².<br><b>Question (inverse formula):</b> what is the shape coefficient $c = I_\\text{cm}/(mR^2)$? (pure number; $g = 9.81$)`,
+          hints:[ 'From $a = \\dfrac{g\\sin\\theta}{1+c}$ isolate $c$.',
+                  '$c = \\dfrac{g\\sin\\theta}{a} - 1$.' ],
+          steps:[ {t:'Formula', d:'$a = \\dfrac{g\\sin\\theta}{1+c}$'},
+                  {t:'Invert', d:'$c = \\dfrac{g\\sin\\theta}{a} - 1$'},
+                  {t:'Substitution', d:`$c = \\dfrac{${knum(G*Math.sin(th*DEG),2)}}{${knum(a,2)}} - 1 = ${knum(cAns,2)}$`},
+                  {t:'Recognize the shape', d:`$c \\approx ${knum(cAns,2)}$, i.e. ${sh[0]}`} ] }; }
+    ]},
+    {name:'Advanced', ex:[
+      ()=>{ const shapes=[['a solid sphere',0.4],['a solid cylinder',0.5],['a ring',1]], sh=rpick(shapes), c=sh[1], h=rstep(0.8,2.5,0.1), v=Math.sqrt(2*G*h/(1+c));
+        return { kind:'direct', unit:'m/s', ans:v, tol:Math.max(0.05,0.02*v),
+          statement:`${sh[0].charAt(0).toUpperCase()+sh[0].slice(1)} ($c = ${knum(c,2)}$) starts from rest and rolls without slipping down a drop of $h = ${knum(h,1)}$ m.<br><b>Question:</b> what speed $v$ of the center does it have at the bottom? ($g = 9.81$)`,
+          hints:[ 'Energy conservation: $mgh = \\tfrac12 m v^2 + \\tfrac12 I\\omega^2 = \\tfrac12 m v^2(1+c)$.',
+                  'Isolate $v = \\sqrt{\\dfrac{2gh}{1+c}}$.' ],
+          steps:[ {t:'Energy', d:'$mgh = \\tfrac12 m v^2 (1+c)$'},
+                  {t:'Get v', d:'$v = \\sqrt{\\dfrac{2gh}{1+c}}$'},
+                  {t:'Substitution', d:`$v = \\sqrt{\\dfrac{2\\cdot 9.81\\cdot ${knum(h,1)}}{1+${knum(c,2)}}} = ${knum(v,2)}$ m/s`} ] }; },
+      ()=>{ const shapes=[['a solid sphere',0.4],['a solid cylinder',0.5],['a ring',1]], sh=rpick(shapes), c=sh[1], h=rstep(0.8,2.5,0.1), v=+(Math.sqrt(2*G*h/(1+c))).toFixed(2), hAns=v*v*(1+c)/(2*G);
+        return { kind:'inverse', unit:'m', ans:hAns, tol:Math.max(0.05,0.04*hAns),
+          statement:`${sh[0].charAt(0).toUpperCase()+sh[0].slice(1)} ($c = ${knum(c,2)}$) starts from rest, rolls without slipping, and reaches the bottom with center speed $v = ${knum(v,2)}$ m/s.<br><b>Question (inverse formula):</b> from what drop $h$ did it start? ($g = 9.81$)`,
+          hints:[ 'From $v = \\sqrt{\\dfrac{2gh}{1+c}}$ square both sides and isolate $h$.',
+                  '$h = \\dfrac{v^2 (1+c)}{2g}$.' ],
+          steps:[ {t:'Formula', d:'$v^2 = \\dfrac{2gh}{1+c}$'},
+                  {t:'Invert', d:'$h = \\dfrac{v^2 (1+c)}{2g}$'},
+                  {t:'Substitution', d:`$h = \\dfrac{${knum(v,2)}^2\\cdot (1+${knum(c,2)})}{2\\cdot 9.81} = ${knum(hAns,2)}$ m`} ] }; }
+    ]}
+  ]}
 };
 const pState={};
-function provaNew(sec){ pState[sec]={ex:PROVA[sec].gen(),hints:0,sol:false,fb:null,last:''}; renderProva(sec); }
+function provaInit(sec){ pState[sec]={lvl:0,exi:0,ex:null,hints:0,sol:false,fb:null,last:''}; provaGen(sec); }
+function provaGen(sec){ const st=pState[sec]; st.ex=PROVA[sec].levels[st.lvl].ex[st.exi](); st.hints=0; st.sol=false; st.fb=null; st.last=''; renderProva(sec); }
+function provaNew(sec){ provaGen(sec); }
+function provaSetLvl(sec,l){ const st=pState[sec]; st.lvl=l; st.exi=0; provaGen(sec); }
+function provaSetEx(sec,i){ const st=pState[sec]; st.exi=i; provaGen(sec); }
 function provaHint(sec){ const st=pState[sec]; if(st.hints<st.ex.hints.length) st.hints++; renderProva(sec); }
 function provaSol(sec){ pState[sec].sol=!pState[sec].sol; renderProva(sec); }
 function provaCheck(sec){
-  const st=pState[sec], el=document.getElementById('pv-'+sec+'-in');
-  st.last=el.value;
+  const st=pState[sec], el=document.getElementById('pv-'+sec+'-in'); st.last=el.value;
   const x=parseNum(el.value);
   if(!isFinite(x)){ st.fb={ok:false,msg:'Enter a numeric value.'}; renderProva(sec); return; }
-  const ok=Math.abs(x-st.ex.ans)<=st.ex.tol;
-  st.fb= ok ? {ok:true,msg:`✓ Correct! The answer is ${nf(st.ex.ans,2)} ${st.ex.unit}.`}
-            : {ok:false,msg:`✗ Not quite. Try again, use the hints, or open the solution. (Expected value: ${nf(st.ex.ans,2)} ${st.ex.unit}.)`};
+  const ok=Math.abs(x-st.ex.ans)<=st.ex.tol, u=st.ex.unit?' '+st.ex.unit:'';
+  st.fb= ok ? {ok:true,msg:`✓ Well done! The answer is ${nf(st.ex.ans,2)}${u}.`}
+            : {ok:false,msg:`✗ Not yet: try again, open a hint, or check the step-by-step solution. (Expected ≈ ${nf(st.ex.ans,2)}${u}.)`};
   renderProva(sec);
 }
 function renderProva(sec){
-  const st=pState[sec], ex=st.ex, el=document.getElementById('prova-'+sec);
-  let h=`<h2>✍️ Try it</h2><p style="font-weight:600;color:var(--primary-d);margin:.1rem 0 .5rem">${PROVA[sec].title}</p>`;
+  const st=pState[sec], ex=st.ex, P=PROVA[sec], el=document.getElementById('prova-'+sec);
+  const lvlNames=P.levels.map(l=>l.name), tagCls=['b','i','a'][st.lvl], icons=['🟢','🟠','🔴'];
+  let h=`<h2>✍️ Graded guided exercises</h2><p style="font-weight:600;color:var(--primary-d);margin:.1rem 0 .55rem">${P.title}</p>`;
+  h+=`<div class="quiz-seg">`+lvlNames.map((n,i)=>`<button class="${i===st.lvl?'active':''}" onclick="provaSetLvl('${sec}',${i})">${icons[i]} ${n}</button>`).join('')+`</div>`;
+  const nEx=P.levels[st.lvl].ex.length;
+  h+=`<div class="ex-pick">`+Array.from({length:nEx},(_,i)=>`<button class="${i===st.exi?'active':''}" onclick="provaSetEx('${sec}',${i})">Exercise ${i+1}</button>`).join('')+`</div>`;
+  const kind=ex.kind==='inverse'?'inverse formula':'direct formula';
+  h+=`<p style="font-size:.8em;color:var(--muted);margin:.1rem 0 .55rem">Level <span class="lvl-tag ${tagCls}">${lvlNames[st.lvl]}</span> · <b>${kind}</b></p>`;
   h+=`<p>${ex.statement}</p>`;
   h+=`<div class="num-row"><span style="font-size:.9em;color:var(--muted)">Your answer:</span>`+
      `<input type="text" inputmode="decimal" id="pv-${sec}-in" value="${st.last||''}" placeholder="number">`+
@@ -1514,16 +1927,12 @@ function renderProva(sec){
   if(st.hints<ex.hints.length) h+=`<button class="btn-soft" onclick="provaHint('${sec}')">💡 Show hint</button>`;
   h+=`<button class="btn-soft" onclick="provaSol('${sec}')">${st.sol?'🙈 Hide solution':'📖 Step-by-step solution'}</button>`;
   h+=`<button class="btn-soft" onclick="provaNew('${sec}')">🎲 New exercise</button></div>`;
-  if(st.sol){
-    h+=`<div class="sol-wrap">`;
-    ex.steps.forEach((s,i)=>{ h+=`<div class="sol-step"><span class="n">${i+1}</span><span class="c"><b>${s.t}.</b> ${s.d}</span></div>`; });
-    h+=`</div>`;
-  }
-  el.innerHTML=h;
-  typeset(el);
+  if(st.sol){ h+=`<div class="sol-wrap">`; ex.steps.forEach((s,i)=>{ h+=`<div class="sol-step"><span class="n">${i+1}</span><span class="c"><b>${s.t}.</b> ${s.d}</span></div>`; }); h+=`</div>`; }
+  el.innerHTML=h; typeset(el);
 }
 
 /* ============ QUIZ ============ */
+
 const QUIZ={
  cinematica:{
   teoria:[
@@ -1623,88 +2032,141 @@ const QUIZ={
  }
 };
 const QSECS=['cinematica','dinamica','carrucola','impulso','angolare','rototraslazione'];
-const qTab={}, qState={};
-function qKey(sec,t){ return sec+'|'+t; }
+const TOPIC_NAMES={cinematica:'Kinematics',dinamica:'Dynamics',carrucola:'Pulley',impulso:'Torque & time',angolare:'Angular momentum',rototraslazione:'Rolling'};
+const QFLAT={}, qState={};
+const PRAISE=['Well done!','Correct!','Perfect!','Great!','Exactly!','Nice one!'];
+const CHEER=['No worries, it happens!','Almost there!','Keep going — you learn this way!','Relax, it is clearer now!','You learn by making mistakes!'];
+function interleave(a,b){ a=a||[]; b=b||[]; const out=[], n=Math.max(a.length,b.length); for(let i=0;i<n;i++){ if(a[i]) out.push(a[i]); if(b[i]) out.push(b[i]); } return out; }
 function initQuiz(){
-  QSECS.forEach(sec=>{ qTab[sec]='teoria';
-    ['teoria','calcolo'].forEach(t=>{ const n=(QUIZ[sec][t]||[]).length;
-      qState[qKey(sec,t)]={idx:0,answers:Array(n).fill(null),done:false}; });
-  });
+  QSECS.forEach(sec=>{ QFLAT[sec]=interleave(QUIZ[sec].teoria,QUIZ[sec].calcolo);
+    qState[sec]={idx:0,answers:Array(QFLAT[sec].length).fill(null),done:false}; });
 }
-function setQTab(sec,t){ qTab[sec]=t; renderQuiz(sec); }
-function scoreOf(sec,t){ const st=qState[qKey(sec,t)];
-  return st.answers.reduce((s,a)=>s+(a&&a.correct?1:0),0); }
+function scoreOf(sec){ return qState[sec].answers.reduce((s,a)=>s+(a&&a.correct?1:0),0); }
 function renderQuiz(sec){
   const el=document.getElementById('qz-'+sec); if(!el) return;
-  const t=qTab[sec];
-  const seg=`<div class="quiz-seg">
-    <button class="${t==='teoria'?'active':''}" onclick="setQTab('${sec}','teoria')">🧠 Theory quiz</button>
-    <button class="${t==='calcolo'?'active':''}" onclick="setQTab('${sec}','calcolo')">🔢 Numerical quiz</button>
-  </div>`;
-  el.innerHTML=`<div class="card"><h2>🧩 Quiz</h2>${seg}${quizBody(sec,t)}</div>`;
+  el.innerHTML=`<div class="card"><h2>🧩 Quiz — 10 questions</h2><p class="lead">Theory and calculation together: answer and get the commented solution right away.</p>${quizBody(sec)}</div>`;
   typeset(el);
 }
-function quizBody(sec,t){
-  const key=qKey(sec,t), st=qState[key], qs=QUIZ[sec][t]||[], total=qs.length;
+function quizBody(sec){
+  const st=qState[sec], qs=QFLAT[sec], total=qs.length;
   if(!total) return '<p class="lead">Quiz coming soon…</p>';
   const answered=st.answers.filter(a=>a!==null).length;
   if(st.done){
-    const score=scoreOf(sec,t), r=score/total, mi=r<=0.3?0:r<=0.5?1:r<=0.8?2:r<=0.94?3:4;
+    const score=scoreOf(sec), r=score/total, mi=r<=0.3?0:r<=0.5?1:r<=0.8?2:r<=0.94?3:4;
     const icons=['😕','🙂','😊','🎉','🏆'];
-    const msgs=['Needs work — review the theory and try again.','Passable — a few gaps to fill.','Good — almost there!','Great result!','Perfect — no mistakes!'];
+    const msgs=['Needs work: review the theory and try again, you can do it!','Almost: a little more effort and you are there!','Good: you are on the right track!','Great result, well done!','Perfect: a clean sweep, congratulations!'];
     return `<div class="quiz-done"><span class="quiz-score-big">${icons[mi]} ${score}/${total}</span>
       <p class="quiz-msg">${msgs[mi]}</p>
-      <div class="quiz-nav"><button class="quiz-prev" onclick="reviewQuiz('${sec}','${t}')">↩️ Review</button>
-      <button class="quiz-restart" onclick="restartQuiz('${sec}','${t}')">🔄 Restart</button></div></div>`;
+      <div class="quiz-nav" style="justify-content:center"><button class="quiz-prev" onclick="reviewQuiz('${sec}')">↩️ Review</button>
+      <button class="quiz-restart" onclick="restartQuiz('${sec}')">🔄 Restart</button></div></div>`;
   }
   const q=qs[st.idx], entry=st.answers[st.idx], isAns=entry!==null, pct=answered/total*100;
   let body;
   if(q.num){
-    const fbVal = isAns? entry.val : (st.draft!==undefined?st.draft:'');
-    body=`<div class="num-row"><input type="text" inputmode="decimal" id="qnum-${sec}-${t}" value="${isAns?nf(entry.val,3):''}" placeholder="numeric answer" ${isAns?'disabled':''}>`+
+    body=`<div class="num-row"><input type="text" inputmode="decimal" id="qnum-${sec}" value="${isAns?nf(entry.val,3):''}" placeholder="numeric answer" ${isAns?'disabled':''}>`+
       `<span class="unit">${q.unit||''}</span>`+
-      (isAns?'':`<button class="btn-check" onclick="answerNum('${sec}','${t}')">Check</button>`)+`</div>`;
+      (isAns?'':`<button class="btn-check" onclick="answerNum('${sec}')">Check</button>`)+`</div>`;
   } else {
-    body=`<div class="quiz-opts">`+q.opts.map((o,i)=>{
-      let cls='quiz-btn';
+    body=`<div class="quiz-opts">`+q.opts.map((o,i)=>{ let cls='quiz-btn';
       if(isAns){ if(i===q.ans) cls+=' correct'; else if(i===entry.chosen) cls+=' wrong'; }
-      return `<button class="${cls}" ${isAns?'disabled':''} onclick="answerMC('${sec}','${t}',${i})">${'ABCD'[i]}) ${o}</button>`;
+      return `<button class="${cls}" ${isAns?'disabled':''} onclick="answerMC('${sec}',${i})">${'ABCD'[i]}) ${o}</button>`;
     }).join('')+`</div>`;
   }
   let exp='';
-  if(isAns) exp=`<div class="quiz-exp ${entry.correct?'ok':'no'}"><strong>${entry.correct?'✓ Correct!':'✗ Wrong.'}</strong> ${q.exp}</div>`;
+  if(isAns){ const lead=entry.correct?('✓ '+PRAISE[st.idx%PRAISE.length]):('✗ '+CHEER[st.idx%CHEER.length]);
+    exp=`<div class="quiz-exp ${entry.correct?'ok':'no'}"><strong>${lead}</strong> ${q.exp}</div>`; }
   const lastQ=st.idx+1>=total;
-  return `<div class="quiz-hd"><span style="color:var(--muted)">Question ${st.idx+1} / ${total}</span>
+  return `<div class="quiz-hd"><span style="color:var(--muted)">Question ${st.idx+1} / ${total} · ${q.num?'calculation':'theory'}</span>
       <span style="font-weight:700;color:var(--primary-d)">Answers: ${answered}/${total}</span></div>
     <div class="quiz-bar-wrap"><div class="quiz-bar-fill" style="width:${pct}%"></div></div>
     <p class="quiz-q">${q.q}</p>${body}${exp}
-    <div class="quiz-nav"><button class="quiz-prev" ${st.idx===0?'disabled':''} onclick="prevQuiz('${sec}','${t}')">← Previous</button>
-    <button class="quiz-next" ${isAns?'':'disabled'} onclick="nextQuiz('${sec}','${t}')">${lastQ?'See result →':'Next →'}</button></div>`;
+    <div class="quiz-nav"><button class="quiz-prev" ${st.idx===0?'disabled':''} onclick="prevQuiz('${sec}')">← Previous</button>
+    <button class="quiz-next" ${isAns?'':'disabled'} onclick="nextQuiz('${sec}')">${lastQ?'See result →':'Next →'}</button></div>`;
 }
-function answerMC(sec,t,chosen){
-  const st=qState[qKey(sec,t)]; if(st.answers[st.idx]!==null) return;
-  const q=QUIZ[sec][t][st.idx];
-  st.answers[st.idx]={kind:'mc',chosen,correct:chosen===q.ans};
-  renderQuiz(sec);
-}
-function answerNum(sec,t){
-  const st=qState[qKey(sec,t)]; if(st.answers[st.idx]!==null) return;
-  const q=QUIZ[sec][t][st.idx], el=document.getElementById('qnum-'+sec+'-'+t);
-  const x=parseNum(el.value);
+function answerMC(sec,chosen){ const st=qState[sec]; if(st.answers[st.idx]!==null) return;
+  const q=QFLAT[sec][st.idx]; st.answers[st.idx]={kind:'mc',chosen,correct:chosen===q.ans}; renderQuiz(sec); }
+function answerNum(sec){ const st=qState[sec]; if(st.answers[st.idx]!==null) return;
+  const q=QFLAT[sec][st.idx], el=document.getElementById('qnum-'+sec), x=parseNum(el.value);
   if(!isFinite(x)){ el.focus(); el.style.borderColor='#c62828'; return; }
-  st.answers[st.idx]={kind:'num',val:x,correct:Math.abs(x-q.ans)<=q.tol};
-  renderQuiz(sec);
+  st.answers[st.idx]={kind:'num',val:x,correct:Math.abs(x-q.ans)<=q.tol}; renderQuiz(sec); }
+function nextQuiz(sec){ const st=qState[sec], total=QFLAT[sec].length; if(st.answers[st.idx]===null) return;
+  if(st.idx+1>=total) st.done=true; else st.idx++; renderQuiz(sec); }
+function prevQuiz(sec){ const st=qState[sec]; if(st.idx>0) st.idx--; st.done=false; renderQuiz(sec); }
+function reviewQuiz(sec){ const st=qState[sec]; st.done=false; st.idx=0; renderQuiz(sec); }
+function restartQuiz(sec){ qState[sec]={idx:0,answers:Array(QFLAT[sec].length).fill(null),done:false}; renderQuiz(sec); }
+
+/* ============ FINAL SUMMARY TEST (20 questions, solution only at the end) ============ */
+let fState=null;
+function shuffle(arr){ const a=arr.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); const tmp=a[i]; a[i]=a[j]; a[j]=tmp; } return a; }
+function newFinal(){
+  const targets={cinematica:4,dinamica:3,carrucola:3,impulso:3,angolare:4,rototraslazione:3};
+  const picks=[];
+  QSECS.forEach(sec=>{ const pool=shuffle(QFLAT[sec].map(q=>Object.assign({_sec:sec},q))); picks.push(...pool.slice(0,targets[sec])); });
+  const qs=shuffle(picks).slice(0,20);
+  fState={idx:0,answers:Array(qs.length).fill(null),qs,done:false,started:true};
+  renderFinal();
 }
-function nextQuiz(sec,t){
-  const st=qState[qKey(sec,t)], total=QUIZ[sec][t].length;
-  if(st.answers[st.idx]===null) return;
-  if(st.idx+1>=total) st.done=true; else st.idx++;
-  renderQuiz(sec);
+function startFinalIntro(){ fState=null; renderFinal(); }
+function renderFinal(){
+  const el=document.getElementById('final-block'); if(!el) return;
+  if(!fState || !fState.started){
+    el.innerHTML=`<h2>📝 Final summary test</h2>
+      <p>Twenty questions drawn from <b>all six topics</b> (theory and calculation), in random order. Unlike the section quizzes, here you will <b>not</b> see the solution after each question: the score and outcomes appear <b>only at the end</b>, like a real test.</p>
+      <ul class="cl"><li>You can move back and forth and change your answers before submitting.</li>
+      <li>On submission you get the score, the outcome, and a commented review of every question.</li></ul>
+      <div class="quiz-nav" style="justify-content:center;margin-top:.7rem"><button class="quiz-restart" onclick="newFinal()">▶️ Start the test</button></div>`;
+    typeset(el); return;
+  }
+  const st=fState, qs=st.qs, total=qs.length;
+  if(st.done){ renderFinalResult(el); return; }
+  const answered=st.answers.filter(a=>a!==null).length, pct=answered/total*100;
+  const q=qs[st.idx], entry=st.answers[st.idx];
+  let body;
+  if(q.num){
+    body=`<div class="num-row"><input type="text" inputmode="decimal" id="fnum" value="${entry!==null?nf(entry.val,3):''}" placeholder="numeric answer"><span class="unit">${q.unit||''}</span><button class="btn-check" onclick="finalNum()">Record</button></div>`;
+    if(entry!==null) body+=`<p style="font-size:.82em;color:var(--muted);margin:.25rem 0 0">Recorded: <b>${nf(entry.val,3)}</b> ${q.unit||''} — you can still change it.</p>`;
+  } else {
+    body=`<div class="quiz-opts">`+q.opts.map((o,i)=>{ const sel=entry&&entry.chosen===i; return `<button class="quiz-btn${sel?' sel':''}" onclick="finalMC(${i})">${'ABCD'[i]}) ${o}</button>`; }).join('')+`</div>`;
+  }
+  const lastQ=st.idx+1>=total;
+  el.innerHTML=`<h2>📝 Final test</h2>
+    <div class="quiz-hd"><span style="color:var(--muted)">Question ${st.idx+1} / ${total} · ${TOPIC_NAMES[q._sec]}</span>
+    <span style="font-weight:700;color:var(--primary-d)">Answers: ${answered}/${total}</span></div>
+    <div class="quiz-bar-wrap"><div class="quiz-bar-fill" style="width:${pct}%"></div></div>
+    <p class="quiz-q">${q.q}</p>${body}
+    <div class="quiz-nav"><button class="quiz-prev" ${st.idx===0?'disabled':''} onclick="finalPrev()">← Previous</button>`+
+    (lastQ?`<button class="quiz-restart" onclick="finalSubmit()">✅ Submit</button>`:`<button class="quiz-next" onclick="finalNext()">Next →</button>`)+
+    `</div><p style="text-align:center;margin-top:.55rem"><button class="btn-soft" onclick="finalSubmit()">Submit now (${answered}/${total} answered)</button></p>`;
+  typeset(el);
 }
-function prevQuiz(sec,t){ const st=qState[qKey(sec,t)]; if(st.idx>0) st.idx--; st.done=false; renderQuiz(sec); }
-function reviewQuiz(sec,t){ const st=qState[qKey(sec,t)]; st.done=false; st.idx=0; renderQuiz(sec); }
-function restartQuiz(sec,t){ const n=QUIZ[sec][t].length;
-  qState[qKey(sec,t)]={idx:0,answers:Array(n).fill(null),done:false}; renderQuiz(sec); }
+function finalMC(i){ const st=fState, q=st.qs[st.idx]; st.answers[st.idx]={kind:'mc',chosen:i,correct:i===q.ans}; renderFinal(); }
+function finalNum(){ const st=fState, q=st.qs[st.idx], el=document.getElementById('fnum'), x=parseNum(el.value);
+  if(!isFinite(x)){ el.focus(); el.style.borderColor='#c62828'; return; }
+  st.answers[st.idx]={kind:'num',val:x,correct:Math.abs(x-q.ans)<=q.tol}; renderFinal(); }
+function finalNext(){ const st=fState; if(st.idx+1<st.qs.length) st.idx++; renderFinal(); }
+function finalPrev(){ const st=fState; if(st.idx>0) st.idx--; renderFinal(); }
+function finalSubmit(){ fState.done=true; window.scrollTo({top:0,behavior:'smooth'}); renderFinal(); }
+function finalScore(){ return fState.answers.reduce((s,a)=>s+(a&&a.correct?1:0),0); }
+function renderFinalResult(el){
+  const st=fState, qs=st.qs, total=qs.length, score=finalScore(), r=score/total;
+  const mi=r<=0.3?0:r<=0.5?1:r<=0.7?2:r<=0.9?3:4, icons=['😕','🙂','😊','🎉','🏆'];
+  const msgs=['Needs work: go back over the theory of the topics you missed and try again.','Almost there: a bit more practice!','Good result: reinforce the weak spots!','Great work: you master almost everything!','Perfect: a clean sweep, congratulations!'];
+  let h=`<h2>📝 Final test result</h2>
+    <div class="final-intro"><span class="quiz-score-big">${icons[mi]} ${score}/${total}</span>
+    <p class="quiz-msg">${msgs[mi]}</p></div>
+    <div class="quiz-nav" style="justify-content:center"><button class="quiz-restart" onclick="newFinal()">🔄 New test</button></div>
+    <div class="final-review"><h3>Commented review</h3>`;
+  qs.forEach((q,i)=>{ const a=st.answers[i], ok=a&&a.correct;
+    let yours; if(!a) yours='<i>no answer</i>'; else if(a.kind==='mc') yours=`${'ABCD'[a.chosen]}) ${q.opts[a.chosen]}`; else yours=`${nf(a.val,3)} ${q.unit||''}`;
+    const corr=q.num?`${nf(q.ans,3)} ${q.unit||''}`:`${'ABCD'[q.ans]}) ${q.opts[q.ans]}`;
+    h+=`<div class="ri ${ok?'ok':'no'}"><div class="qq">${i+1}. <span style="font-weight:400;color:var(--muted);font-size:.85em">[${TOPIC_NAMES[q._sec]}]</span> ${q.q}</div>
+      <div class="aa"><span class="tuo">${ok?'✓':'✗'} Your answer:</span> ${yours}`+
+      (ok?'':` &nbsp;·&nbsp; <b>correct:</b> ${corr}`)+
+      `<br>${q.exp}</div></div>`;
+  });
+  h+=`</div>`;
+  el.innerHTML=h; typeset(el);
+}
 
 /* ============ WIRING ============ */
 regAnim('cinematica',{step:ckStep,draw:ckDraw});
@@ -1751,7 +2213,7 @@ document.getElementById('rtPlay').addEventListener('click',e=>togglePlay('rototr
 document.getElementById('rtReset').addEventListener('click',()=>{ rtReset(); rtDraw(); });
 
 /* quiz & prova tu */
-initQuiz(); QSECS.forEach(renderQuiz); QSECS.forEach(provaNew);
+initQuiz(); QSECS.forEach(renderQuiz); QSECS.forEach(provaInit); startFinalIntro();
 
 /* disegni iniziali */
 ckDraw(); dnDraw(); plDraw(); imDraw(); anSwitch(); rtDraw();
